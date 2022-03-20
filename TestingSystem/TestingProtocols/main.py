@@ -4,14 +4,17 @@ import subprocess
 
 class TestingProtocol(ABC):
     @abstractmethod
-    def check(self, path_to_executable, command_line_opts, submission_id):
+    def check(self, convert_to_executable=None, conversion_opts=None, path_to_src=None, command_line_opts=None,
+              submission_id=None):
         pass
 
     @staticmethod
     def run_code(path_to_executable, path_to_input_file, path_to_output_file, command_line_opts):
+        command_line_opts = command_line_opts if command_line_opts else []
+
         with open(path_to_input_file, 'r') as input_file:
             with open(path_to_output_file, 'w') as output_file:
-                feedback = subprocess.run([path_to_executable, command_line_opts],
+                feedback = subprocess.run([path_to_executable] + command_line_opts,
                                           stdin=input_file, stdout=output_file)
                 if feedback.returncode != 0:
                     return TestingProtocol.return_code_to_error_msg[feedback.returncode]
@@ -28,7 +31,10 @@ class InputOutput(TestingProtocol):
     def __init__(self, input_output_paths_dict):
         self.input_output_paths_dict = input_output_paths_dict
 
-    def check(self, path_to_executable, command_line_opts, submission_id):
+    def check(self, convert_to_executable=None, conversion_opts=None, path_to_src=None, command_line_opts=None,
+              submission_id=None):
+        path_to_executable = convert_to_executable(path_to_src, f'/tmp/{submission_id}exe', conversion_opts)
+
         solution_output_location = TestingProtocol.generate_output_path(submission_id)
 
         # ITERATE OVER TESTS
@@ -52,7 +58,10 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
         self.input_paths_set = input_paths_set
         self.path_to_checker_exec = path_to_checker_exec
 
-    def check(self, path_to_executable, command_line_opts, submission_id):
+    def check(self, convert_to_executable=None, conversion_opts=None, path_to_src=None, command_line_opts=None,
+              submission_id=None):
+        path_to_executable = convert_to_executable(path_to_src, f'/tmp/{submission_id}exe', conversion_opts)
+
         solution_output_location = TestingProtocol.generate_output_path(submission_id)
 
         # ITERATE OVER TESTS
@@ -72,14 +81,13 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
 
 
 class RandomInputCustomChecker(TestingProtocol):
-    def __init__(self,
-                 test_count, path_to_input_generation_executable, path_to_checker_exec):
+    def __init__(self, test_count, path_to_input_generation_executable, path_to_checker_exec):
         self.test_count = test_count
         self.path_to_input_generation_executable = path_to_input_generation_executable
         self.path_to_checker_exec = path_to_checker_exec
 
     def generate_input(self, submission_id):  # todo: timeout
-        input_dir = f'/tmp/{submission_id}_rand'  # todo: check for existence
+        input_dir = f'/tmp/{submission_id}rand'  # todo: check for existence
         subprocess.run(['mkdir', input_dir])
 
         input_paths_set = set()
@@ -93,15 +101,23 @@ class RandomInputCustomChecker(TestingProtocol):
             input_paths_set.add(infile_path)
         return input_paths_set
 
-    def check(self, path_to_executable, command_line_opts, submission_id):
+    def check(self, convert_to_executable=None, conversion_opts=None, path_to_src=None, command_line_opts=None,
+              submission_id=None):
         random_input_paths_set = self.generate_input(submission_id)
         deterministic_protocol = InputCustomChecker(random_input_paths_set, self.path_to_checker_exec)
-        return deterministic_protocol.check(path_to_executable, command_line_opts, submission_id)
+        return deterministic_protocol.check(convert_to_executable=convert_to_executable,
+                                            conversion_opts=conversion_opts,
+                                            path_to_src=path_to_src,
+                                            command_line_opts=command_line_opts,
+                                            submission_id=submission_id)
 
 
 class CustomTestingCode(TestingProtocol):
-    def __init__(self, path_to_testing_exec):
-        self.path_to_testing_exec = path_to_testing_exec
+    def __init__(self, header_location, footer_location, convert_merged_to_executable):
+        self.header_location = header_location
+        self.footer_location = footer_location
+        self.convert_merged_to_executable = convert_merged_to_executable
 
-    def check(self, path_to_executable, command_line_opts, submission_id):
+    def check(self, convert_to_executable=None, conversion_opts=None, path_to_src=None, command_line_opts=None,
+              submission_id=None):
         pass
