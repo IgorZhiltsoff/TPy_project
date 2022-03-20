@@ -4,8 +4,8 @@ import subprocess
 
 class TestingProtocol(ABC):
     @abstractmethod
-    def check(self, path_to_src, submission_id, convert_to_executable=None, conversion_opts=None,
-              command_line_opts=None):
+    def check(self, convert_to_executable=None, conversion_opts=None, path_to_src=None, command_line_opts=None,
+              submission_id=None):
         pass
 
     @staticmethod
@@ -22,11 +22,7 @@ class TestingProtocol(ABC):
 
     @staticmethod
     def generate_output_path(submission_id):
-        return f"/tmp/{submission_id}out"  # todo: check for existence
-
-    @staticmethod
-    def generate_exec_path(submission_id):
-        return f"/tmp/{submission_id}exe"  # todo: check for existence
+        return f"/tmp/{submission_id}.out"  # todo: check for existence
 
     return_code_to_error_msg = {1: "FAIL"}
 
@@ -35,11 +31,9 @@ class InputOutput(TestingProtocol):
     def __init__(self, input_output_paths_dict):
         self.input_output_paths_dict = input_output_paths_dict
 
-    def check(self, path_to_src, submission_id, convert_to_executable=None, conversion_opts=None,
-              command_line_opts=None):
-        path_to_executable = convert_to_executable(path_to_src,
-                                                   TestingProtocol.generate_exec_path(submission_id),
-                                                   conversion_opts)
+    def check(self, convert_to_executable=None, conversion_opts=None, path_to_src=None, command_line_opts=None,
+              submission_id=None):
+        path_to_executable = convert_to_executable(path_to_src, f'/tmp/{submission_id}exe', conversion_opts)
 
         solution_output_location = TestingProtocol.generate_output_path(submission_id)
 
@@ -64,11 +58,9 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
         self.input_paths_set = input_paths_set
         self.path_to_checker_exec = path_to_checker_exec
 
-    def check(self, path_to_src, submission_id, convert_to_executable=None, conversion_opts=None,
-              command_line_opts=None):
-        path_to_executable = convert_to_executable(path_to_src,
-                                                   TestingProtocol.generate_exec_path(submission_id),
-                                                   conversion_opts)
+    def check(self, convert_to_executable=None, conversion_opts=None, path_to_src=None, command_line_opts=None,
+              submission_id=None):
+        path_to_executable = convert_to_executable(path_to_src, f'/tmp/{submission_id}exe', conversion_opts)
 
         solution_output_location = TestingProtocol.generate_output_path(submission_id)
 
@@ -94,14 +86,9 @@ class RandomInputCustomChecker(TestingProtocol):
         self.path_to_input_generation_executable = path_to_input_generation_executable
         self.path_to_checker_exec = path_to_checker_exec
 
-    @staticmethod
-    def generate_input_dir(submission_id):  # todo: check for existence
-        input_dir = f'/tmp/{submission_id}rand'
-        subprocess.run(['mkdir', input_dir])
-        return input_dir
-
     def generate_input(self, submission_id):  # todo: timeout
-        input_dir = RandomInputCustomChecker.generate_input_dir(submission_id)
+        input_dir = f'/tmp/{submission_id}rand'  # todo: check for existence
+        subprocess.run(['mkdir', input_dir])
 
         input_paths_set = set()
         for test in range(self.test_count):
@@ -114,52 +101,23 @@ class RandomInputCustomChecker(TestingProtocol):
             input_paths_set.add(infile_path)
         return input_paths_set
 
-    def check(self, path_to_src, submission_id, convert_to_executable=None, conversion_opts=None,
-              command_line_opts=None):
+    def check(self, convert_to_executable=None, conversion_opts=None, path_to_src=None, command_line_opts=None,
+              submission_id=None):
         random_input_paths_set = self.generate_input(submission_id)
         deterministic_protocol = InputCustomChecker(random_input_paths_set, self.path_to_checker_exec)
-        return deterministic_protocol.check(path_to_src=path_to_src,
-                                            submission_id=submission_id,
-                                            convert_to_executable=convert_to_executable,
+        return deterministic_protocol.check(convert_to_executable=convert_to_executable,
                                             conversion_opts=conversion_opts,
-                                            command_line_opts=command_line_opts)
+                                            path_to_src=path_to_src,
+                                            command_line_opts=command_line_opts,
+                                            submission_id=submission_id)
 
 
-class LimitedWorkSpace(TestingProtocol):
-    def __init__(self, header_location, footer_location,
-                 convert_merged_to_executable, extension, merged_conversion_opts=None):
+class CustomTestingCode(TestingProtocol):
+    def __init__(self, header_location, footer_location, convert_merged_to_executable):
         self.header_location = header_location
         self.footer_location = footer_location
         self.convert_merged_to_executable = convert_merged_to_executable
-        self.extension = extension
-        self.merged_conversion_opts = merged_conversion_opts
 
-    def generate_merged_path(self, submission_id):  # todo: check for existence
-        return f"/tmp/{submission_id}merge{self.extension}"
-
-    @staticmethod
-    def generate_unit_file():  # todo: check for existence
-        unit_location = '/tmp/unit'
-        with open(unit_location, 'w') as unit:
-            subprocess.run(['echo', '-n', '1'], stdout=unit)
-        return unit_location
-
-    def generate_merged(self, path_to_src, submission_id):
-        merged_location = self.generate_merged_path(submission_id)
-        with open(merged_location, 'w') as merged:
-            subprocess.run(['sed', '', self.header_location, path_to_src, self.footer_location], stdout=merged)
-        return merged_location
-
-    def check(self, path_to_src, submission_id, convert_to_executable=None, conversion_opts=None,
-              command_line_opts=None):
-        # GENERATE SRC
-        merged_location = self.generate_merged(path_to_src, submission_id)
-
-        # REINTERPRET CUSTOM TESTING AS INPUT-OUTPUT TESTING
-        unit_location = LimitedWorkSpace.generate_unit_file()
-        trivial_protocol = InputOutput({'/dev/stdin': unit_location})
-        return trivial_protocol.check(path_to_src=merged_location,
-                                      submission_id=submission_id,
-                                      convert_to_executable=self.convert_merged_to_executable,
-                                      conversion_opts=self.merged_conversion_opts,
-                                      command_line_opts=command_line_opts)
+    def check(self, convert_to_executable=None, conversion_opts=None, path_to_src=None, command_line_opts=None,
+              submission_id=None):
+        pass
