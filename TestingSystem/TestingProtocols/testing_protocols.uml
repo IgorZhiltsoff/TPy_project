@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>Python</ID>
+  <OriginalElement>#/home/zhilts/PycharmProjects/TPy/TestingSystem/TestingProtocols/main.py</OriginalElement>
+  <nodes>
+    <node x="1974.2500000000002" y="504.0">abc.ABCMeta</node>
+    <node x="0.0" y="1667.0">main.InputCustomChecker</node>
+    <node x="4200.0" y="1667.0">main.InputOutput</node>
+    <node x="2800.0" y="1618.0">main.RandomInputCustomChecker</node>
+    <node x="2697.5" y="1204.0">abc.ABC</node>
+    <node x="2100.0" y="1310.0">main.TestingProtocol</node>
+    <node x="1400.0000000000002" y="1618.0">main.LimitedWorkSpace</node>
+    <node x="3014.75" y="0.0">typing.Hashable</node>
+    <node x="2873.25" y="161.0">object</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="abc.ABC" target="abc.ABCMeta" relationship="INSTANCEOF">
+      <point x="-46.25" y="-28.0" />
+      <point x="2743.75" y="1179.0" />
+      <point x="2413.75" y="1179.0" />
+      <point x="0.0" y="153.5" />
+    </edge>
+    <edge source="object" target="typing.Hashable" relationship="INTERFACE">
+      <point x="0.0" y="-496.5" />
+      <point x="0.0" y="55.5" />
+    </edge>
+    <edge source="abc.ABC" target="object" relationship="REALIZATION">
+      <point x="46.25" y="-28.0" />
+      <point x="2836.25" y="1179.0" />
+      <point x="3166.25" y="1179.0" />
+      <point x="0.0" y="496.5" />
+    </edge>
+    <edge source="main.InputOutput" target="main.TestingProtocol" relationship="REALIZATION">
+      <point x="0.0" y="-80.0" />
+      <point x="4890.0" y="1593.0" />
+      <point x="2790.0" y="1593.0" />
+      <point x="0.0" y="129.0" />
+    </edge>
+    <edge source="main.InputCustomChecker" target="main.TestingProtocol" relationship="REALIZATION">
+      <point x="0.0" y="-80.0" />
+      <point x="690.0" y="1593.0" />
+      <point x="2790.0" y="1593.0" />
+      <point x="0.0" y="129.0" />
+    </edge>
+    <edge source="main.RandomInputCustomChecker" target="main.TestingProtocol" relationship="REALIZATION">
+      <point x="0.0" y="-129.0" />
+      <point x="3490.0" y="1593.0" />
+      <point x="2790.0" y="1593.0" />
+      <point x="0.0" y="129.0" />
+    </edge>
+    <edge source="main.LimitedWorkSpace" target="main.TestingProtocol" relationship="REALIZATION">
+      <point x="0.0" y="-129.0" />
+      <point x="2090.0" y="1593.0" />
+      <point x="2790.0" y="1593.0" />
+      <point x="0.0" y="129.0" />
+    </edge>
+    <edge source="main.TestingProtocol" target="abc.ABC" relationship="REALIZATION">
+      <point x="0.0" y="-129.0" />
+      <point x="0.0" y="28.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.41375" showDependencies="false" x="2790.0" y="938.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
+</Diagram>
+
