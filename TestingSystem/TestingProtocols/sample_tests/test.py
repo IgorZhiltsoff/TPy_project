@@ -6,7 +6,7 @@ from main import InputOutput, InputCustomChecker, RandomInputCustomChecker, Limi
 def cpp_convert_to_executable(path_to_src, name, conversion_opts=None):
     conversion_opts = conversion_opts if conversion_opts else []
 
-    p = subprocess.run(['g++', '-o', name] + conversion_opts + [path_to_src])
+    subprocess.run(['g++', '-o', name] + conversion_opts + [path_to_src])
     return name
 
 
