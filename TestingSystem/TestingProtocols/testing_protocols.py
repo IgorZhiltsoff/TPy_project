@@ -68,9 +68,11 @@ class InputOutput(TestingProtocol):
 
     def check(self, user_submitted_data, convert_to_executable=None, conversion_opts=None,
               command_line_opts=None):
-        path_to_executable = convert_to_executable(user_submitted_data.path_to_src,
-                                                   TestingProtocol.generate_exec_path(user_submitted_data.submission_id),
-                                                   conversion_opts)
+        path_to_executable = convert_to_executable(
+                                user_submitted_data.path_to_src,
+                                TestingProtocol.generate_exec_path(user_submitted_data.submission_id),
+                                conversion_opts
+        )
 
         solution_output_location = TestingProtocol.generate_output_path(user_submitted_data.submission_id)
 
@@ -103,9 +105,11 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
 
     def check(self, user_submitted_data, convert_to_executable=None, conversion_opts=None,
               command_line_opts=None):
-        path_to_executable = convert_to_executable(user_submitted_data.path_to_src,
-                                                   TestingProtocol.generate_exec_path(user_submitted_data.submission_id),
-                                                   conversion_opts)
+        path_to_executable = convert_to_executable(
+                                user_submitted_data.path_to_src,
+                                TestingProtocol.generate_exec_path(user_submitted_data.submission_id),
+                                conversion_opts
+        )
 
         solution_output_location = TestingProtocol.generate_output_path(user_submitted_data.submission_id)
 
@@ -213,6 +217,15 @@ class LimitedWorkSpace(TestingProtocol):
                                       command_line_opts=command_line_opts)
 
 
+class ProblemData:
+    """Problem-specific data: problem id and testing protocols"""
+    def __init__(self, problem_id, testing_protocols_set):
+        self.problem_id = problem_id
+        self.testing_protocols_set = testing_protocols_set
+
+
 class ExtendedSubmission:
     """Full submission data: composed of UserSubmittedData and ProblemData"""
-    pass
+    def __init__(self, user_submitted_data, problem_data):
+        self.user_submitted_data = user_submitted_data
+        self.problem_data = problem_data

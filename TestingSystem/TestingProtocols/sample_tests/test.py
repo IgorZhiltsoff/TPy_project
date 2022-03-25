@@ -20,6 +20,7 @@ class AnswerVerdictTest(unittest.TestCase):
         inout = InputOutput({"inout_tests/1.in": "inout_tests/1.out",
                              "inout_tests/2.in": "inout_tests/2.out",
                              "inout_tests/3.in": "inout_tests/3.out"})
+
         self.assertEqual('AC',
                          inout.check(
                              user_submitted_data=correct,
