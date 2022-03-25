@@ -20,10 +20,16 @@ class AnswerVerdictTest(unittest.TestCase):
         inout = InputOutput({"inout_tests/1.in": "inout_tests/1.out",
                              "inout_tests/2.in": "inout_tests/2.out",
                              "inout_tests/3.in": "inout_tests/3.out"})
-        self.assertEqual('AC', inout.check(user_submitted_data=correct,
-                                           convert_to_executable=cpp_convert_to_executable))
-        self.assertEqual('WA', inout.check(user_submitted_data=wrong,
-                                           convert_to_executable=cpp_convert_to_executable))
+        self.assertEqual('AC',
+                         inout.check(
+                             user_submitted_data=correct,
+                             convert_to_executable=cpp_convert_to_executable).msg  # ignored
+                         )
+        self.assertEqual('WA',
+                         inout.check(
+                             user_submitted_data=wrong,
+                             convert_to_executable=cpp_convert_to_executable).msg  # ignored
+                         )
 
     def test_in_custom(self):
         in_custom = InputCustomChecker({"in_custom_tests/1.in",
@@ -31,21 +37,30 @@ class AnswerVerdictTest(unittest.TestCase):
                                         "in_custom_tests/3.in"},
                                        'in_custom_tests/custom_checker.out')
         self.assertEqual('AC',
-                         in_custom.check(user_submitted_data=correct,
-                                         convert_to_executable=cpp_convert_to_executable))
-        self.assertEqual('WA', in_custom.check(user_submitted_data=wrong,
-                                               convert_to_executable=cpp_convert_to_executable))
+                         in_custom.check(
+                             user_submitted_data=correct,
+                             convert_to_executable=cpp_convert_to_executable).msg  # ignored
+                         )
+        self.assertEqual('WA',
+                         in_custom.check(
+                             user_submitted_data=wrong,
+                             convert_to_executable=cpp_convert_to_executable).msg  # ignored
+                         )
 
     def test_rand_custom(self):
         rand_custom = RandomInputCustomChecker(3,
                                                'rand_custom_tests/random_generator.out',
                                                'rand_custom_tests/custom_checker.out')
         self.assertEqual('AC',
-                         rand_custom.check(user_submitted_data=correct,
-                                           convert_to_executable=cpp_convert_to_executable))
+                         rand_custom.check(
+                             user_submitted_data=correct,
+                             convert_to_executable=cpp_convert_to_executable).msg  # ignored
+                         )
         self.assertEqual('WA',
-                         rand_custom.check(user_submitted_data=wrong,
-                                           convert_to_executable=cpp_convert_to_executable))
+                         rand_custom.check(
+                             user_submitted_data=wrong,
+                             convert_to_executable=cpp_convert_to_executable).msg  # ignored
+                         )
 
     def test_limited_work_space(self):
         limited_work_space = LimitedWorkSpace(
@@ -61,12 +76,12 @@ class AnswerVerdictTest(unittest.TestCase):
         self.assertEqual('AC',
                          limited_work_space.check(
                              user_submitted_data=limited_work_space_correct,
-                             convert_to_executable=cpp_convert_to_executable)  # ignored
+                             convert_to_executable=cpp_convert_to_executable).msg  # ignored
                          )
         self.assertEqual('WA',
                          limited_work_space.check(
                              user_submitted_data=limited_work_space_wrong,
-                             convert_to_executable=cpp_convert_to_executable)  # ignored
+                             convert_to_executable=cpp_convert_to_executable).msg  # ignored
                          )
 
 

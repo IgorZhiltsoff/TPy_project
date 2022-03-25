@@ -13,8 +13,8 @@ class UserSubmittedData:
 
 class Verdict:
     """An object of this type is to be returned upon testing is finished"""
-    def __init__(self, return_code, test_number):
-        self.return_code = return_code
+    def __init__(self, msg, test_number):
+        self.msg = msg
         self.test_number = test_number
 
 
@@ -75,6 +75,7 @@ class InputOutput(TestingProtocol):
         solution_output_location = TestingProtocol.generate_output_path(user_submitted_data.submission_id)
 
         # ITERATE OVER TESTS
+        test = 0
         for path_to_input_file in self.input_output_paths_dict:
             # RUN
             feedback = TestingProtocol.run_code(path_to_executable, path_to_input_file,
@@ -85,9 +86,11 @@ class InputOutput(TestingProtocol):
             # CHECK
             if subprocess.run(['cmp', '--silent', solution_output_location,
                                self.input_output_paths_dict[path_to_input_file]]).returncode != 0:
-                return 'WA'
+                return Verdict('WA', test)
 
-        return 'AC'
+            test += 1
+
+        return Verdict('AC', -1)
 
 
 class InputCustomChecker(TestingProtocol):  # todo: checker safety
@@ -107,6 +110,7 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
         solution_output_location = TestingProtocol.generate_output_path(user_submitted_data.submission_id)
 
         # ITERATE OVER TESTS
+        test = 0
         for path_to_input_file in self.input_paths_set:
             # RUN
             feedback = TestingProtocol.run_code(path_to_executable, path_to_input_file,
@@ -117,9 +121,11 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
             # CHECK
             if subprocess.run([self.path_to_checker_exec, path_to_input_file, solution_output_location],
                               stdout=subprocess.PIPE).stdout.decode('utf-8') != '1':
-                return 'WA'
+                return Verdict('WA', test)
 
-        return 'AC'
+            test += 1
+
+        return Verdict('AC', -1)
 
 
 class RandomInputCustomChecker(TestingProtocol):
