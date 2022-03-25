@@ -3,60 +3,76 @@
   <ID>Python</ID>
   <OriginalElement />
   <nodes>
-    <node x="1974.2500000000002" y="504.0">abc.ABCMeta</node>
-    <node x="-299.6978851963747" y="1859.3610271903324">main.InputCustomChecker</node>
-    <node x="4625.380664652566" y="1883.8610271903322">main.InputOutput</node>
-    <node x="3000.6042296072505" y="1883.8610271903322">main.RandomInputCustomChecker</node>
-    <node x="1346.827794561934" y="1859.3610271903324">main.LimitedWorkSpace</node>
-    <node x="2697.5" y="1204.0">abc.ABC</node>
-    <node x="2100.0" y="1310.0">main.TestingProtocol</node>
-    <node x="3014.75" y="0.0">typing.Hashable</node>
-    <node x="2873.25" y="161.0">object</node>
+    <node x="344.0" y="419.0">abc.ABCMeta</node>
+    <node x="0.0" y="318.0">testing_protocols.InputOutput</node>
+    <node x="1760.0" y="318.0">testing_protocols.RandomInputCustomChecker</node>
+    <node x="1670.0" y="106.0">testing_protocols.ExtendedSubmission</node>
+    <node x="1232.0" y="106.0">testing_protocols.Verdict</node>
+    <node x="1027.0" y="106.0">abc.ABC</node>
+    <node x="1120.0" y="318.0">testing_protocols.InputCustomChecker</node>
+    <node x="2305.0" y="106.0">testing_protocols.BaseSubmission</node>
+    <node x="518.0" y="318.0">testing_protocols.LimitedWorkSpace</node>
+    <node x="849.0" y="212.0">testing_protocols.TestingProtocol</node>
+    <node x="0.0" y="419.0">typing.Hashable</node>
+    <node x="1631.25" y="0.0">object</node>
   </nodes>
   <notes />
   <edges>
+    <edge source="testing_protocols.InputOutput" target="testing_protocols.TestingProtocol" relationship="REALIZATION">
+      <point x="0.0" y="-28.0" />
+      <point x="249.0" y="293.0" />
+      <point x="1119.5" y="293.0" />
+      <point x="0.0" y="28.0" />
+    </edge>
+    <edge source="testing_protocols.BaseSubmission" target="object" relationship="REALIZATION">
+      <point x="0.0" y="-28.0" />
+      <point x="2580.0" y="81.0" />
+      <point x="1709.25" y="81.0" />
+      <point x="0.0" y="28.0" />
+    </edge>
     <edge source="abc.ABC" target="object" relationship="REALIZATION">
-      <point x="46.25" y="-28.0" />
-      <point x="2836.25" y="1179.0" />
-      <point x="3166.25" y="1179.0" />
-      <point x="0.0" y="496.5" />
+      <point x="0.0" y="-28.0" />
+      <point x="1119.5" y="81.0" />
+      <point x="1709.25" y="81.0" />
+      <point x="0.0" y="28.0" />
     </edge>
-    <edge source="main.InputOutput" target="main.TestingProtocol" relationship="REALIZATION">
-      <point x="0.0" y="-80.0" />
-      <point x="4890.0" y="1883.8610271903322" />
-      <point x="4890.0" y="1593.0" />
-      <point x="2867.0" y="1593.0" />
-      <point x="0.0" y="129.0" />
+    <edge source="testing_protocols.LimitedWorkSpace" target="testing_protocols.TestingProtocol" relationship="REALIZATION">
+      <point x="0.0" y="-28.0" />
+      <point x="809.0" y="293.0" />
+      <point x="1119.5" y="293.0" />
+      <point x="0.0" y="28.0" />
     </edge>
-    <edge source="main.InputCustomChecker" target="main.TestingProtocol" relationship="REALIZATION">
-      <point x="0.0" y="-80.0" />
-      <point x="467.3021148036253" y="1593.0" />
-      <point x="2867.0" y="1593.0" />
-      <point x="0.0" y="129.0" />
+    <edge source="testing_protocols.TestingProtocol" target="abc.ABC" relationship="REALIZATION">
+      <point x="0.0" y="-28.0" />
+      <point x="0.0" y="28.0" />
     </edge>
-    <edge source="main.RandomInputCustomChecker" target="main.TestingProtocol" relationship="REALIZATION">
-      <point x="0.0" y="-129.0" />
-      <point x="3767.6042296072505" y="1593.0" />
-      <point x="2867.0" y="1593.0" />
-      <point x="0.0" y="129.0" />
+    <edge source="testing_protocols.InputCustomChecker" target="testing_protocols.TestingProtocol" relationship="REALIZATION">
+      <point x="0.0" y="-28.0" />
+      <point x="1430.0" y="293.0" />
+      <point x="1119.5" y="293.0" />
+      <point x="0.0" y="28.0" />
     </edge>
-    <edge source="main.LimitedWorkSpace" target="main.TestingProtocol" relationship="REALIZATION">
-      <point x="0.0" y="-129.0" />
-      <point x="2128.327794561934" y="1593.0" />
-      <point x="2867.0" y="1593.0" />
-      <point x="0.0" y="129.0" />
+    <edge source="testing_protocols.RandomInputCustomChecker" target="testing_protocols.TestingProtocol" relationship="REALIZATION">
+      <point x="0.0" y="-28.0" />
+      <point x="2129.5" y="293.0" />
+      <point x="1119.5" y="293.0" />
+      <point x="0.0" y="28.0" />
     </edge>
-    <edge source="main.TestingProtocol" target="abc.ABC" relationship="REALIZATION">
-      <point x="0.0" y="-129.0" />
+    <edge source="testing_protocols.Verdict" target="object" relationship="REALIZATION">
+      <point x="0.0" y="-28.0" />
+      <point x="1441.0" y="81.0" />
+      <point x="1709.25" y="81.0" />
+      <point x="0.0" y="28.0" />
+    </edge>
+    <edge source="testing_protocols.ExtendedSubmission" target="object" relationship="REALIZATION">
+      <point x="0.0" y="-28.0" />
+      <point x="1977.5" y="81.0" />
+      <point x="1709.25" y="81.0" />
       <point x="0.0" y="28.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic" zoom="0.41375" showDependencies="false" x="3446.939577039275" y="1557.1238670694863" />
-  <SelectedNodes>
-    <node>main.InputOutput</node>
-  </SelectedNodes>
-  <Categories>
-    <Category>Methods</Category>
-  </Categories>
+  <settings layout="Hierarchic" zoom="0.8271304347826087" showDependencies="false" x="1427.5" y="237.5" />
+  <SelectedNodes />
+  <Categories />
 </Diagram>
 

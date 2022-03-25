@@ -1,6 +1,6 @@
 import unittest
 import subprocess
-from main import InputOutput, InputCustomChecker, RandomInputCustomChecker, LimitedWorkSpace
+from testing_protocols import InputOutput, InputCustomChecker, RandomInputCustomChecker, LimitedWorkSpace
 
 
 def cpp_convert_to_executable(path_to_src, name, conversion_opts=None):
@@ -53,7 +53,7 @@ class AnswerVerdictTest(unittest.TestCase):
         self.assertEqual('AC',
                          limited_work_space.check(path_to_src='limited_work_space/correct.cpp', submission_id=7))
         self.assertEqual('WA',
-                         limited_work_space.check(path_to_src='limited_work_space/wrong.cpp', submission_id=7))
+                         limited_work_space.check(path_to_src='limited_work_space/wrong.cpp', submission_id=8))
 
 
 if __name__ == '__main__':

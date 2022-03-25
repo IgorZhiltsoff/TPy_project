@@ -2,7 +2,35 @@ from abc import ABC, abstractmethod
 import subprocess
 
 
+class UserSubmittedData:
+    """Specific for each submission data: source (its location), submission_id
+       Full submission data is stored in Submission class,
+       which is composed out of UserSubmittedData and ProblemData"""
+    def __init__(self):
+        pass
+
+
+class Verdict:
+    """An object of this type is to be returned upon testing is finished"""
+    def __init__(self, return_code, test_number):
+        self.return_code = return_code
+        self.test_number = test_number
+
+
 class TestingProtocol(ABC):
+    """Abstract class for testing protocols - a data type that constitutes
+       the process of testing a solution. API includes 3 methods:
+           abstract section:
+           (a) check - for running the submission on tests
+           static section:
+           (b) run_code - aux method for running submissions
+           (c,d) generate_output/exec_path - aux for file acquisition
+       Aggregated by ProblemData class in relation one problem to many protocols
+       Most likely combinations:
+            - RandomInputCustomChecker for stress/performance testing
+                    + other protocol to validate extreme cases
+            - Several LimitedWorkSpace protocols to enable submissions in various languages"""
+
     @abstractmethod
     def check(self, path_to_src, submission_id, convert_to_executable=None, conversion_opts=None,
               command_line_opts=None):
@@ -32,6 +60,8 @@ class TestingProtocol(ABC):
 
 
 class InputOutput(TestingProtocol):
+    """The simplest testing protocol which runs submission on given input and asserts equality with given output"""
+
     def __init__(self, input_output_paths_dict):
         self.input_output_paths_dict = input_output_paths_dict
 
@@ -60,6 +90,9 @@ class InputOutput(TestingProtocol):
 
 
 class InputCustomChecker(TestingProtocol):  # todo: checker safety
+    """Testing protocol which passes given input to submission and then validates the output running custom code
+       Might come in handy in problems with multiple answer"""
+
     def __init__(self, input_paths_set, path_to_checker_exec):
         self.input_paths_set = input_paths_set
         self.path_to_checker_exec = path_to_checker_exec
@@ -89,6 +122,9 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
 
 
 class RandomInputCustomChecker(TestingProtocol):
+    """Testing protocol which passes random input to submission and then validates the output running custom code
+       Might come in handy in problems in performance or stress tests"""
+
     def __init__(self, test_count, path_to_input_generation_executable, path_to_checker_exec):
         self.test_count = test_count
         self.path_to_input_generation_executable = path_to_input_generation_executable
@@ -126,6 +162,11 @@ class RandomInputCustomChecker(TestingProtocol):
 
 
 class LimitedWorkSpace(TestingProtocol):
+    """Testing protocol which enables validation of student's functions or other parts of code,
+       instead of full programmes. The problem contributor uploads a header and a footer which
+       would be prepended and appended to student's code. Upon execution, this merged code
+       should return 1 or 0, indicating whether the submitted implementation is correct"""
+
     def __init__(self, header_location, footer_location,
                  convert_merged_to_executable, extension, merged_conversion_opts=None):
         self.header_location = header_location
@@ -163,3 +204,8 @@ class LimitedWorkSpace(TestingProtocol):
                                       convert_to_executable=self.convert_merged_to_executable,
                                       conversion_opts=self.merged_conversion_opts,
                                       command_line_opts=command_line_opts)
+
+
+class ExtendedSubmission:
+    """Full submission data: composed of UserSubmittedData and ProblemData"""
+    pass
