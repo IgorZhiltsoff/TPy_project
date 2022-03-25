@@ -3,11 +3,12 @@ import subprocess
 
 
 class UserSubmittedData:
-    """Specific for each submission data: source (its location), submission_id
+    """Submission specific data: source (its location), submission_id
        Full submission data is stored in Submission class,
        which is composed out of UserSubmittedData and ProblemData"""
-    def __init__(self):
-        pass
+    def __init__(self, path_to_src, submission_id):
+        self.path_to_src = path_to_src
+        self.submission_id = submission_id
 
 
 class Verdict:
@@ -32,7 +33,7 @@ class TestingProtocol(ABC):
             - Several LimitedWorkSpace protocols to enable submissions in various languages"""
 
     @abstractmethod
-    def check(self, path_to_src, submission_id, convert_to_executable=None, conversion_opts=None,
+    def check(self, user_submitted_data, convert_to_executable=None, conversion_opts=None,
               command_line_opts=None):
         pass
 
@@ -65,13 +66,13 @@ class InputOutput(TestingProtocol):
     def __init__(self, input_output_paths_dict):
         self.input_output_paths_dict = input_output_paths_dict
 
-    def check(self, path_to_src, submission_id, convert_to_executable=None, conversion_opts=None,
+    def check(self, user_submitted_data, convert_to_executable=None, conversion_opts=None,
               command_line_opts=None):
-        path_to_executable = convert_to_executable(path_to_src,
-                                                   TestingProtocol.generate_exec_path(submission_id),
+        path_to_executable = convert_to_executable(user_submitted_data.path_to_src,
+                                                   TestingProtocol.generate_exec_path(user_submitted_data.submission_id),
                                                    conversion_opts)
 
-        solution_output_location = TestingProtocol.generate_output_path(submission_id)
+        solution_output_location = TestingProtocol.generate_output_path(user_submitted_data.submission_id)
 
         # ITERATE OVER TESTS
         for path_to_input_file in self.input_output_paths_dict:
@@ -97,13 +98,13 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
         self.input_paths_set = input_paths_set
         self.path_to_checker_exec = path_to_checker_exec
 
-    def check(self, path_to_src, submission_id, convert_to_executable=None, conversion_opts=None,
+    def check(self, user_submitted_data, convert_to_executable=None, conversion_opts=None,
               command_line_opts=None):
-        path_to_executable = convert_to_executable(path_to_src,
-                                                   TestingProtocol.generate_exec_path(submission_id),
+        path_to_executable = convert_to_executable(user_submitted_data.path_to_src,
+                                                   TestingProtocol.generate_exec_path(user_submitted_data.submission_id),
                                                    conversion_opts)
 
-        solution_output_location = TestingProtocol.generate_output_path(submission_id)
+        solution_output_location = TestingProtocol.generate_output_path(user_submitted_data.submission_id)
 
         # ITERATE OVER TESTS
         for path_to_input_file in self.input_paths_set:
@@ -150,12 +151,11 @@ class RandomInputCustomChecker(TestingProtocol):
             input_paths_set.add(infile_path)
         return input_paths_set
 
-    def check(self, path_to_src, submission_id, convert_to_executable=None, conversion_opts=None,
+    def check(self, user_submitted_data, convert_to_executable=None, conversion_opts=None,
               command_line_opts=None):
-        random_input_paths_set = self.generate_input(submission_id)
+        random_input_paths_set = self.generate_input(user_submitted_data.submission_id)
         deterministic_protocol = InputCustomChecker(random_input_paths_set, self.path_to_checker_exec)
-        return deterministic_protocol.check(path_to_src=path_to_src,
-                                            submission_id=submission_id,
+        return deterministic_protocol.check(user_submitted_data=user_submitted_data,
                                             convert_to_executable=convert_to_executable,
                                             conversion_opts=conversion_opts,
                                             command_line_opts=command_line_opts)
@@ -185,22 +185,23 @@ class LimitedWorkSpace(TestingProtocol):
             subprocess.run(['echo', '-n', '1'], stdout=unit)
         return unit_location
 
-    def generate_merged(self, path_to_src, submission_id):
-        merged_location = self.generate_merged_path(submission_id)
+    def generate_merged(self, user_submitted_data):
+        merged_location = self.generate_merged_path(user_submitted_data.submission_id)
         with open(merged_location, 'w') as merged:
-            subprocess.run(['sed', '', self.header_location, path_to_src, self.footer_location], stdout=merged)
+            subprocess.run(['sed', '', self.header_location, user_submitted_data.path_to_src, self.footer_location],
+                           stdout=merged)
         return merged_location
 
-    def check(self, path_to_src, submission_id, convert_to_executable=None, conversion_opts=None,
+    def check(self, user_submitted_data, convert_to_executable=None, conversion_opts=None,
               command_line_opts=None):
         # GENERATE SRC
-        merged_location = self.generate_merged(path_to_src, submission_id)
+        merged_location = self.generate_merged(user_submitted_data)
 
         # REINTERPRET CUSTOM TESTING AS INPUT-OUTPUT TESTING
         unit_location = LimitedWorkSpace.generate_unit_file()
         trivial_protocol = InputOutput({'/dev/stdin': unit_location})
-        return trivial_protocol.check(path_to_src=merged_location,
-                                      submission_id=submission_id,
+        merged_data = UserSubmittedData(merged_location, user_submitted_data.submission_id)
+        return trivial_protocol.check(user_submitted_data=merged_data,
                                       convert_to_executable=self.convert_merged_to_executable,
                                       conversion_opts=self.merged_conversion_opts,
                                       command_line_opts=command_line_opts)
