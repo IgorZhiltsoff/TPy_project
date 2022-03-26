@@ -1,7 +1,7 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-' ============================ AUX ===========================
+' ============================ AUX ============================
 
 class Verdict {
     +str msg
@@ -90,7 +90,7 @@ TestingProtocols <|--- LimitedWorkSpace
 TestingProtocols <|--- InputOutput
 
 
-' ============================ AUX ===========================
+' ============================ AUX ============================
 
 class ProblemData {
     +int problem_id

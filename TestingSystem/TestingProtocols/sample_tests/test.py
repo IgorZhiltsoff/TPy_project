@@ -1,7 +1,7 @@
 import unittest
 import subprocess
 from testing_protocols import InputOutput, InputCustomChecker, RandomInputCustomChecker, LimitedWorkSpace, \
-    UserSubmittedData
+    UserSubmittedData, ProgrammingLanguageData
 
 
 def cpp_convert_to_executable(path_to_src, suggested_exec_name, conversion_opts=None):
@@ -9,6 +9,9 @@ def cpp_convert_to_executable(path_to_src, suggested_exec_name, conversion_opts=
 
     subprocess.run(['g++', '-o', suggested_exec_name] + conversion_opts + [path_to_src])
     return suggested_exec_name
+
+
+cpp_data = ProgrammingLanguageData(cpp_convert_to_executable)
 
 
 correct = UserSubmittedData('correct.cpp', 1)
@@ -21,7 +24,7 @@ class AnswerVerdictTest(unittest.TestCase):
             input_output_paths_dict={"inout_tests/1.in": "inout_tests/1.out",
                                      "inout_tests/2.in": "inout_tests/2.out",
                                      "inout_tests/3.in": "inout_tests/3.out"},
-            convert_to_executable=cpp_convert_to_executable,
+            programming_language_data=cpp_data,
             conversion_opts=['-O2', '-Werror', '-Wpedantic']
         )
 
@@ -34,7 +37,7 @@ class AnswerVerdictTest(unittest.TestCase):
                              "in_custom_tests/2.in",
                              "in_custom_tests/3.in"},
             path_to_checker_exec='in_custom_tests/custom_checker.out',
-            convert_to_executable=cpp_convert_to_executable,
+            programming_language_data=cpp_data,
             conversion_opts=['-O2', '-Werror', '-Wpedantic']
         )
         self.assertEqual('AC', in_custom.check(user_submitted_data=correct).msg)
@@ -45,7 +48,7 @@ class AnswerVerdictTest(unittest.TestCase):
             test_count=3,
             path_to_input_generation_executable='rand_custom_tests/random_generator.out',
             path_to_checker_exec='rand_custom_tests/custom_checker.out',
-            convert_to_executable=cpp_convert_to_executable,
+            programming_language_data=cpp_data,
             conversion_opts=['-O2', '-Werror', '-Wpedantic']
         )
         self.assertEqual('AC', rand_custom.check(user_submitted_data=correct).msg)
@@ -56,7 +59,7 @@ class AnswerVerdictTest(unittest.TestCase):
             header_location='limited_work_space/header.cpp',
             footer_location='limited_work_space/footer.cpp',
             extension='.cpp',
-            convert_to_executable=cpp_convert_to_executable,
+            programming_language_data=cpp_data,
             conversion_opts=['-O2', '-Werror', '-Wpedantic']
         )
 

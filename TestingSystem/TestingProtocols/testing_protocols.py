@@ -37,8 +37,8 @@ class TestingProtocol(ABC):
             - Several protocols for different programming languages
             - RandomInputCustomChecker for stress/performance testing, other protocol to validate extreme cases"""
 
-    def __init__(self, convert_to_executable, conversion_opts=None, command_line_opts=None):
-        self.convert_to_executable = convert_to_executable
+    def __init__(self, programming_language_data, conversion_opts=None, command_line_opts=None):
+        self.programming_language_data = programming_language_data
         self.conversion_opts = conversion_opts
         self.command_line_opts = command_line_opts
 
@@ -72,13 +72,12 @@ class TestingProtocol(ABC):
 class InputOutput(TestingProtocol):
     """The simplest testing protocol which runs submission on given input and asserts equality with given output"""
 
-    def __init__(self, input_output_paths_dict,
-                 convert_to_executable, conversion_opts=None, command_line_opts=None):
-        super().__init__(convert_to_executable, conversion_opts, command_line_opts)
+    def __init__(self, input_output_paths_dict, **kwargs):
+        super().__init__(**kwargs)
         self.input_output_paths_dict = input_output_paths_dict
 
     def check(self, user_submitted_data):
-        path_to_executable = self.convert_to_executable(
+        path_to_executable = self.programming_language_data.convert_to_executable(
                                 user_submitted_data.path_to_src,
                                 TestingProtocol.generate_exec_path(user_submitted_data.submission_id),
                                 self.conversion_opts
@@ -109,15 +108,14 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
     """Testing protocol which passes given input to submission and then validates the output running custom code
        Might come in handy in problems with multiple answer"""
 
-    def __init__(self, input_paths_set, path_to_checker_exec,
-                 convert_to_executable, conversion_opts=None, command_line_opts=None):
-        super().__init__(convert_to_executable, conversion_opts, command_line_opts)
+    def __init__(self, input_paths_set, path_to_checker_exec, **kwargs):
+        super().__init__(**kwargs)
 
         self.input_paths_set = input_paths_set
         self.path_to_checker_exec = path_to_checker_exec
 
     def check(self, user_submitted_data):
-        path_to_executable = self.convert_to_executable(
+        path_to_executable = self.programming_language_data.convert_to_executable(
                                 user_submitted_data.path_to_src,
                                 TestingProtocol.generate_exec_path(user_submitted_data.submission_id),
                                 self.conversion_opts
@@ -148,9 +146,8 @@ class RandomInputCustomChecker(TestingProtocol):
     """Testing protocol which passes random input to submission and then validates the output running custom code
        Might come in handy in problems in performance or stress tests"""
 
-    def __init__(self, test_count, path_to_input_generation_executable, path_to_checker_exec,
-                 convert_to_executable, conversion_opts=None, command_line_opts=None):
-        super().__init__(convert_to_executable, conversion_opts, command_line_opts)
+    def __init__(self, test_count, path_to_input_generation_executable, path_to_checker_exec, **kwargs):
+        super().__init__(**kwargs)
 
         self.test_count = test_count
         self.path_to_input_generation_executable = path_to_input_generation_executable
@@ -182,7 +179,7 @@ class RandomInputCustomChecker(TestingProtocol):
         deterministic_protocol = InputCustomChecker(
             input_paths_set=random_input_paths_set,
             path_to_checker_exec=self.path_to_checker_exec,
-            convert_to_executable=self.convert_to_executable,
+            programming_language_data=self.programming_language_data,
             conversion_opts=self.conversion_opts,
             command_line_opts=self.command_line_opts
         )
@@ -196,9 +193,8 @@ class LimitedWorkSpace(TestingProtocol):
        would be prepended and appended to student's code. Upon execution, this merged code
        should return 1 or 0, indicating whether the submitted implementation is correct"""
 
-    def __init__(self, header_location, footer_location, extension,
-                 convert_to_executable, conversion_opts=None, command_line_opts=None):
-        super().__init__(convert_to_executable, conversion_opts, command_line_opts)
+    def __init__(self, header_location, footer_location, extension, **kwargs):
+        super().__init__(**kwargs)
 
         self.header_location = header_location
         self.footer_location = footer_location
@@ -229,7 +225,7 @@ class LimitedWorkSpace(TestingProtocol):
         unit_location = LimitedWorkSpace.generate_unit_file()
         trivial_protocol = InputOutput(
             input_output_paths_dict={'/dev/stdin': unit_location},
-            convert_to_executable=self.convert_to_executable,
+            programming_language_data=self.programming_language_data,
             conversion_opts=self.conversion_opts,
             command_line_opts=self.command_line_opts
         )
