@@ -29,8 +29,11 @@ class TestingProtocol(ABC):
        Aggregated by ProblemData class in relation one problem to many protocols
 
        Most likely combinations:
-            - RandomInputCustomChecker for stress/performance testing, other protocol to validate extreme cases
-            - Several LimitedWorkSpace protocols to enable submissions in various languages"""
+            - Several protocols for different programming languages
+            - RandomInputCustomChecker for stress/performance testing, other protocol to validate extreme cases"""
+
+    # def __init__(self):
+    #     pass
 
     @abstractmethod
     def check(self, user_submitted_data):
@@ -65,6 +68,7 @@ class InputOutput(TestingProtocol):
     def __init__(self, input_output_paths_dict,
                  convert_to_executable, conversion_opts=None, command_line_opts=None):
         self.input_output_paths_dict = input_output_paths_dict
+
         self.convert_to_executable = convert_to_executable
         self.conversion_opts = conversion_opts
         self.command_line_opts = command_line_opts
@@ -105,6 +109,7 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
                  convert_to_executable, conversion_opts=None, command_line_opts=None):
         self.input_paths_set = input_paths_set
         self.path_to_checker_exec = path_to_checker_exec
+
         self.convert_to_executable = convert_to_executable
         self.conversion_opts = conversion_opts
         self.command_line_opts = command_line_opts
@@ -146,6 +151,7 @@ class RandomInputCustomChecker(TestingProtocol):
         self.test_count = test_count
         self.path_to_input_generation_executable = path_to_input_generation_executable
         self.path_to_checker_exec = path_to_checker_exec
+
         self.convert_to_executable = convert_to_executable
         self.conversion_opts = conversion_opts
         self.command_line_opts = command_line_opts
@@ -190,13 +196,14 @@ class LimitedWorkSpace(TestingProtocol):
        would be prepended and appended to student's code. Upon execution, this merged code
        should return 1 or 0, indicating whether the submitted implementation is correct"""
 
-    def __init__(self, header_location, footer_location,
-                 convert_merged_to_executable, extension, merged_conversion_opts=None, command_line_opts=None):
+    def __init__(self, header_location, footer_location, extension,
+                 convert_to_executable, conversion_opts=None, command_line_opts=None):
         self.header_location = header_location
         self.footer_location = footer_location
-        self.convert_merged_to_executable = convert_merged_to_executable
         self.extension = extension
-        self.merged_conversion_opts = merged_conversion_opts
+
+        self.convert_to_executable = convert_to_executable
+        self.conversion_opts = conversion_opts
         self.command_line_opts = command_line_opts
 
     def generate_merged_path(self, submission_id):  # todo: check for existence
@@ -224,8 +231,8 @@ class LimitedWorkSpace(TestingProtocol):
         unit_location = LimitedWorkSpace.generate_unit_file()
         trivial_protocol = InputOutput(
             input_output_paths_dict={'/dev/stdin': unit_location},
-            convert_to_executable=self.convert_merged_to_executable,
-            conversion_opts=self.merged_conversion_opts,
+            convert_to_executable=self.convert_to_executable,
+            conversion_opts=self.conversion_opts,
             command_line_opts=self.command_line_opts
         )
         merged_data = UserSubmittedData(merged_location, user_submitted_data.submission_id)

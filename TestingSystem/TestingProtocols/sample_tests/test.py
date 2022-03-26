@@ -4,11 +4,11 @@ from testing_protocols import InputOutput, InputCustomChecker, RandomInputCustom
     UserSubmittedData
 
 
-def cpp_convert_to_executable(path_to_src, name, conversion_opts=None):
+def cpp_convert_to_executable(path_to_src, suggested_exec_name, conversion_opts=None):
     conversion_opts = conversion_opts if conversion_opts else []
 
-    subprocess.run(['g++', '-o', name] + conversion_opts + [path_to_src])
-    return name
+    subprocess.run(['g++', '-o', suggested_exec_name] + conversion_opts + [path_to_src])
+    return suggested_exec_name
 
 
 correct = UserSubmittedData('correct.cpp', 1)
@@ -55,9 +55,9 @@ class AnswerVerdictTest(unittest.TestCase):
         limited_work_space = LimitedWorkSpace(
             header_location='limited_work_space/header.cpp',
             footer_location='limited_work_space/footer.cpp',
-            convert_merged_to_executable=cpp_convert_to_executable,
             extension='.cpp',
-            merged_conversion_opts=['-O2', '-Werror', '-Wpedantic']
+            convert_to_executable=cpp_convert_to_executable,
+            conversion_opts=['-O2', '-Werror', '-Wpedantic']
         )
 
         limited_work_space_correct = UserSubmittedData('limited_work_space/correct.cpp', 1)

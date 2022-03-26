@@ -1,0 +1,104 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Verdict {
+    +str msg
+    +int test_number
+
+    +void __init__(...)
+}
+
+class UserSubmittedData {
+    +str path_to_src
+    +int submission_id
+
+    +void __init__(...)
+}
+
+abstract class TestingProtocols {
+    -function convert_to_executable_fun
+    -list conversion_opts_lst
+    -list command_line_opts_lst
+    -{static} dict return_code_to_error_msg = ...
+
+    +void __init__(...)
+    +{abstract} Verdict check(self, user_submitted_data)
+    -{static} int run_code(path_to_executable, path_to_input_file, path_to_output_file, command_line_opts))
+    -{static} str generate_output_path(submission_id)
+    -{static} str generate_exec_path(submission_id)
+}
+note left of TestingProtocols::convert_to_executable_fun
+Signature:
+str convert_to_executable_fun(
+     path_to_src,
+     suggested_exec_name,
+     conversion_opts)
+end note
+
+note left of TestingProtocols::__init__
+Here and further,
+_ _init_ _'s signature
+will be omitted
+as it simply
+initializes attributes
+end note
+
+class InputOutput {
+    -dict input_output_paths_dict
+
+    +void __init__(...)
+}
+
+class InputCustomChecker {
+    -set input_paths_set
+    -str path_to_checker_exec
+
+    +void __init__(...)
+}
+
+class RandomInputCustomChecker {
+    -int test_count
+    -str path_to_input_generation_executable
+    -str path_to_checker_exec
+
+
+    +void __init__(...)
+    -{static} str generate_input_dir(submission_id)
+    -set generate_input(self, submission_id)
+}
+
+class LimitedWorkSpace {
+    -str header_location
+    -str footer_location
+    -str extension
+
+    +void __init__(...)
+    -str generate_merged_path(self, submission_id)
+    -{static} str generate_unit_file()
+    -str generate_merged(self, user_submitted_data)
+}
+
+
+TestingProtocols <|--- InputCustomChecker
+TestingProtocols <|--- RandomInputCustomChecker
+TestingProtocols <|--- LimitedWorkSpace
+TestingProtocols <|--- InputOutput
+
+class ProblemData {
+    +int problem_id
+    +set testing_protocols_set
+
+    +void __init__(...)
+}
+
+ProblemData "1" <--- "1..*" TestingProtocols
+
+class ExtendedSubmission {
+    +void __init__(...)
+}
+
+ExtendedSubmission "1" *--- "1" ProblemData
+ExtendedSubmission "1" *--- "1" UserSubmittedData
+
+
+@enduml
