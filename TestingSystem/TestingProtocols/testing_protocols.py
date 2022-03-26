@@ -22,19 +22,18 @@ class TestingProtocol(ABC):
     """Abstract class for testing protocols - a data type that constitutes
        the process of testing a solution. API includes 3 methods:
            abstract section:
-           (a) check - for running the submission on tests
+                - check - for running the submission on tests
            static section:
-           (b) run_code - aux method for running submissions
-           (c,d) generate_output/exec_path - aux for file acquisition
+                - run_code - aux method for running submissions
+                - generate_output/exec_path - aux for file acquisition
        Aggregated by ProblemData class in relation one problem to many protocols
+
        Most likely combinations:
-            - RandomInputCustomChecker for stress/performance testing
-                    + other protocol to validate extreme cases
+            - RandomInputCustomChecker for stress/performance testing, other protocol to validate extreme cases
             - Several LimitedWorkSpace protocols to enable submissions in various languages"""
 
     @abstractmethod
-    def check(self, user_submitted_data, convert_to_executable=None, conversion_opts=None,
-              command_line_opts=None):
+    def check(self, user_submitted_data):
         pass
 
     @staticmethod
@@ -63,15 +62,18 @@ class TestingProtocol(ABC):
 class InputOutput(TestingProtocol):
     """The simplest testing protocol which runs submission on given input and asserts equality with given output"""
 
-    def __init__(self, input_output_paths_dict):
+    def __init__(self, input_output_paths_dict,
+                 convert_to_executable, conversion_opts=None, command_line_opts=None):
         self.input_output_paths_dict = input_output_paths_dict
+        self.convert_to_executable = convert_to_executable
+        self.conversion_opts = conversion_opts
+        self.command_line_opts = command_line_opts
 
-    def check(self, user_submitted_data, convert_to_executable=None, conversion_opts=None,
-              command_line_opts=None):
-        path_to_executable = convert_to_executable(
+    def check(self, user_submitted_data):
+        path_to_executable = self.convert_to_executable(
                                 user_submitted_data.path_to_src,
                                 TestingProtocol.generate_exec_path(user_submitted_data.submission_id),
-                                conversion_opts
+                                self.conversion_opts
         )
 
         solution_output_location = TestingProtocol.generate_output_path(user_submitted_data.submission_id)
@@ -81,7 +83,7 @@ class InputOutput(TestingProtocol):
         for path_to_input_file in self.input_output_paths_dict:
             # RUN
             feedback = TestingProtocol.run_code(path_to_executable, path_to_input_file,
-                                                solution_output_location, command_line_opts)
+                                                solution_output_location, self.command_line_opts)
             if feedback != 0:
                 return feedback
 
@@ -99,16 +101,19 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
     """Testing protocol which passes given input to submission and then validates the output running custom code
        Might come in handy in problems with multiple answer"""
 
-    def __init__(self, input_paths_set, path_to_checker_exec):
+    def __init__(self, input_paths_set, path_to_checker_exec,
+                 convert_to_executable, conversion_opts=None, command_line_opts=None):
         self.input_paths_set = input_paths_set
         self.path_to_checker_exec = path_to_checker_exec
+        self.convert_to_executable = convert_to_executable
+        self.conversion_opts = conversion_opts
+        self.command_line_opts = command_line_opts
 
-    def check(self, user_submitted_data, convert_to_executable=None, conversion_opts=None,
-              command_line_opts=None):
-        path_to_executable = convert_to_executable(
+    def check(self, user_submitted_data):
+        path_to_executable = self.convert_to_executable(
                                 user_submitted_data.path_to_src,
                                 TestingProtocol.generate_exec_path(user_submitted_data.submission_id),
-                                conversion_opts
+                                self.conversion_opts
         )
 
         solution_output_location = TestingProtocol.generate_output_path(user_submitted_data.submission_id)
@@ -118,7 +123,7 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
         for path_to_input_file in self.input_paths_set:
             # RUN
             feedback = TestingProtocol.run_code(path_to_executable, path_to_input_file,
-                                                solution_output_location, command_line_opts)
+                                                solution_output_location, self.command_line_opts)
             if feedback != 0:
                 return feedback
 
@@ -136,10 +141,14 @@ class RandomInputCustomChecker(TestingProtocol):
     """Testing protocol which passes random input to submission and then validates the output running custom code
        Might come in handy in problems in performance or stress tests"""
 
-    def __init__(self, test_count, path_to_input_generation_executable, path_to_checker_exec):
+    def __init__(self, test_count, path_to_input_generation_executable, path_to_checker_exec,
+                 convert_to_executable, conversion_opts=None, command_line_opts=None):
         self.test_count = test_count
         self.path_to_input_generation_executable = path_to_input_generation_executable
         self.path_to_checker_exec = path_to_checker_exec
+        self.convert_to_executable = convert_to_executable
+        self.conversion_opts = conversion_opts
+        self.command_line_opts = command_line_opts
 
     @staticmethod
     def generate_input_dir(submission_id):  # todo: check for existence
@@ -161,14 +170,18 @@ class RandomInputCustomChecker(TestingProtocol):
             input_paths_set.add(infile_path)
         return input_paths_set
 
-    def check(self, user_submitted_data, convert_to_executable=None, conversion_opts=None,
-              command_line_opts=None):
+    def check(self, user_submitted_data):
         random_input_paths_set = self.generate_input(user_submitted_data.submission_id)
-        deterministic_protocol = InputCustomChecker(random_input_paths_set, self.path_to_checker_exec)
-        return deterministic_protocol.check(user_submitted_data=user_submitted_data,
-                                            convert_to_executable=convert_to_executable,
-                                            conversion_opts=conversion_opts,
-                                            command_line_opts=command_line_opts)
+
+        deterministic_protocol = InputCustomChecker(
+            input_paths_set=random_input_paths_set,
+            path_to_checker_exec=self.path_to_checker_exec,
+            convert_to_executable=self.convert_to_executable,
+            conversion_opts=self.conversion_opts,
+            command_line_opts=self.command_line_opts
+        )
+
+        return deterministic_protocol.check(user_submitted_data=user_submitted_data)
 
 
 class LimitedWorkSpace(TestingProtocol):
@@ -178,12 +191,13 @@ class LimitedWorkSpace(TestingProtocol):
        should return 1 or 0, indicating whether the submitted implementation is correct"""
 
     def __init__(self, header_location, footer_location,
-                 convert_merged_to_executable, extension, merged_conversion_opts=None):
+                 convert_merged_to_executable, extension, merged_conversion_opts=None, command_line_opts=None):
         self.header_location = header_location
         self.footer_location = footer_location
         self.convert_merged_to_executable = convert_merged_to_executable
         self.extension = extension
         self.merged_conversion_opts = merged_conversion_opts
+        self.command_line_opts = command_line_opts
 
     def generate_merged_path(self, submission_id):  # todo: check for existence
         return f"/tmp/{submission_id}merge{self.extension}"
@@ -202,19 +216,20 @@ class LimitedWorkSpace(TestingProtocol):
                            stdout=merged)
         return merged_location
 
-    def check(self, user_submitted_data, convert_to_executable=None, conversion_opts=None,
-              command_line_opts=None):
+    def check(self, user_submitted_data):
         # GENERATE SRC
         merged_location = self.generate_merged(user_submitted_data)
 
         # REINTERPRET CUSTOM TESTING AS INPUT-OUTPUT TESTING
         unit_location = LimitedWorkSpace.generate_unit_file()
-        trivial_protocol = InputOutput({'/dev/stdin': unit_location})
+        trivial_protocol = InputOutput(
+            input_output_paths_dict={'/dev/stdin': unit_location},
+            convert_to_executable=self.convert_merged_to_executable,
+            conversion_opts=self.merged_conversion_opts,
+            command_line_opts=self.command_line_opts
+        )
         merged_data = UserSubmittedData(merged_location, user_submitted_data.submission_id)
-        return trivial_protocol.check(user_submitted_data=merged_data,
-                                      convert_to_executable=self.convert_merged_to_executable,
-                                      conversion_opts=self.merged_conversion_opts,
-                                      command_line_opts=command_line_opts)
+        return trivial_protocol.check(user_submitted_data=merged_data)
 
 
 class ProblemData:
