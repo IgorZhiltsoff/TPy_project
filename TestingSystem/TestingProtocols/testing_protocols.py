@@ -18,6 +18,11 @@ class Verdict:
         self.test_number = test_number
 
 
+class ProgrammingLanguageData:
+    def __init__(self, convert_to_executable_fun):
+        self.convert_to_executable = convert_to_executable_fun
+
+
 class TestingProtocol(ABC):
     """Abstract class for testing protocols - a data type that constitutes
        the process of testing a solution. API includes 3 methods:
@@ -32,8 +37,10 @@ class TestingProtocol(ABC):
             - Several protocols for different programming languages
             - RandomInputCustomChecker for stress/performance testing, other protocol to validate extreme cases"""
 
-    # def __init__(self):
-    #     pass
+    def __init__(self, convert_to_executable, conversion_opts=None, command_line_opts=None):
+        self.convert_to_executable = convert_to_executable
+        self.conversion_opts = conversion_opts
+        self.command_line_opts = command_line_opts
 
     @abstractmethod
     def check(self, user_submitted_data):
@@ -67,11 +74,8 @@ class InputOutput(TestingProtocol):
 
     def __init__(self, input_output_paths_dict,
                  convert_to_executable, conversion_opts=None, command_line_opts=None):
+        super().__init__(convert_to_executable, conversion_opts, command_line_opts)
         self.input_output_paths_dict = input_output_paths_dict
-
-        self.convert_to_executable = convert_to_executable
-        self.conversion_opts = conversion_opts
-        self.command_line_opts = command_line_opts
 
     def check(self, user_submitted_data):
         path_to_executable = self.convert_to_executable(
@@ -107,12 +111,10 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
 
     def __init__(self, input_paths_set, path_to_checker_exec,
                  convert_to_executable, conversion_opts=None, command_line_opts=None):
+        super().__init__(convert_to_executable, conversion_opts, command_line_opts)
+
         self.input_paths_set = input_paths_set
         self.path_to_checker_exec = path_to_checker_exec
-
-        self.convert_to_executable = convert_to_executable
-        self.conversion_opts = conversion_opts
-        self.command_line_opts = command_line_opts
 
     def check(self, user_submitted_data):
         path_to_executable = self.convert_to_executable(
@@ -148,13 +150,11 @@ class RandomInputCustomChecker(TestingProtocol):
 
     def __init__(self, test_count, path_to_input_generation_executable, path_to_checker_exec,
                  convert_to_executable, conversion_opts=None, command_line_opts=None):
+        super().__init__(convert_to_executable, conversion_opts, command_line_opts)
+
         self.test_count = test_count
         self.path_to_input_generation_executable = path_to_input_generation_executable
         self.path_to_checker_exec = path_to_checker_exec
-
-        self.convert_to_executable = convert_to_executable
-        self.conversion_opts = conversion_opts
-        self.command_line_opts = command_line_opts
 
     @staticmethod
     def generate_input_dir(submission_id):  # todo: check for existence
@@ -198,13 +198,11 @@ class LimitedWorkSpace(TestingProtocol):
 
     def __init__(self, header_location, footer_location, extension,
                  convert_to_executable, conversion_opts=None, command_line_opts=None):
+        super().__init__(convert_to_executable, conversion_opts, command_line_opts)
+
         self.header_location = header_location
         self.footer_location = footer_location
         self.extension = extension
-
-        self.convert_to_executable = convert_to_executable
-        self.conversion_opts = conversion_opts
-        self.command_line_opts = command_line_opts
 
     def generate_merged_path(self, submission_id):  # todo: check for existence
         return f"/tmp/{submission_id}merge{self.extension}"
