@@ -19,7 +19,7 @@ end note
 
 
 class UserSubmittedData {
-    +str path_to_src
+    +Path path_to_src
     +int submission_id
 
     +void __init__(...)
@@ -28,7 +28,7 @@ class UserSubmittedData {
 
 class ProgrammingLanguageData {
         +void __init__(...)
-        +str convert_to_executable(path_to_src, suggested_exec_name, conversion_opts)
+        +Path convert_to_executable(path_to_src, suggested_exec_name, conversion_opts)
 }
 
 
@@ -42,8 +42,10 @@ abstract class TestingProtocols {
     +void __init__(...)
     +{abstract} Verdict check(self, user_submitted_data)
     -{static} int run_code(path_to_executable, path_to_input_file, path_to_output_file, command_line_opts))
-    -{static} str generate_output_path(submission_id)
-    -{static} str generate_exec_path(submission_id)
+    -{static} Path generate_universal_dir(initial_number)
+    -{static} Path prevent_dir_name_collision(initial_number, format_function)
+    -{static} Path generate_output_path(submission_id)
+    -{static} Path generate_exec_path(submission_id)
 }
 
 TestingProtocols "1" <-- "+1 programming_language_data" ProgrammingLanguageData
@@ -56,31 +58,31 @@ class InputOutput {
 
 class InputCustomChecker {
     -set input_paths_set
-    -str path_to_checker_exec
+    -Path path_to_checker_exec
 
     +void __init__(...)
 }
 
 class RandomInputCustomChecker {
     -int test_count
-    -str path_to_input_generation_executable
-    -str path_to_checker_exec
+    -Path path_to_input_generation_executable
+    -Path path_to_checker_exec
 
 
     +void __init__(...)
-    -{static} str generate_input_dir(submission_id)
+    -{static} Path generate_input_dir(submission_id)
     -set generate_input(self, submission_id)
 }
 
 class LimitedWorkSpace {
-    -str header_location
-    -str footer_location
+    -Path path_to_header
+    -Path path_to_footer
     -str extension
 
     +void __init__(...)
-    -str generate_merged_path(self, submission_id)
-    -{static} str generate_unit_file()
-    -str generate_merged(self, user_submitted_data)
+    -Path generate_merged_path(self, submission_id)
+    -{static} Path generate_unit_file()
+    -Path generate_merged(self, user_submitted_data)
 }
 
 

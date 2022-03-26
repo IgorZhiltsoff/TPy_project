@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 import subprocess
+from pathlib import Path
 
 
 class UserSubmittedData:
@@ -19,6 +20,7 @@ class Verdict:
 
 
 class ProgrammingLanguageData:
+    """Data concerning certain programming language execution"""
     def __init__(self, convert_to_executable_fun):
         self.convert_to_executable = convert_to_executable_fun
 
@@ -59,12 +61,28 @@ class TestingProtocol(ABC):
                 return 0
 
     @staticmethod
+    def prevent_path_collision(initial_number, get_path):
+        current_path = get_path(initial_number)
+        current_number = initial_number
+        while current_path.exists():
+            current_number -= 1  # goes back not to collide with new submissions
+            current_number %= 65536
+            current_path = get_path(current_number)
+        return current_path
+
+    @staticmethod
     def generate_output_path(submission_id):
-        return f"/tmp/{submission_id}out"  # todo: check for existence
+        def get_out_path(number):
+            return Path(f"/tmp/{number}out")
+
+        return TestingProtocol.prevent_path_collision(submission_id, get_out_path)
 
     @staticmethod
     def generate_exec_path(submission_id):
-        return f"/tmp/{submission_id}exe"  # todo: check for existence
+        def get_exec_path(number):
+            return Path(f"/tmp/{number}exe")
+
+        return TestingProtocol.prevent_path_collision(submission_id, get_exec_path)
 
     return_code_to_error_msg = {1: "FAIL"}
 
@@ -83,19 +101,19 @@ class InputOutput(TestingProtocol):
                                 self.conversion_opts
         )
 
-        solution_output_location = TestingProtocol.generate_output_path(user_submitted_data.submission_id)
+        path_to_solution_output = TestingProtocol.generate_output_path(user_submitted_data.submission_id)
 
         # ITERATE OVER TESTS
         test = 0
         for path_to_input_file in self.input_output_paths_dict:
             # RUN
             feedback = TestingProtocol.run_code(path_to_executable, path_to_input_file,
-                                                solution_output_location, self.command_line_opts)
+                                                path_to_solution_output, self.command_line_opts)
             if feedback != 0:
                 return feedback
 
             # CHECK
-            if subprocess.run(['cmp', '--silent', solution_output_location,
+            if subprocess.run(['cmp', '--silent', path_to_solution_output,
                                self.input_output_paths_dict[path_to_input_file]]).returncode != 0:
                 return Verdict('WA', test)
 
@@ -121,19 +139,19 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
                                 self.conversion_opts
         )
 
-        solution_output_location = TestingProtocol.generate_output_path(user_submitted_data.submission_id)
+        path_to_solution_output = TestingProtocol.generate_output_path(user_submitted_data.submission_id)
 
         # ITERATE OVER TESTS
         test = 0
         for path_to_input_file in self.input_paths_set:
             # RUN
             feedback = TestingProtocol.run_code(path_to_executable, path_to_input_file,
-                                                solution_output_location, self.command_line_opts)
+                                                path_to_solution_output, self.command_line_opts)
             if feedback != 0:
                 return feedback
 
             # CHECK
-            if subprocess.run([self.path_to_checker_exec, path_to_input_file, solution_output_location],
+            if subprocess.run([self.path_to_checker_exec, path_to_input_file, path_to_solution_output],
                               stdout=subprocess.PIPE).stdout.decode('utf-8') != '1':
                 return Verdict('WA', test)
 
@@ -154,8 +172,11 @@ class RandomInputCustomChecker(TestingProtocol):
         self.path_to_checker_exec = path_to_checker_exec
 
     @staticmethod
-    def generate_input_dir(submission_id):  # todo: check for existence
-        input_dir = f'/tmp/{submission_id}rand'
+    def generate_input_dir(submission_id):
+        def get_rand_dir_path(number):
+            return Path(f"/tmp/{number}rand")
+
+        input_dir = TestingProtocol.prevent_path_collision(submission_id, get_rand_dir_path)
         subprocess.run(['mkdir', input_dir])
         return input_dir
 
@@ -164,7 +185,7 @@ class RandomInputCustomChecker(TestingProtocol):
 
         input_paths_set = set()
         for test in range(self.test_count):
-            infile_path = f'{input_dir}/{test}.in'
+            infile_path = Path(f'{input_dir}/{test}.in')  # no need to check collision as placed in fresh dir
             subprocess.run(['touch', infile_path])
             with open(infile_path, 'w') as infile:
                 return_code = -1
@@ -193,43 +214,47 @@ class LimitedWorkSpace(TestingProtocol):
        would be prepended and appended to student's code. Upon execution, this merged code
        should return 1 or 0, indicating whether the submitted implementation is correct"""
 
-    def __init__(self, header_location, footer_location, extension, **kwargs):
+    def __init__(self, path_to_header, path_to_footer, extension, **kwargs):
         super().__init__(**kwargs)
 
-        self.header_location = header_location
-        self.footer_location = footer_location
+        self.path_to_header = path_to_header
+        self.path_to_footer = path_to_footer
         self.extension = extension
 
-    def generate_merged_path(self, submission_id):  # todo: check for existence
-        return f"/tmp/{submission_id}merge{self.extension}"
+    def generate_merged_path(self, submission_id):
+        def get_merged_path(number):
+            return Path(f"/tmp/{number}merge{self.extension}")
+
+        return TestingProtocol.prevent_path_collision(submission_id, get_merged_path)
 
     @staticmethod
-    def generate_unit_file():  # todo: check for existence
-        unit_location = '/tmp/unit'
-        with open(unit_location, 'w') as unit:
-            subprocess.run(['echo', '-n', '1'], stdout=unit)
-        return unit_location
+    def generate_unit_file():
+        path_to_unit = Path('/tmp/unit')
+        if not path_to_unit.exists():
+            with open(path_to_unit, 'w') as unit:
+                subprocess.run(['echo', '-n', '1'], stdout=unit)
+        return path_to_unit
 
     def generate_merged(self, user_submitted_data):
-        merged_location = self.generate_merged_path(user_submitted_data.submission_id)
-        with open(merged_location, 'w') as merged:
-            subprocess.run(['sed', '', self.header_location, user_submitted_data.path_to_src, self.footer_location],
+        path_to_merged = self.generate_merged_path(user_submitted_data.submission_id)
+        with open(path_to_merged, 'w') as merged:
+            subprocess.run(['sed', '', self.path_to_header, user_submitted_data.path_to_src, self.path_to_footer],
                            stdout=merged)
-        return merged_location
+        return path_to_merged
 
     def check(self, user_submitted_data):
         # GENERATE SRC
-        merged_location = self.generate_merged(user_submitted_data)
+        path_to_merged = self.generate_merged(user_submitted_data)
 
         # REINTERPRET CUSTOM TESTING AS INPUT-OUTPUT TESTING
-        unit_location = LimitedWorkSpace.generate_unit_file()
+        path_to_unit = LimitedWorkSpace.generate_unit_file()
         trivial_protocol = InputOutput(
-            input_output_paths_dict={'/dev/stdin': unit_location},
+            input_output_paths_dict={Path('/dev/stdin'): path_to_unit},
             programming_language_data=self.programming_language_data,
             conversion_opts=self.conversion_opts,
             command_line_opts=self.command_line_opts
         )
-        merged_data = UserSubmittedData(merged_location, user_submitted_data.submission_id)
+        merged_data = UserSubmittedData(path_to_merged, user_submitted_data.submission_id)
         return trivial_protocol.check(user_submitted_data=merged_data)
 
 

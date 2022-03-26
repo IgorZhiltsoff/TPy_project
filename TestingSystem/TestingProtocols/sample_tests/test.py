@@ -56,8 +56,8 @@ class AnswerVerdictTest(unittest.TestCase):
 
     def test_limited_work_space(self):
         limited_work_space = LimitedWorkSpace(
-            header_location='limited_work_space/header.cpp',
-            footer_location='limited_work_space/footer.cpp',
+            path_to_header='limited_work_space/header.cpp',
+            path_to_footer='limited_work_space/footer.cpp',
             extension='.cpp',
             programming_language_data=cpp_data,
             conversion_opts=['-O2', '-Werror', '-Wpedantic']
