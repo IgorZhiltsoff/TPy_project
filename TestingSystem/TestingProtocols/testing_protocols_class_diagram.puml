@@ -42,8 +42,7 @@ abstract class TestingProtocols {
     +void __init__(...)
     +{abstract} Verdict check(self, user_submitted_data)
     -{static} int run_code(path_to_executable, path_to_input_file, path_to_output_file, command_line_opts))
-    -{static} Path generate_universal_dir(initial_number)
-    -{static} Path prevent_dir_name_collision(initial_number, format_function)
+    -{static} Path prevent_path_collision(initial_number, get_path)
     -{static} Path generate_output_path(submission_id)
     -{static} Path generate_exec_path(submission_id)
 }

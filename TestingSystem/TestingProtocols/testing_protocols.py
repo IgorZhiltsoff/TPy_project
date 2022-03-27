@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 import subprocess
 from pathlib import Path
+from random import randint
 
 
 class UserSubmittedData:
@@ -65,7 +66,7 @@ class TestingProtocol(ABC):
         current_path = get_path(initial_number)
         current_number = initial_number
         while current_path.exists():
-            current_number -= 1  # goes back not to collide with new submissions
+            current_number -= randint(1, 1000)  # goes back not to collide with new submissions
             current_number %= 65536
             current_path = get_path(current_number)
         return current_path
