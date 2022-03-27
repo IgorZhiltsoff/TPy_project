@@ -6,6 +6,7 @@ from language_support import cxx_data
 
 correct = UserSubmittedData('correct.cpp', 1)
 wrong = UserSubmittedData('wrong.cpp', 2)
+compilation_error = UserSubmittedData('compilation_error.cpp', 3)
 
 
 class CXXAnswerTest(unittest.TestCase):
@@ -20,6 +21,7 @@ class CXXAnswerTest(unittest.TestCase):
 
         self.assertEqual('AC', inout.check(user_submitted_data=correct).msg)
         self.assertEqual('WA', inout.check(user_submitted_data=wrong).msg)
+        self.assertEqual('CE', inout.check(user_submitted_data=compilation_error).msg)
 
     def test_in_custom(self):
         in_custom = InputCustomChecker(
@@ -32,6 +34,7 @@ class CXXAnswerTest(unittest.TestCase):
         )
         self.assertEqual('AC', in_custom.check(user_submitted_data=correct).msg)
         self.assertEqual('WA', in_custom.check(user_submitted_data=wrong).msg)
+        self.assertEqual('CE', in_custom.check(user_submitted_data=compilation_error).msg)
 
     def test_rand_custom(self):
         rand_custom = RandomInputCustomChecker(
@@ -43,6 +46,7 @@ class CXXAnswerTest(unittest.TestCase):
         )
         self.assertEqual('AC', rand_custom.check(user_submitted_data=correct).msg)
         self.assertEqual('WA', rand_custom.check(user_submitted_data=wrong).msg)
+        self.assertEqual('CE', rand_custom.check(user_submitted_data=compilation_error).msg)
 
     def test_limited_work_space(self):
         limited_work_space = LimitedWorkSpace(
@@ -54,10 +58,12 @@ class CXXAnswerTest(unittest.TestCase):
         )
 
         limited_work_space_correct = UserSubmittedData('limited_work_space/correct.cpp', 1)
-        limited_work_space_wrong = UserSubmittedData('limited_work_space/wrong.cpp', 1)
+        limited_work_space_wrong = UserSubmittedData('limited_work_space/wrong.cpp', 2)
+        limited_work_space_compilation_error = UserSubmittedData('compilation_error.cpp', 2)
 
         self.assertEqual('AC', limited_work_space.check(user_submitted_data=limited_work_space_correct).msg)
         self.assertEqual('WA', limited_work_space.check(user_submitted_data=limited_work_space_wrong).msg)
+        self.assertEqual('CE', limited_work_space.check(user_submitted_data=limited_work_space_compilation_error).msg)
 
 
 if __name__ == '__main__':

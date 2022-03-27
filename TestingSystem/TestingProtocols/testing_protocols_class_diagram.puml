@@ -30,7 +30,6 @@ class ProgrammingLanguageData {
         +void __init__(...)
         +int convert_to_executable(path_to_src, non_colliding_exec_name, conversion_opts)
 }
-' todo: wrong return type for convert
 
 
 ' ========================== PROTOCOLS =========================

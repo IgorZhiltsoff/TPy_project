@@ -12,10 +12,10 @@ def cxx_arbitrary_std_convert_to_executable(cxx_standard):
     def cxx_fixed_std_convert_to_executable(path_to_src, non_colliding_exec_name, conversion_opts=None):
         conversion_opts = conversion_opts if conversion_opts else []
 
-        subprocess.run(['g++', '-o', non_colliding_exec_name, f'-std=c++{cxx_standard}']
-                       + conversion_opts
-                       + [path_to_src])
-        return non_colliding_exec_name
+        conversion = subprocess.run(['g++', '-o', non_colliding_exec_name, f'-std=c++{cxx_standard}']
+                                    + conversion_opts
+                                    + [path_to_src])
+        return conversion.returncode
 
     return cxx_fixed_std_convert_to_executable
 
@@ -37,8 +37,8 @@ cxx_data = CXXData([11, 14, 17, 20])
 
 
 def haskell_convert_to_executable(path_to_src, non_colliding_exec_name, conversion_opts=None):
-    subprocess.run(['ghc', '-o', non_colliding_exec_name] + conversion_opts + [path_to_src])
-    return non_colliding_exec_name
+    conversion = subprocess.run(['ghc', '-o', non_colliding_exec_name] + conversion_opts + [path_to_src])
+    return conversion.returncode
 
 
 class HaskellData:
@@ -61,7 +61,7 @@ def python3_arbitrary_interpreter_convert_to_executable(path_to_interpreter):
         with open(non_colliding_exec_name, 'w') as script:
             subprocess.run(['echo', f'"{shebang}\n\n"'], stdout=script)  # todo: rmv quotations?
             subprocess.run(['cat', path_to_src], stdout=script)
-        return
+        return 0
 
     return python3_fixed_interpreter_convert_to_executable
 

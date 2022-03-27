@@ -103,7 +103,7 @@ class InputOutput(TestingProtocol):
                                     self.conversion_opts
         )
 
-        if conversion_return_code != path_to_executable:
+        if conversion_return_code != 0:
             return Verdict('CE', -1)
 
         path_to_solution_output = TestingProtocol.generate_output_path(user_submitted_data.submission_id)
@@ -145,7 +145,7 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
                                 self.conversion_opts
         )
 
-        if conversion_return_code != path_to_executable:
+        if conversion_return_code != 0:
             return Verdict('CE', -1)
 
         path_to_solution_output = TestingProtocol.generate_output_path(user_submitted_data.submission_id)
