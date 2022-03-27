@@ -1,7 +1,6 @@
 import unittest
-import subprocess
 from testing_protocols import InputOutput, InputCustomChecker, RandomInputCustomChecker, LimitedWorkSpace, \
-    UserSubmittedData, ProgrammingLanguageData
+    UserSubmittedData
 from language_support import cxx_data
 
 
@@ -28,7 +27,7 @@ class AnswerVerdictTest(unittest.TestCase):
                              "in_custom_tests/2.in",
                              "in_custom_tests/3.in"},
             path_to_checker_exec='in_custom_tests/custom_checker.out',
-            programming_language_data=cxx_data.cxx11_data,
+            programming_language_data=cxx_data.cxx14_data,
             conversion_opts=['-O2', '-Werror', '-Wpedantic']
         )
         self.assertEqual('AC', in_custom.check(user_submitted_data=correct).msg)
@@ -39,7 +38,7 @@ class AnswerVerdictTest(unittest.TestCase):
             test_count=3,
             path_to_input_generation_executable='rand_custom_tests/random_generator.out',
             path_to_checker_exec='rand_custom_tests/custom_checker.out',
-            programming_language_data=cxx_data.cxx11_data,
+            programming_language_data=cxx_data.cxx17_data,
             conversion_opts=['-O2', '-Werror', '-Wpedantic']
         )
         self.assertEqual('AC', rand_custom.check(user_submitted_data=correct).msg)
@@ -50,7 +49,7 @@ class AnswerVerdictTest(unittest.TestCase):
             path_to_header='limited_work_space/header.cpp',
             path_to_footer='limited_work_space/footer.cpp',
             extension='.cpp',
-            programming_language_data=cxx_data.cxx11_data,
+            programming_language_data=cxx_data.cxx20_data,
             conversion_opts=['-O2', '-Werror', '-Wpedantic']
         )
 

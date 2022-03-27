@@ -28,8 +28,9 @@ class UserSubmittedData {
 
 class ProgrammingLanguageData {
         +void __init__(...)
-        +Path convert_to_executable(path_to_src, suggested_exec_name, conversion_opts)
+        +int convert_to_executable(path_to_src, non_colliding_exec_name, conversion_opts)
 }
+' todo: wrong return type for convert
 
 
 ' ========================== PROTOCOLS =========================

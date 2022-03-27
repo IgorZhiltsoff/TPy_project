@@ -2,17 +2,20 @@
 
 from testing_protocols import ProgrammingLanguageData
 import subprocess
+from pathlib import Path
 
 
 # ================================================= CXX ================================================================
 
 
 def cxx_arbitrary_std_convert_to_executable(cxx_standard):
-    def cxx_fixed_std_convert_to_executable(path_to_src, suggested_exec_name, conversion_opts=None):
+    def cxx_fixed_std_convert_to_executable(path_to_src, non_colliding_exec_name, conversion_opts=None):
         conversion_opts = conversion_opts if conversion_opts else []
 
-        subprocess.run(['g++', '-o', suggested_exec_name, f'-std=c++{cxx_standard}'] + conversion_opts + [path_to_src])
-        return suggested_exec_name
+        subprocess.run(['g++', '-o', non_colliding_exec_name, f'-std=c++{cxx_standard}']
+                       + conversion_opts
+                       + [path_to_src])
+        return non_colliding_exec_name
 
     return cxx_fixed_std_convert_to_executable
 
@@ -33,23 +36,51 @@ cxx_data = CXXData([11, 14, 17, 20])
 # =============================================== HASKELL ==============================================================
 
 
-def haskell_convert_to_executable(path_to_src, suggested_exec_name, conversion_opts=None):
-    pass
+def haskell_convert_to_executable(path_to_src, non_colliding_exec_name, conversion_opts=None):
+    subprocess.run(['ghc', '-o', non_colliding_exec_name] + conversion_opts + [path_to_src])
+    return non_colliding_exec_name
 
 
-haskell_data = ProgrammingLanguageData(convert_to_executable_fun=haskell_convert_to_executable)
+class HaskellData:
+    @staticmethod
+    def __init__():
+        HaskellData.haskell_data = ProgrammingLanguageData(
+                        convert_to_executable_fun=haskell_convert_to_executable
+                    )
 
+
+haskell_data = HaskellData()
 
 # =============================================== PYTHON3 ==============================================================
 
 
-def python3_arbitrary_interpreter_convert_to_executable(interpreter):
-    def python3_fixed_interpreter_convert_to_executable(path_to_src, suggested_exec_name, conversion_opts=None):
-        pass
+def python3_arbitrary_interpreter_convert_to_executable(path_to_interpreter):
+    def python3_fixed_interpreter_convert_to_executable(path_to_src, non_colliding_exec_name, conversion_opts=None):
+        # add shebang
+        shebang = '#!' + str(path_to_interpreter)
+        with open(non_colliding_exec_name, 'r') as script:
+            subprocess.run(['echo', f'"{shebang}\n\n"'], stdout=script)  # todo: rmv quotations?
+            subprocess.run(['cat', path_to_src], stdout=script)
+        return
 
     return python3_fixed_interpreter_convert_to_executable
 
 
-...
+class PythonData:
+    @staticmethod
+    def __init__(interpreter_path_dict):
+        for interpreter in interpreter_path_dict:
+            setattr(PythonData,
+                    f'{interpreter}_data',
+                    ProgrammingLanguageData(
+                        convert_to_executable_fun=python3_arbitrary_interpreter_convert_to_executable(
+                            path_to_interpreter=interpreter_path_dict[interpreter]
+                        )
+                    ))
+
+
+python_data = PythonData({'python3': Path('/bin/python3')})
 
 # ============================================ JAVA or SCALA ===========================================================
+
+# TODO
