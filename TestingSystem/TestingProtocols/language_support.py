@@ -15,10 +15,13 @@ def cxx_arbitrary_std_convert_to_executable(cxx_standard):
     return cxx_fixed_std_convert_to_executable
 
 
-cxx11_data = ProgrammingLanguageData(convert_to_executable_fun=cxx_arbitrary_std_convert_to_executable(11))
-cxx14_data = ProgrammingLanguageData(convert_to_executable_fun=cxx_arbitrary_std_convert_to_executable(14))
-cxx17_data = ProgrammingLanguageData(convert_to_executable_fun=cxx_arbitrary_std_convert_to_executable(17))
-cxx20_data = ProgrammingLanguageData(convert_to_executable_fun=cxx_arbitrary_std_convert_to_executable(20))
+class CXXData(ProgrammingLanguageData):
+
+
+#cxx11_data = ProgrammingLanguageData(convert_to_executable_fun=cxx_arbitrary_std_convert_to_executable(11))
+#cxx14_data = ProgrammingLanguageData(convert_to_executable_fun=cxx_arbitrary_std_convert_to_executable(14))
+#cxx17_data = ProgrammingLanguageData(convert_to_executable_fun=cxx_arbitrary_std_convert_to_executable(17))
+#cxx20_data = ProgrammingLanguageData(convert_to_executable_fun=cxx_arbitrary_std_convert_to_executable(20))
 
 # =============================================== HASKELL ==============================================================
 
