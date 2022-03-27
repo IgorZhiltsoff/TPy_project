@@ -8,7 +8,7 @@ correct = UserSubmittedData('correct.cpp', 1)
 wrong = UserSubmittedData('wrong.cpp', 2)
 
 
-class AnswerVerdictTest(unittest.TestCase):
+class CXXAnswerTest(unittest.TestCase):
     def test_in_out(self):
         inout = InputOutput(
             input_output_paths_dict={"inout_tests/1.in": "inout_tests/1.out",

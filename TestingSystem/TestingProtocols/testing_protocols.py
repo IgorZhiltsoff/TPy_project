@@ -96,11 +96,15 @@ class InputOutput(TestingProtocol):
         self.input_output_paths_dict = input_output_paths_dict
 
     def check(self, user_submitted_data):
-        path_to_executable = self.programming_language_data.convert_to_executable(
-                                user_submitted_data.path_to_src,
-                                TestingProtocol.generate_exec_path(user_submitted_data.submission_id),
-                                self.conversion_opts
+        path_to_executable = TestingProtocol.generate_exec_path(user_submitted_data.submission_id)
+        conversion_return_code = self.programming_language_data.convert_to_executable(
+                                    user_submitted_data.path_to_src,
+                                    path_to_executable,
+                                    self.conversion_opts
         )
+
+        if conversion_return_code != path_to_executable:
+            return Verdict('CE', -1)
 
         path_to_solution_output = TestingProtocol.generate_output_path(user_submitted_data.submission_id)
 
@@ -134,11 +138,15 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
         self.path_to_checker_exec = path_to_checker_exec
 
     def check(self, user_submitted_data):
-        path_to_executable = self.programming_language_data.convert_to_executable(
+        path_to_executable = TestingProtocol.generate_exec_path(user_submitted_data.submission_id)
+        conversion_return_code = self.programming_language_data.convert_to_executable(
                                 user_submitted_data.path_to_src,
-                                TestingProtocol.generate_exec_path(user_submitted_data.submission_id),
+                                path_to_executable,
                                 self.conversion_opts
         )
+
+        if conversion_return_code != path_to_executable:
+            return Verdict('CE', -1)
 
         path_to_solution_output = TestingProtocol.generate_output_path(user_submitted_data.submission_id)
 
