@@ -59,8 +59,9 @@ def python3_arbitrary_interpreter_convert_to_executable(path_to_interpreter):
         # add shebang
         shebang = '#!' + str(path_to_interpreter)
         with open(non_colliding_exec_name, 'w') as script:
-            subprocess.run(['echo', f'"{shebang}\n\n"'], stdout=script)  # todo: rmv quotations?
+            subprocess.run(['echo', f'{shebang}\n\n'], stdout=script)
             subprocess.run(['cat', path_to_src], stdout=script)
+        subprocess.run(['chmod', '+x', non_colliding_exec_name])
         return 0
 
     return python3_fixed_interpreter_convert_to_executable

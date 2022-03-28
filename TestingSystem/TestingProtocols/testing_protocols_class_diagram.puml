@@ -72,6 +72,8 @@ class InputOutput {
     -dict input_output_paths_dict
 
     +void __init__(...)
+    -{static} bool equal_files(path_to_solution_output, path_to_correct_output)
+    -{static} void truncate_terminating_newline_if_necessary(path_to_file)
 }
 
 class InputCustomChecker {
@@ -79,6 +81,7 @@ class InputCustomChecker {
     -Path path_to_checker_exec
 
     +void __init__(...)
+    -bool passes_custom_checker(self, path_to_input_file, path_to_solution_output)
 }
 
 class RandomInputCustomChecker {

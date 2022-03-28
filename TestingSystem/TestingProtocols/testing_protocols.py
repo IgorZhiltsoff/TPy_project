@@ -95,6 +95,24 @@ class InputOutput(TestingProtocol):
         super().__init__(**kwargs)
         self.input_output_paths_dict = input_output_paths_dict
 
+        # truncate newlines terminating correct output files
+        for path_to_input_file in input_output_paths_dict:
+            InputOutput.truncate_terminating_newline_if_necessary(input_output_paths_dict[path_to_input_file])
+
+    @staticmethod
+    def truncate_terminating_newline_if_necessary(path_to_file):
+        last_character = subprocess.run(['tail', '-c', '1', path_to_file],
+                                        stdout=subprocess.PIPE).stdout.decode('utf-8')
+        if last_character == '\n':
+            subprocess.run(['truncate', '-s', '-1', path_to_file])
+
+    @staticmethod
+    def equal_files(path_to_solution_output, path_to_correct_output):
+        InputOutput.truncate_terminating_newline_if_necessary(path_to_solution_output)
+        return subprocess.run(['cmp', '--silent',
+                               path_to_solution_output,
+                               path_to_correct_output]).returncode == 0
+
     def check(self, user_submitted_data):
         path_to_executable = TestingProtocol.generate_exec_path(user_submitted_data.submission_id)
         conversion_return_code = self.programming_language_data.convert_to_executable(
@@ -115,11 +133,10 @@ class InputOutput(TestingProtocol):
             feedback = TestingProtocol.run_code(path_to_executable, path_to_input_file,
                                                 path_to_solution_output, self.command_line_opts)
             if feedback != 0:
-                return feedback
+                return Verdict('RE', test)
 
             # CHECK
-            if subprocess.run(['cmp', '--silent', path_to_solution_output,
-                               self.input_output_paths_dict[path_to_input_file]]).returncode != 0:
+            if not InputOutput.equal_files(path_to_solution_output, self.input_output_paths_dict[path_to_input_file]):
                 return Verdict('WA', test)
 
             test += 1
@@ -136,6 +153,10 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
 
         self.input_paths_set = input_paths_set
         self.path_to_checker_exec = path_to_checker_exec
+
+    def passes_custom_checker(self, path_to_input_file, path_to_solution_output):
+        return int(subprocess.run([self.path_to_checker_exec, path_to_input_file, path_to_solution_output],
+                                  stdout=subprocess.PIPE).stdout.decode('utf-8')) == 1
 
     def check(self, user_submitted_data):
         path_to_executable = TestingProtocol.generate_exec_path(user_submitted_data.submission_id)
@@ -157,11 +178,10 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
             feedback = TestingProtocol.run_code(path_to_executable, path_to_input_file,
                                                 path_to_solution_output, self.command_line_opts)
             if feedback != 0:
-                return feedback
+                return Verdict('RE', test)
 
             # CHECK
-            if subprocess.run([self.path_to_checker_exec, path_to_input_file, path_to_solution_output],
-                              stdout=subprocess.PIPE).stdout.decode('utf-8') != '1':
+            if not self.passes_custom_checker(path_to_input_file, path_to_solution_output):
                 return Verdict('WA', test)
 
             test += 1
