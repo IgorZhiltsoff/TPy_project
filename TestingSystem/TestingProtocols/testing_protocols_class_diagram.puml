@@ -33,23 +33,23 @@ class ProgrammingLanguageData {
 
 class CXXData
 
-CXXData "1" <-- "*" ProgrammingLanguageData
+CXXData "1" <-- "+1..*" ProgrammingLanguageData
 
 class HaskellData
 
-HaskellData "1" <-- "*" ProgrammingLanguageData
+HaskellData "1" <-- "+1..*" ProgrammingLanguageData
 
 class PythonData
 
-PythonData "1" <-- "*" ProgrammingLanguageData
+PythonData "1" <-- "+1..*" ProgrammingLanguageData
 
 class JavaData
 
-JavaData "1" <-- "*" ProgrammingLanguageData
+JavaData "1" <-- "+1..*" ProgrammingLanguageData
 
 class ScalaData
 
-ScalaData "1" <-- "*" ProgrammingLanguageData
+ScalaData "1" <-- "+1..*" ProgrammingLanguageData
 
 ' ========================== PROTOCOLS =========================
 
