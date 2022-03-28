@@ -31,6 +31,25 @@ class ProgrammingLanguageData {
         +int convert_to_executable(path_to_src, non_colliding_exec_name, conversion_opts)
 }
 
+class CXXData
+
+CXXData "1" <-- "*" ProgrammingLanguageData
+
+class HaskellData
+
+HaskellData "1" <-- "*" ProgrammingLanguageData
+
+class PythonData
+
+PythonData "1" <-- "*" ProgrammingLanguageData
+
+class JavaData
+
+JavaData "1" <-- "*" ProgrammingLanguageData
+
+class ScalaData
+
+ScalaData "1" <-- "*" ProgrammingLanguageData
 
 ' ========================== PROTOCOLS =========================
 
@@ -100,7 +119,7 @@ class ProblemData {
     +void __init__(...)
 }
 
-ProblemData "1" <--- "1..*" TestingProtocols
+ProblemData "1" <--- "testing_protocols_set 1..*" TestingProtocols
 
 
 class ExtendedSubmission {
