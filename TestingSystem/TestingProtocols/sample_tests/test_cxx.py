@@ -1,5 +1,5 @@
 import unittest
-from template_test import TemplateTest
+from template_test import BaseTestCase
 from testing_protocols import InputOutput, InputCustomChecker, RandomInputCustomChecker, LimitedWorkSpace, \
     UserSubmittedData
 from language_support import cxx_data
@@ -10,7 +10,7 @@ wrong_answer = UserSubmittedData('wrong_answer.cpp', 2)
 compilation_error = UserSubmittedData('compilation_error.cpp', 3)
 
 
-class CXXAnswerTest(TemplateTest):
+class CXXAnswerTest(BaseTestCase):
     def test_in_out(self):
         inout = InputOutput(
             input_output_paths_dict={"inout_tests/1.in": "inout_tests/1.out",
@@ -20,9 +20,12 @@ class CXXAnswerTest(TemplateTest):
             conversion_opts=['-O2', '-Werror', '-Wpedantic']
         )
 
-        self.assertEqual('AC', inout.check(user_submitted_data=accepted).msg)
-        self.assertEqual('WA', inout.check(user_submitted_data=wrong_answer).msg)
-        self.assertEqual('CE', inout.check(user_submitted_data=compilation_error).msg)
+        self.run_tests(
+            inout,
+            user_submitted_data_to_expected_verdict={accepted: 'AC',
+                                                     wrong_answer: 'WA',
+                                                     compilation_error: 'CE'}
+        )
 
     def test_in_custom(self):
         in_custom = InputCustomChecker(
@@ -33,9 +36,12 @@ class CXXAnswerTest(TemplateTest):
             programming_language_data=cxx_data.cxx14_data,
             conversion_opts=['-O2', '-Werror', '-Wpedantic']
         )
-        self.assertEqual('AC', in_custom.check(user_submitted_data=accepted).msg)
-        self.assertEqual('WA', in_custom.check(user_submitted_data=wrong_answer).msg)
-        self.assertEqual('CE', in_custom.check(user_submitted_data=compilation_error).msg)
+        self.run_tests(
+            in_custom,
+            user_submitted_data_to_expected_verdict={accepted: 'AC',
+                                                     wrong_answer: 'WA',
+                                                     compilation_error: 'CE'}
+        )
 
     def test_rand_custom(self):
         rand_custom = RandomInputCustomChecker(
@@ -45,9 +51,12 @@ class CXXAnswerTest(TemplateTest):
             programming_language_data=cxx_data.cxx17_data,
             conversion_opts=['-O2', '-Werror', '-Wpedantic']
         )
-        self.assertEqual('AC', rand_custom.check(user_submitted_data=accepted).msg)
-        self.assertEqual('WA', rand_custom.check(user_submitted_data=wrong_answer).msg)
-        self.assertEqual('CE', rand_custom.check(user_submitted_data=compilation_error).msg)
+        self.run_tests(
+            rand_custom,
+            user_submitted_data_to_expected_verdict={accepted: 'AC',
+                                                     wrong_answer: 'WA',
+                                                     compilation_error: 'CE'}
+        )
 
     def test_limited_work_space(self):
         limited_work_space = LimitedWorkSpace(
@@ -62,9 +71,12 @@ class CXXAnswerTest(TemplateTest):
         limited_work_space_wrong_answer = UserSubmittedData('limited_work_space/wrong_answer.cpp', 2)
         limited_work_space_compilation_error = UserSubmittedData('compilation_error.cpp', 2)
 
-        self.assertEqual('AC', limited_work_space.check(user_submitted_data=limited_work_space_accepted).msg)
-        self.assertEqual('WA', limited_work_space.check(user_submitted_data=limited_work_space_wrong_answer).msg)
-        self.assertEqual('CE', limited_work_space.check(user_submitted_data=limited_work_space_compilation_error).msg)
+        self.run_tests(
+            limited_work_space,
+            user_submitted_data_to_expected_verdict={limited_work_space_accepted: 'AC',
+                                                     limited_work_space_wrong_answer: 'WA',
+                                                     limited_work_space_compilation_error: 'CE'}
+        )
 
 
 if __name__ == '__main__':
