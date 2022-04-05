@@ -3,8 +3,8 @@ from testing_protocols import InputOutput, InputCustomChecker, RandomInputCustom
     UserSubmittedData
 from language_support import python_data
 
-correct = UserSubmittedData('correct.py', 1)
-wrong = UserSubmittedData('wrong.py', 2)
+accepted = UserSubmittedData('accepted.py', 1)
+wrong_answer = UserSubmittedData('wrong_answer_answer.py', 2)
 runtime_error = UserSubmittedData('runtime_error.py', 3)
 
 
@@ -17,8 +17,8 @@ class Python3AnswerTest(unittest.TestCase):
             programming_language_data=python_data.python3_data
         )
 
-        self.assertEqual('AC', inout.check(user_submitted_data=correct).msg)
-        self.assertEqual('WA', inout.check(user_submitted_data=wrong).msg)
+        self.assertEqual('AC', inout.check(user_submitted_data=accepted).msg)
+        self.assertEqual('WA', inout.check(user_submitted_data=wrong_answer).msg)
         self.assertEqual('RE', inout.check(user_submitted_data=runtime_error).msg)
 
     def test_in_custom(self):
@@ -29,8 +29,8 @@ class Python3AnswerTest(unittest.TestCase):
             path_to_checker_exec='in_custom_tests/custom_checker.out',
             programming_language_data=python_data.python3_data
         )
-        self.assertEqual('AC', in_custom.check(user_submitted_data=correct).msg)
-        self.assertEqual('WA', in_custom.check(user_submitted_data=wrong).msg)
+        self.assertEqual('AC', in_custom.check(user_submitted_data=accepted).msg)
+        self.assertEqual('WA', in_custom.check(user_submitted_data=wrong_answer).msg)
         self.assertEqual('RE', in_custom.check(user_submitted_data=runtime_error).msg)
 
     def test_rand_custom(self):
@@ -40,8 +40,8 @@ class Python3AnswerTest(unittest.TestCase):
             path_to_checker_exec='rand_custom_tests/custom_checker.out',
             programming_language_data=python_data.python3_data
         )
-        self.assertEqual('AC', rand_custom.check(user_submitted_data=correct).msg)
-        self.assertEqual('WA', rand_custom.check(user_submitted_data=wrong).msg)
+        self.assertEqual('AC', rand_custom.check(user_submitted_data=accepted).msg)
+        self.assertEqual('WA', rand_custom.check(user_submitted_data=wrong_answer).msg)
         self.assertEqual('RE', rand_custom.check(user_submitted_data=runtime_error).msg)
 
     def test_limited_work_space(self):
@@ -52,11 +52,11 @@ class Python3AnswerTest(unittest.TestCase):
             programming_language_data=python_data.python3_data
         )
 
-        limited_work_space_correct = UserSubmittedData('limited_work_space/correct.py', 1)
-        limited_work_space_wrong = UserSubmittedData('limited_work_space/wrong.py', 2)
+        limited_work_space_accepted = UserSubmittedData('limited_work_space/accepted.py', 1)
+        limited_work_space_wrong_answer = UserSubmittedData('limited_work_space/wrong_answer.py', 2)
 
-        self.assertEqual('AC', limited_work_space.check(user_submitted_data=limited_work_space_correct).msg)
-        self.assertEqual('WA', limited_work_space.check(user_submitted_data=limited_work_space_wrong).msg)
+        self.assertEqual('AC', limited_work_space.check(user_submitted_data=limited_work_space_accepted).msg)
+        self.assertEqual('WA', limited_work_space.check(user_submitted_data=limited_work_space_wrong_answer).msg)
         self.assertEqual('RE', limited_work_space.check(user_submitted_data=runtime_error).msg)
 
 
