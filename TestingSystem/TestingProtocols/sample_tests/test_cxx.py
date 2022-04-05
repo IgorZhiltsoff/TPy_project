@@ -4,6 +4,7 @@ from testing_protocols import InputOutput, InputCustomChecker, RandomInputCustom
     UserSubmittedData
 from language_support import cxx_data
 
+warning_opts = ['-O2', '-Werror', '-Wpedantic']
 
 accepted = UserSubmittedData('accepted.cpp', 1)
 wrong_answer = UserSubmittedData('wrong_answer.cpp', 2)
@@ -22,7 +23,7 @@ class CXXAnswerTest(BaseTestCase):
                                      "inout_tests/2.in": "inout_tests/2.out",
                                      "inout_tests/3.in": "inout_tests/3.out"},
             programming_language_data=cxx_data.cxx11_data,
-            conversion_opts=['-O2', '-Werror', '-Wpedantic']
+            conversion_opts=warning_opts
         )
 
         user_submitted_data_to_expected_verdict = \
@@ -39,7 +40,7 @@ class CXXAnswerTest(BaseTestCase):
                              "in_custom_tests/3.in"},
             path_to_checker_exec='in_custom_tests/custom_checker.out',
             programming_language_data=cxx_data.cxx14_data,
-            conversion_opts=['-O2', '-Werror', '-Wpedantic']
+            conversion_opts=warning_opts
         )
 
         user_submitted_data_to_expected_verdict = \
@@ -55,7 +56,7 @@ class CXXAnswerTest(BaseTestCase):
             path_to_input_generation_executable='rand_custom_tests/random_generator.out',
             path_to_checker_exec='rand_custom_tests/custom_checker.out',
             programming_language_data=cxx_data.cxx17_data,
-            conversion_opts=['-O2', '-Werror', '-Wpedantic']
+            conversion_opts=warning_opts
         )
 
         user_submitted_data_to_expected_verdict = \
@@ -71,7 +72,7 @@ class CXXAnswerTest(BaseTestCase):
             path_to_footer='limited_work_space/footer.cpp',
             extension='.cpp',
             programming_language_data=cxx_data.cxx20_data,
-            conversion_opts=['-O2', '-Werror', '-Wpedantic']
+            conversion_opts=warning_opts
         )
 
         limited_work_space_accepted = UserSubmittedData('limited_work_space/accepted.cpp', 1)
