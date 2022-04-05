@@ -1,12 +1,17 @@
 import unittest
-from template_test import BaseTestCase
+from base_test_case import BaseTestCase
 from testing_protocols import InputOutput, InputCustomChecker, RandomInputCustomChecker, LimitedWorkSpace, \
     UserSubmittedData
 from language_support import python_data
 
 accepted = UserSubmittedData('accepted.py', 1)
-wrong_answer = UserSubmittedData('wrong_answer_answer.py', 2)
+wrong_answer = UserSubmittedData('wrong_answer.py', 2)
 runtime_error = UserSubmittedData('runtime_error.py', 3)
+
+user_submitted_data_to_expected_verdict_generator = \
+    BaseTestCase.standard_user_submitted_data_to_expected_verdict_generator(
+        ['AC', 'WA', 'RE']
+    )
 
 
 class Python3AnswerTest(BaseTestCase):
@@ -18,11 +23,11 @@ class Python3AnswerTest(BaseTestCase):
             programming_language_data=python_data.python3_data
         )
 
+        user_submitted_data_to_expected_verdict = \
+            user_submitted_data_to_expected_verdict_generator().evaluate(globals())
         self.run_tests(
             inout,
-            user_submitted_data_to_expected_verdict={accepted: 'AC',
-                                                     wrong_answer: 'WA',
-                                                     runtime_error: 'RE'}
+            user_submitted_data_to_expected_verdict=user_submitted_data_to_expected_verdict
         )
 
     def test_in_custom(self):
@@ -33,11 +38,12 @@ class Python3AnswerTest(BaseTestCase):
             path_to_checker_exec='in_custom_tests/custom_checker.out',
             programming_language_data=python_data.python3_data
         )
+
+        user_submitted_data_to_expected_verdict = \
+            user_submitted_data_to_expected_verdict_generator().evaluate(globals())
         self.run_tests(
             in_custom,
-            user_submitted_data_to_expected_verdict={accepted: 'AC',
-                                                     wrong_answer: 'WA',
-                                                     runtime_error: 'RE'}
+            user_submitted_data_to_expected_verdict=user_submitted_data_to_expected_verdict
         )
 
     def test_rand_custom(self):
@@ -47,11 +53,12 @@ class Python3AnswerTest(BaseTestCase):
             path_to_checker_exec='rand_custom_tests/custom_checker.out',
             programming_language_data=python_data.python3_data
         )
+
+        user_submitted_data_to_expected_verdict = \
+            user_submitted_data_to_expected_verdict_generator().evaluate(globals())
         self.run_tests(
             rand_custom,
-            user_submitted_data_to_expected_verdict={accepted: 'AC',
-                                                     wrong_answer: 'WA',
-                                                     runtime_error: 'RE'}
+            user_submitted_data_to_expected_verdict=user_submitted_data_to_expected_verdict
         )
 
     def test_limited_work_space(self):
@@ -66,11 +73,11 @@ class Python3AnswerTest(BaseTestCase):
         limited_work_space_wrong_answer = UserSubmittedData('limited_work_space/wrong_answer.py', 2)
         limited_work_space_runtime_error = runtime_error
 
+        user_submitted_data_to_expected_verdict = \
+            user_submitted_data_to_expected_verdict_generator('limited_work_space_').evaluate(locals())
         self.run_tests(
             limited_work_space,
-            user_submitted_data_to_expected_verdict={limited_work_space_accepted: 'AC',
-                                                     limited_work_space_wrong_answer: 'WA',
-                                                     limited_work_space_runtime_error: 'RE'}
+            user_submitted_data_to_expected_verdict=user_submitted_data_to_expected_verdict
         )
 
 

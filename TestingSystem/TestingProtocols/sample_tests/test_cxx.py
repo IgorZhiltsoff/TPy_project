@@ -1,5 +1,5 @@
 import unittest
-from template_test import BaseTestCase
+from base_test_case import BaseTestCase
 from testing_protocols import InputOutput, InputCustomChecker, RandomInputCustomChecker, LimitedWorkSpace, \
     UserSubmittedData
 from language_support import cxx_data
@@ -8,6 +8,11 @@ from language_support import cxx_data
 accepted = UserSubmittedData('accepted.cpp', 1)
 wrong_answer = UserSubmittedData('wrong_answer.cpp', 2)
 compilation_error = UserSubmittedData('compilation_error.cpp', 3)
+
+user_submitted_data_to_expected_verdict_generator = \
+    BaseTestCase.standard_user_submitted_data_to_expected_verdict_generator(
+        ['AC', 'WA', 'CE']
+    )
 
 
 class CXXAnswerTest(BaseTestCase):
@@ -20,11 +25,11 @@ class CXXAnswerTest(BaseTestCase):
             conversion_opts=['-O2', '-Werror', '-Wpedantic']
         )
 
+        user_submitted_data_to_expected_verdict = \
+            user_submitted_data_to_expected_verdict_generator().evaluate(globals())
         self.run_tests(
             inout,
-            user_submitted_data_to_expected_verdict={accepted: 'AC',
-                                                     wrong_answer: 'WA',
-                                                     compilation_error: 'CE'}
+            user_submitted_data_to_expected_verdict=user_submitted_data_to_expected_verdict
         )
 
     def test_in_custom(self):
@@ -36,11 +41,12 @@ class CXXAnswerTest(BaseTestCase):
             programming_language_data=cxx_data.cxx14_data,
             conversion_opts=['-O2', '-Werror', '-Wpedantic']
         )
+
+        user_submitted_data_to_expected_verdict = \
+            user_submitted_data_to_expected_verdict_generator().evaluate(globals())
         self.run_tests(
             in_custom,
-            user_submitted_data_to_expected_verdict={accepted: 'AC',
-                                                     wrong_answer: 'WA',
-                                                     compilation_error: 'CE'}
+            user_submitted_data_to_expected_verdict=user_submitted_data_to_expected_verdict
         )
 
     def test_rand_custom(self):
@@ -51,11 +57,12 @@ class CXXAnswerTest(BaseTestCase):
             programming_language_data=cxx_data.cxx17_data,
             conversion_opts=['-O2', '-Werror', '-Wpedantic']
         )
+
+        user_submitted_data_to_expected_verdict = \
+            user_submitted_data_to_expected_verdict_generator().evaluate(globals())
         self.run_tests(
             rand_custom,
-            user_submitted_data_to_expected_verdict={accepted: 'AC',
-                                                     wrong_answer: 'WA',
-                                                     compilation_error: 'CE'}
+            user_submitted_data_to_expected_verdict=user_submitted_data_to_expected_verdict
         )
 
     def test_limited_work_space(self):
@@ -71,11 +78,11 @@ class CXXAnswerTest(BaseTestCase):
         limited_work_space_wrong_answer = UserSubmittedData('limited_work_space/wrong_answer.cpp', 2)
         limited_work_space_compilation_error = UserSubmittedData('compilation_error.cpp', 2)
 
+        user_submitted_data_to_expected_verdict = \
+            user_submitted_data_to_expected_verdict_generator('limited_work_space_').evaluate(locals())
         self.run_tests(
             limited_work_space,
-            user_submitted_data_to_expected_verdict={limited_work_space_accepted: 'AC',
-                                                     limited_work_space_wrong_answer: 'WA',
-                                                     limited_work_space_compilation_error: 'CE'}
+            user_submitted_data_to_expected_verdict=user_submitted_data_to_expected_verdict
         )
 
 
