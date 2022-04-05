@@ -127,8 +127,7 @@ class InputOutput(TestingProtocol):
         path_to_solution_output = TestingProtocol.generate_output_path(user_submitted_data.submission_id)
 
         # ITERATE OVER TESTS
-        test = 0
-        for path_to_input_file in self.input_output_paths_dict:
+        for test, path_to_input_file in enumerate(self.input_output_paths_dict):
             # RUN
             feedback = TestingProtocol.run_code(path_to_executable, path_to_input_file,
                                                 path_to_solution_output, self.command_line_opts)
@@ -172,8 +171,7 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
         path_to_solution_output = TestingProtocol.generate_output_path(user_submitted_data.submission_id)
 
         # ITERATE OVER TESTS
-        test = 0
-        for path_to_input_file in self.input_paths_set:
+        for test, path_to_input_file in enumerate(self.input_paths_set):
             # RUN
             feedback = TestingProtocol.run_code(path_to_executable, path_to_input_file,
                                                 path_to_solution_output, self.command_line_opts)
