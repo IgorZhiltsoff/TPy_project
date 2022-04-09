@@ -1,42 +1,46 @@
 import json
 from abc import ABC, abstractmethod
-from enum import Enum, auto
-
-
-class Mode(Enum):
-    PROBLEM = auto
-    SUBMISSION = auto
 
 
 class DataCustodian(ABC):
+    """A class for keeping data which was input by user
+    Exists to prevent the necessity to implement
+    adapters in case we choose data interchange formats
+    other than Json"""
+
     @abstractmethod
-    def fill_in(self, key, val):
+    def nested_fill_in(self, key, val):
         pass
 
     @abstractmethod
     def dump_data(self):
         pass
 
-    def __init__(self, mode, path_to_dump_dir, entity_id):
-        self.path_to_dump = None
-        if mode == Mode.PROBLEM:
-            self.create_problem_dump(path_to_dump_dir, entity_id)
-        else:
-            self.create_submission_dump(path_to_dump_dir, entity_id)
+    def fill_in(self, key, val):
+        self.nested_fill_in((key, ), val)
 
-    def create_dump(self, path_to_dump_dir, entity_id):  # todo
+    def fill_in_subdata(self, subdata):
+        pass
+
+    def __init__(self, path_to_dump_dir, entity_id):
+        self.create_dump(path_to_dump_dir, entity_id)
+
+    def create_dump(self, path_to_dump_dir, entity_id):
         self.path_to_dump = f'{path_to_dump_dir}/{entity_id}.json'
 
 
 class JsonDataCustodian(DataCustodian):
-    def __init__(self, mode, path_to_dump_dir, entity_id):
-        super(JsonDataCustodian, self).__init__(mode, path_to_dump_dir, entity_id)
+    """Data custodian which works with .json files
+    Most probably the best and the only choice"""
+
+    def __init__(self, path_to_dump_dir, entity_id):
+        super(JsonDataCustodian, self).__init__(path_to_dump_dir, entity_id)
         self.gathered_data = {}
 
-    def fill_in(self, key_sequence, val):
+    def nested_fill_in(self, key_sequence, val):
         dictionary = self.gathered_data
         for key in key_sequence[:-1]:
-            dictionary = dictionary[key]
+            dictionary = dictionary.setdefault(key, {})
         dictionary[key_sequence[-1]] = val
 
     def dump_data(self):
