@@ -82,25 +82,4 @@ class LimitedWorkSpaceUploadWizard {
 }
 ProtocolUploadWizard <|--- LimitedWorkSpaceUploadWizard
 
-' ========================== CUSTODIAN =========================
-
-
-abstract class DataCustodian {
-    +{static} void create_file()
-    +{abstract} void fill_in(key, value)
-}
-note left of DataCustodian
-Exists to prevent
-the necessity
-to implement
-adapters in case
-we choose to use other
-data interchange formats
-end note
-
-
-class JsonDataCustodian
-
-DataCustodian <|- JsonDataCustodian
-
 @enduml

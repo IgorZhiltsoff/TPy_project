@@ -1,0 +1,40 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+skinparam enum {
+  BackgroundColor LightBlue
+}
+
+enum Mode <<enumeration>> {
+PROBLEM
+SUBMISSION
+}
+
+abstract class DataCustodian {
+    +void __init__(self, mode)
+    +{abstract} void fill_in(self, key_sequence, val)
+    +{abstract} void dump_data(self)
+
+    -void create_problem_dump(self)
+    -void create_submission_dump(self)
+    -Path path_to_dump
+}
+
+' DataCustodian "1   " <-- "1 mode" Mode
+
+note left of DataCustodian
+Exists to prevent
+the necessity
+to implement
+adapters in case
+we choose to use other
+data interchange formats
+end note
+
+class JsonDataCustodian {
+    -dict gathered_data
+}
+
+DataCustodian <|-- JsonDataCustodian
+
+@enduml
