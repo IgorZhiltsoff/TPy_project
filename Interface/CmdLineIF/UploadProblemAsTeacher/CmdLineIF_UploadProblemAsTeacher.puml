@@ -1,0 +1,106 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+' ========================== GENERAL =========================
+
+class GeneralUploadWizard {
+    +void upload_problem()
+
+    -void upload_statement(data_custodian)
+    -void assemble_problem_data(data_custodian)
+}
+
+note left of GeneralUploadWizard
+The hierarchy of wizards is
+**ideologically**
+a hierarchy of classes
+
+But these classes do
+not require instances
+
+The Pythonic way to
+implement such hierarchy
+is encapsulating wizards'
+logic in modules
+(separate .py files)
+end note
+
+class ProblemDataUploadWizard {
+    -void form_programming_language_data(data_custodian)
+    -void choose_and_run_protocol_assembler(data_custodian)
+}
+GeneralUploadWizard "1" <--- "1" ProblemDataUploadWizard
+
+' ========================== PROTOCOLS =========================
+
+abstract class ProtocolUploadWizard {
+    +{abstract} void upload(data_custodian)
+}
+ProblemDataUploadWizard "1" <--- "4" ProtocolUploadWizard : one for each protocol
+
+' ========================== INCOMPLETE WIZARDS =========================
+
+abstract class InputFilesUploadWizard {
+    #void upload_inputs(data_custodian)
+}
+
+abstract class CorrectOutputFilesUploadWizard {
+    #void upload_random_input_generator(data_custodian)
+}
+
+abstract class CustomCheckerUploadWizard {
+    #{static} void upload_custom_checker(data_custodian)
+}
+
+abstract class RandomInputUploadWizard {
+    #{static} void upload_random_input_generator(data_custodian)
+}
+
+ProtocolUploadWizard <|-- InputFilesUploadWizard
+ProtocolUploadWizard <|-- CorrectOutputFilesUploadWizard
+ProtocolUploadWizard <|-- CustomCheckerUploadWizard
+ProtocolUploadWizard <|-- RandomInputUploadWizard
+
+' ========================== COMPLETE WIZARDS =========================
+
+
+class InputOutputUploadWizard
+InputFilesUploadWizard <|-- InputOutputUploadWizard
+CorrectOutputFilesUploadWizard <|-- InputOutputUploadWizard
+
+class InputCustomCheckerUploadWizard
+InputFilesUploadWizard <|-- InputCustomCheckerUploadWizard
+CustomCheckerUploadWizard <|-- InputCustomCheckerUploadWizard
+
+class RandomInputCustomCheckerUploadWizard
+RandomInputUploadWizard <|-- RandomInputCustomCheckerUploadWizard
+CustomCheckerUploadWizard <|-- RandomInputCustomCheckerUploadWizard
+
+class LimitedWorkSpaceUploadWizard {
+    -{static} void upload_header(data_custodian)
+    -{static} void upload_footer(data_custodian)
+}
+ProtocolUploadWizard <|--- LimitedWorkSpaceUploadWizard
+
+' ========================== CUSTODIAN =========================
+
+
+abstract class DataCustodian {
+    +{static} void create_file()
+    +{abstract} void fill_in(key, value)
+}
+note left of DataCustodian
+Exists to prevent
+the necessity
+to implement
+adapters in case
+we choose to use other
+data interchange formats
+end note
+
+
+class JsonDataCustodian
+
+DataCustodian <|- JsonDataCustodian
+
+@enduml
