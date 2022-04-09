@@ -17,23 +17,20 @@ class DataCustodian(ABC):
     def dump_data(self):
         pass
 
-    def __init__(self, mode):
+    def __init__(self, mode, path_to_dump_dir, entity_id):
         self.path_to_dump = None
         if mode == Mode.PROBLEM:
-            self.create_problem_dump()
+            self.create_problem_dump(path_to_dump_dir, entity_id)
         else:
-            self.create_submission_dump()
+            self.create_submission_dump(path_to_dump_dir, entity_id)
 
-    def create_problem_dump(self):  # todo
-        pass
-
-    def create_submission_dump(self):  # todo
-        pass
+    def create_dump(self, path_to_dump_dir, entity_id):  # todo
+        self.path_to_dump = f'{path_to_dump_dir}/{entity_id}.json'
 
 
 class JsonDataCustodian(DataCustodian):
-    def __init__(self, mode):
-        super(JsonDataCustodian, self).__init__(mode)
+    def __init__(self, mode, path_to_dump_dir, entity_id):
+        super(JsonDataCustodian, self).__init__(mode, path_to_dump_dir, entity_id)
         self.gathered_data = {}
 
     def fill_in(self, key_sequence, val):

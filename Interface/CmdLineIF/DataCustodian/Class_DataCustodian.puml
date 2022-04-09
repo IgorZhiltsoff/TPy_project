@@ -11,16 +11,13 @@ SUBMISSION
 }
 
 abstract class DataCustodian {
-    +void __init__(self, mode)
+    +void __init__(self, mode, path_to_dump_dir, entity_id)
     +{abstract} void fill_in(self, key_sequence, val)
     +{abstract} void dump_data(self)
 
     -void create_problem_dump(self)
     -void create_submission_dump(self)
-    -Path path_to_dump
 }
-
-' DataCustodian "1   " <-- "1 mode" Mode
 
 note left of DataCustodian
 Exists to prevent
