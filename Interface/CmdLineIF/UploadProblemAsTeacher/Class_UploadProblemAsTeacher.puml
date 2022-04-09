@@ -3,14 +3,14 @@
 
 ' ========================== GENERAL =========================
 
-class GeneralUploadWizard {
+class general_upload_wizard {
     +void upload_problem()
 
     -void upload_statement(data_custodian, verbose)
     -void assemble_problem_data(data_custodian, verbose)
 }
 
-note left of GeneralUploadWizard
+note left of general_upload_wizard
 The hierarchy of wizards is **ideologically** a hierarchy of classes
 
 But these classes do not require instances
@@ -19,65 +19,65 @@ The Pythonic way to implement such a hierarchy is encapsulating wizards'
 logic in modules (separate .py files)
 To manage imports easily, we will organize them as packages
 Note, that not every class will get its own module
-E.g. incomplete wizards will inhabit the ProtocolUploadWizard package,
+E.g. incomplete wizards will inhabit the protocol_upload_wizard package,
 as they should not be visible outside of this hierarchy
 end note
 
-class ProblemDataUploadWizard {
+class problem_data_upload_wizard {
     -void form_programming_language_data(data_custodian, verbose)
     -void choose_and_run_protocol_assembler(data_custodian, verbose)
 }
-GeneralUploadWizard "1" <--- "1" ProblemDataUploadWizard
+general_upload_wizard "1" <--- "1" problem_data_upload_wizard
 
 ' ========================== PROTOCOLS =========================
 
-abstract class ProtocolUploadWizard {
+abstract class protocol_upload_wizard {
     +{abstract} void upload(data_custodian, verbose)
 }
-ProblemDataUploadWizard "1" <--- "4" ProtocolUploadWizard : one for each protocol
+problem_data_upload_wizard "1" <--- "4" protocol_upload_wizard : one for each protocol
 
 ' ========================== INCOMPLETE WIZARDS =========================
 
-abstract class InputFilesUploadWizard {
+abstract class input_files_upload_wizard {
     #void upload_inputs(data_custodian, verbose)
 }
 
-abstract class CorrectOutputFilesUploadWizard {
+abstract class correct_output_files_wizard {
     #void upload_random_input_generator(data_custodian, verbose)
 }
 
-abstract class CustomCheckerUploadWizard {
+abstract class custom_checker_upload_wizard {
     #{static} void upload_custom_checker(data_custodian, verbose)
 }
 
-abstract class RandomInputUploadWizard {
+abstract class random_input_upload_wizard {
     #{static} void upload_random_input_generator(data_custodian, verbose)
 }
 
-ProtocolUploadWizard <|-- InputFilesUploadWizard
-ProtocolUploadWizard <|-- CorrectOutputFilesUploadWizard
-ProtocolUploadWizard <|-- CustomCheckerUploadWizard
-ProtocolUploadWizard <|-- RandomInputUploadWizard
+protocol_upload_wizard <|-- input_files_upload_wizard
+protocol_upload_wizard <|-- correct_output_files_wizard
+protocol_upload_wizard <|-- custom_checker_upload_wizard
+protocol_upload_wizard <|-- random_input_upload_wizard
 
 ' ========================== COMPLETE WIZARDS =========================
 
 
-class InputOutputUploadWizard
-InputFilesUploadWizard <|-- InputOutputUploadWizard
-CorrectOutputFilesUploadWizard <|-- InputOutputUploadWizard
+class input_output_upload_wizard
+input_files_upload_wizard <|-- input_output_upload_wizard
+correct_output_files_wizard <|-- input_output_upload_wizard
 
-class InputCustomCheckerUploadWizard
-InputFilesUploadWizard <|-- InputCustomCheckerUploadWizard
-CustomCheckerUploadWizard <|-- InputCustomCheckerUploadWizard
+class input_custom_checker_wizard
+input_files_upload_wizard <|-- input_custom_checker_wizard
+custom_checker_upload_wizard <|-- input_custom_checker_wizard
 
-class RandomInputCustomCheckerUploadWizard
-RandomInputUploadWizard <|-- RandomInputCustomCheckerUploadWizard
-CustomCheckerUploadWizard <|-- RandomInputCustomCheckerUploadWizard
+class random_input_custom_wizard
+random_input_upload_wizard <|-- random_input_custom_wizard
+custom_checker_upload_wizard <|-- random_input_custom_wizard
 
-class LimitedWorkSpaceUploadWizard {
+class limited_work_space_wizard {
     -{static} void upload_header(data_custodian, verbose)
     -{static} void upload_footer(data_custodian, verbose)
 }
-ProtocolUploadWizard <|--- LimitedWorkSpaceUploadWizard
+protocol_upload_wizard <|--- limited_work_space_wizard
 
 @enduml
