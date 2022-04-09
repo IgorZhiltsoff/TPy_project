@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Added scripts for running tests: TestingSystem/TestingProtocols/run_*_tests.sh">
-      <change beforePath="$PROJECT_DIR$/../../TaskManager.ods" beforeDir="false" afterPath="$PROJECT_DIR$/../../TaskManager.ods" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sample_tests/base_test_case.py" beforeDir="false" afterPath="$PROJECT_DIR$/sample_tests/base_test_case.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +33,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Interface/CmdLineIF" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager" selected="Python tests.Python tests for test_cxx.CXXAnswerTest.test_in_out">
     <configuration name="Python tests for test_cxx.CXXAnswerTest" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
@@ -117,6 +115,9 @@
       <updated>1649197637557</updated>
       <workItem from="1649197639352" duration="4891000" />
       <workItem from="1649439411070" duration="61000" />
+      <workItem from="1649442442274" duration="530000" />
+      <workItem from="1649443258676" duration="12000" />
+      <workItem from="1649444873171" duration="648000" />
     </task>
     <task id="LOCAL-00001" summary="Enforced enumerate">
       <created>1649197810547</created>

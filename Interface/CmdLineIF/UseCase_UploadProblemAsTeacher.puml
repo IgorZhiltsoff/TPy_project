@@ -1,0 +1,46 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+
+'GENERAL
+Teacher --> (Upload problem)
+
+'PROTOCOLS
+(Choose protocol scheme) as (Prot)
+(Upload problem) ..> (Assemble protocols)
+(Assemble protocols) ..> (Prot) : <<include>>
+
+(InputOutput chosen) as (IO)
+    (IO) ..> (Upload input files) : <<include>>
+    (IO) ..> (Upload correct output files) : <<include>>
+
+
+(InputCustomChecker chosen) as (ICC)
+    (ICC) ..> (Upload input files) : <<include>>
+    (ICC) ..>(Upload custom checker) : <<include>>
+
+
+(RandomInputCustomChecker chosen) as (RICC)
+    (RICC) ..> (Upload input generator) : <<include>>
+    (RICC) ..> (Upload custom checker) : <<include>>
+
+
+(LimitedWorkSpace chosen) as (LWS)
+    (LWS) ..> (Upload header) : <<include>>
+    (LWS) ..> (Upload footer) : <<include>>
+
+
+(Prot) ..> (IO) : <<include>>
+(Prot) ..> (ICC) : <<include>>
+(Prot) ..> (RICC) : <<include>>
+(Prot) ..> (LWS) : <<include>>
+
+'LANGUAGE
+(Specify programming language) as (Lang)
+(Assemble protocols) ..> (Lang) : <<include>>
+
+(Lang) ..> (Specify command line options) : <<extend>>
+(Lang) ..> (Specify compilation options) : <<extend>>
+
+
+@enduml
