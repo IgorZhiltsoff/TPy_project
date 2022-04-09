@@ -49,7 +49,7 @@ class Python3AnswerTest(BaseTestCase):
     def test_rand_custom(self):
         rand_custom = RandomInputCustomChecker(
             test_count=3,
-            path_to_input_generation_executable='rand_custom_tests/random_generator.out',
+            path_to_input_generation_exec='rand_custom_tests/random_generator.out',
             path_to_checker_exec='rand_custom_tests/custom_checker.out',
             programming_language_data=python_data.python3_data
         )

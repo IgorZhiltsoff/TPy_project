@@ -6,7 +6,7 @@ start
 :Upload statement;
 repeat
 :Choose protocol scheme;
-:Upload correspondent files;
+:Upload correspondent data;
 :Choose programming language;
 if (Wish to specify command line options?) then (yes)
     :Specify command line options;

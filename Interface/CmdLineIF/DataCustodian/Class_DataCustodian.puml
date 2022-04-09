@@ -7,7 +7,7 @@ abstract class DataCustodian {
     +{abstract} void dump_data(self)
 
     +void fill_in(self, key, val)
-    +fill_in_subdata(self, subdata)
+    +void fill_in_subdata(self, subdata)
 
     -void create_dump(self)
 }

@@ -191,11 +191,11 @@ class RandomInputCustomChecker(TestingProtocol):
     """Testing protocol which passes random input to submission and then validates the output running custom code
        Might come in handy in problems in performance or stress tests"""
 
-    def __init__(self, test_count, path_to_input_generation_executable, path_to_checker_exec, **kwargs):
+    def __init__(self, test_count, path_to_input_generation_exec, path_to_checker_exec, **kwargs):
         super().__init__(**kwargs)
 
         self.test_count = test_count
-        self.path_to_input_generation_executable = path_to_input_generation_executable
+        self.path_to_input_generation_exec = path_to_input_generation_exec
         self.path_to_checker_exec = path_to_checker_exec
 
     @staticmethod
@@ -217,7 +217,7 @@ class RandomInputCustomChecker(TestingProtocol):
             with open(infile_path, 'w') as infile:
                 return_code = -1
                 while return_code != 0:
-                    return_code = subprocess.run(self.path_to_input_generation_executable, stdout=infile).returncode
+                    return_code = subprocess.run(self.path_to_input_generation_exec, stdout=infile).returncode
             input_paths_set.add(infile_path)
         return input_paths_set
 
