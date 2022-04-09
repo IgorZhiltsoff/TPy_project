@@ -15,6 +15,17 @@ class JsonDataCustodianTest(unittest.TestCase):
         self.custodian.nested_fill_in(('3', '2', 'name'), 'data')
         self.custodian.nested_fill_in(('name', ), 42)
         self.custodian.nested_fill_in(('4', 'name', '1'), 'hello')
+
+        self.custodian.fill_in_subdata(
+            {
+                '3': {
+                      '2': {'data': 'name'},
+                      'hello': 'hi'
+                },
+                '5': 42
+             }
+        )
+
         self.custodian.dump_data()
 
         input_data = {
@@ -23,15 +34,18 @@ class JsonDataCustodianTest(unittest.TestCase):
             '3': {
                   'hi': 10,
                   '2': {
-                      'name': 'data'
-                  }
+                      'name': 'data',
+                      'data': 'name'
+                  },
+                 'hello': 'hi'
               },
             'name': 42,
             '4': {
                 'name': {
                     '1': 'hello'
                 }
-            }
+            },
+            '5': 42
         }
 
         with open(self.custodian.path_to_dump) as dump:

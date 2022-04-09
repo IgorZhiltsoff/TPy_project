@@ -1,5 +1,6 @@
 import json
 from abc import ABC, abstractmethod
+from flatdict import FlatDict
 
 
 class DataCustodian(ABC):
@@ -20,7 +21,11 @@ class DataCustodian(ABC):
         self.nested_fill_in((key, ), val)
 
     def fill_in_subdata(self, subdata):
-        pass
+        if isinstance(subdata, dict):
+            subdata = FlatDict(subdata)
+        for key_sequence_str in subdata:
+            key_sequence = tuple(key_sequence_str.split(subdata._delimiter))
+            self.nested_fill_in(key_sequence, subdata[key_sequence_str])
 
     def __init__(self, path_to_dump_dir, entity_id):
         self.create_dump(path_to_dump_dir, entity_id)
@@ -35,7 +40,7 @@ class JsonDataCustodian(DataCustodian):
 
     def __init__(self, path_to_dump_dir, entity_id):
         super(JsonDataCustodian, self).__init__(path_to_dump_dir, entity_id)
-        self.gathered_data = {}
+        self.gathered_data = FlatDict()
 
     def nested_fill_in(self, key_sequence, val):
         dictionary = self.gathered_data
@@ -45,4 +50,4 @@ class JsonDataCustodian(DataCustodian):
 
     def dump_data(self):
         with open(self.path_to_dump, 'w') as dump:
-            json.dump(self.gathered_data, dump, indent=4)
+            json.dump(self.gathered_data.as_dict(), dump, indent=4)
