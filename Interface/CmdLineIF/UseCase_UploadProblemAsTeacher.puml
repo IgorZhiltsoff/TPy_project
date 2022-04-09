@@ -3,12 +3,14 @@
 
 
 'GENERAL
+skinparam actorstyle hollow
 Teacher --> (Upload problem)
 
 'PROTOCOLS
 (Choose protocol scheme) as (Prot)
-(Upload problem) ..> (Assemble protocols)
-(Assemble protocols) ..> (Prot) : <<include>>
+(Upload problem) ..> (Assemble ProblemData) : <<include>>
+(Upload problem) ..> (Upload statement) : <<include>>
+(Assemble ProblemData) ..> (Prot) : <<include>>
 
 (InputOutput chosen) as (IO)
     (IO) ..> (Upload input files) : <<include>>
@@ -37,10 +39,10 @@ Teacher --> (Upload problem)
 
 'LANGUAGE
 (Specify programming language) as (Lang)
-(Assemble protocols) ..> (Lang) : <<include>>
+(Assemble ProblemData) ..> (Lang) : <<include>>
 
 (Lang) ..> (Specify command line options) : <<extend>>
-(Lang) ..> (Specify compilation options) : <<extend>>
+(Lang) ..> (Specify source conversion to an executable options) : <<extend>>
 
 
 @enduml
