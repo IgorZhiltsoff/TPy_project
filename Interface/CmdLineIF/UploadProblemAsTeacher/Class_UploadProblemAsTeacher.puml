@@ -4,10 +4,11 @@
 ' ========================== GENERAL =========================
 
 class upload_wizard {
-    +void upload_problem()
+    +void upload_problem(verbose, path_to_problems_dir)
 
-    -void upload_statement(data_custodian, verbose)
-    -void assemble_problem_data(data_custodian, verbose)
+    -int generate_problem_id()
+    -void create_problem_dir(problem_id, path_to_problems_dir)
+    -void upload_statement()
 }
 
 note left of upload_wizard
@@ -24,60 +25,66 @@ as they should not be visible outside of this hierarchy
 end note
 
 class problem_data_upload {
-    -void form_programming_language_data(data_custodian, verbose)
-    -void choose_and_run_protocol_assembler(data_custodian, verbose)
+    +void upload_problem_data(verbose, path_to_problems_dir)
 }
 upload_wizard "1" <--- "1" problem_data_upload
 
 ' ========================== PROTOCOLS =========================
 
 abstract class protocol_upload {
-    +{abstract} void upload(data_custodian, verbose)
+    +{abstract} void upload_protocol(protocol_number, custodian, verbose)
+    -void upload_programming_language_data(key_seq_to_current_dict, custodian, verbose)
+    -void upload_opts(opts_type, key_seq_to_current_dict, custodian, verbose)
+    -void choose_protocol_scheme(key_seq_to_current_dict, custodian)
+    -void run_specific_protocol_upload_subwizard(key_seq_to_current_dict, custodian, scheme, verbose)
 }
 problem_data_upload "1" <--- "4" protocol_upload : one for each protocol
 
 ' ========================== INCOMPLETE WIZARDS =========================
 
 abstract class infiles {
-    #void upload_inputs(data_custodian, verbose)
+    #{static} void upload_inputs(key_seq_to_current_dict, custodian, verbose, test_count)
 }
 
 abstract class outfiles {
-    #void upload_random_input_generator(data_custodian, verbose)
+    #{static} void upload_random_input_generator(key_seq_to_current_dict, custodian, verbose, test_count)
 }
 
 abstract class custom_checker {
-    #{static} void upload_custom_checker(data_custodian, verbose)
+    #{static} void upload_custom_checker(key_seq_to_current_dict, custodian, verbose)
 }
 
 abstract class rand_in {
-    #{static} void upload_random_input_generator(data_custodian, verbose)
+    #{static} void upload_random_input_generator(key_seq_to_current_dict, custodian, verbose, test_count)
 }
 
-protocol_upload <|-- infiles
-protocol_upload <|-- outfiles
-protocol_upload <|-- custom_checker
-protocol_upload <|-- rand_in
 
 ' ========================== COMPLETE WIZARDS =========================
 
+interface specific_protocol_upload {
+    +{abstract} void upload_specific_protocol(...)
+}
+protocol_upload <-- specific_protocol_upload
 
 class inout
 infiles <|-- inout
 outfiles <|-- inout
+specific_protocol_upload <|... inout
 
 class in_custom
 infiles <|-- in_custom
 custom_checker <|-- in_custom
+specific_protocol_upload <|... in_custom
 
 class rand_custom
 rand_in <|-- rand_custom
 custom_checker <|-- rand_custom
+specific_protocol_upload <|... rand_custom
 
 class limited_work_space {
-    -{static} void upload_header(data_custodian, verbose)
-    -{static} void upload_footer(data_custodian, verbose)
+    -{static} void upload_header(key_seq_to_current_dict, custodian, verbose)
+    -{static} void upload_footer(key_seq_to_current_dict, custodian, verbose)
 }
-protocol_upload <|--- limited_work_space
+specific_protocol_upload <|... limited_work_space
 
 @enduml

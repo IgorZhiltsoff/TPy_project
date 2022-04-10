@@ -34,20 +34,23 @@ class DataCustodian(ABC):
     def get_item(self, key):
         self.nested_get_item((key,))
 
-    def __init__(self, path_to_dump_dir, entity_id):
-        self.path_to_dump = self.create_path_to_dump(path_to_dump_dir, entity_id)
+    def __init__(self, path_to_dump_dir, entity_name):
+        self.path_to_dump = self.create_path_to_dump(path_to_dump_dir, entity_name)
+
+    def get_list_reference(self, key_sequence):  # just an alias for get_item, directly saying we are getting a list
+        return self.nested_get_item(key_sequence)
 
     @staticmethod
-    def create_path_to_dump(path_to_dump_dir, entity_id):
-        return f'{path_to_dump_dir}/{entity_id}.json'
+    def create_path_to_dump(path_to_dump_dir, entity_name):
+        return f'{path_to_dump_dir}/{entity_name}.json'
 
 
 class JsonDataCustodian(DataCustodian):
     """Data custodian which works with .json files
     Most probably the best and the only choice"""
 
-    def __init__(self, path_to_dump_dir, entity_id):
-        super(JsonDataCustodian, self).__init__(path_to_dump_dir, entity_id)
+    def __init__(self, path_to_dump_dir, entity_name):
+        super(JsonDataCustodian, self).__init__(path_to_dump_dir, entity_name)
         self.gathered_data = FlatDict()
 
     def nested_get_item(self, key_sequence):
