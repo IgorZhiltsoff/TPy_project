@@ -1,7 +1,7 @@
-import inout
-import in_custom
-import rand_custom
-import limited_work_space
+import UploadProblemAsTeacher.upload_wizard.problem_data_upload.protocol_upload_wizard.inout
+import UploadProblemAsTeacher.upload_wizard.problem_data_upload.protocol_upload_wizard.in_custom
+import UploadProblemAsTeacher.upload_wizard.problem_data_upload.protocol_upload_wizard.rand_custom
+import UploadProblemAsTeacher.upload_wizard.problem_data_upload.protocol_upload_wizard.limited_work_space
 from UploadProblemAsTeacher.upload_wizard.aux import create_dir
 
 
@@ -17,7 +17,7 @@ def upload_protocol(path_to_dir, protocol_number, custodian, verbose):
         upload_opts(opts_type, key_seq_to_current_dict, custodian)
 
     # HAND OVER CONTROL
-    eval(f'{scheme}.upload_specific_protocol({path_to_protocol_dir}, {key_seq_to_current_dict}, {custodian}, {verbose})')
+    eval(f'{scheme}.upload_specific_protocol')(path_to_protocol_dir, key_seq_to_current_dict, custodian, verbose)
 
 
 def upload_programming_language_data(key_seq_to_current_dict, custodian):

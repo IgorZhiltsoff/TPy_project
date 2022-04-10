@@ -1,9 +1,9 @@
-from aux import copy_file, create_dir
+from UploadProblemAsTeacher.upload_wizard.aux import copy_file, create_dir
 from random import randint
-from problem_data_upload import upload_problem_data
+from UploadProblemAsTeacher.upload_wizard.problem_data_upload import upload_problem_data
 
 
-def upload_problem(verbose, path_to_problems_dir):
+def upload_problem(path_to_problems_dir, verbose):
     # PRE
     problem_id = generate_problem_id()
     path_to_dir = create_problem_dir(problem_id, path_to_problems_dir)
@@ -43,4 +43,3 @@ Type 1 for .txt and 2 for .pdf''')
             extension = ('.pdf' if code == '2' else '.txt')
 
     copy_file(path_to_statement, f'{path_to_dir}/statement{extension}')
-
