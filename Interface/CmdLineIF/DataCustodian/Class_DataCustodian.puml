@@ -11,7 +11,6 @@ abstract class DataCustodian {
     +void fill_in(self, key, val)
     +void append(self, key, val)
     +void get_item(self, key, val)
-    +void extend(self, subdata)
 
     -void create_path_to_dump(self)
 }

@@ -34,20 +34,6 @@ class DataCustodian(ABC):
     def get_item(self, key):
         self.nested_get_item((key,))
 
-    def extend(self, subdata):
-        if isinstance(subdata, dict):
-            subdata = FlatDict(subdata)
-        for key_sequence_str in subdata:
-            key_sequence = tuple(key_sequence_str.split(subdata._delimiter))
-            item = self.nested_get_item(key_sequence)
-            if isinstance(item, list):
-                if isinstance(subdata[key_sequence_str], list):
-                    item += subdata[key_sequence_str]
-                else:
-                    item.append(subdata[key_sequence_str])
-            else:
-                self.nested_fill_in(key_sequence, subdata[key_sequence_str])
-
     def __init__(self, path_to_dump_dir, entity_id):
         self.path_to_dump = self.create_path_to_dump(path_to_dump_dir, entity_id)
 
@@ -76,7 +62,7 @@ class JsonDataCustodian(DataCustodian):
 
     def nested_append(self, key_sequence, val):
         dictionary = self.nested_get_item(key_sequence[:-1])
-        dictionary[key_sequence[-1]].append(val)
+        dictionary.setdefault(key_sequence[-1], []).append(val)
 
     def dump_data(self):
         with open(self.path_to_dump, 'w') as dump:
