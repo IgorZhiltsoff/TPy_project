@@ -10,7 +10,15 @@ class DataCustodian(ABC):
     other than Json"""
 
     @abstractmethod
-    def nested_fill_in(self, key, val):
+    def nested_get_item(self, key_sequence):
+        pass
+
+    @abstractmethod
+    def nested_fill_in(self, key_sequence, val):
+        pass
+
+    @abstractmethod
+    def nested_append(self, key_sequence, val):
         pass
 
     @abstractmethod
@@ -20,18 +28,32 @@ class DataCustodian(ABC):
     def fill_in(self, key, val):
         self.nested_fill_in((key, ), val)
 
-    def fill_in_subdata(self, subdata):
+    def append(self, key, val):
+        self.nested_append((key, ), val)
+
+    def get_item(self, key):
+        self.nested_get_item((key,))
+
+    def extend(self, subdata):
         if isinstance(subdata, dict):
             subdata = FlatDict(subdata)
         for key_sequence_str in subdata:
             key_sequence = tuple(key_sequence_str.split(subdata._delimiter))
-            self.nested_fill_in(key_sequence, subdata[key_sequence_str])
+            item = self.nested_get_item(key_sequence)
+            if isinstance(item, list):
+                if isinstance(subdata[key_sequence_str], list):
+                    item += subdata[key_sequence_str]
+                else:
+                    item.append(subdata[key_sequence_str])
+            else:
+                self.nested_fill_in(key_sequence, subdata[key_sequence_str])
 
     def __init__(self, path_to_dump_dir, entity_id):
-        self.create_dump(path_to_dump_dir, entity_id)
+        self.path_to_dump = self.create_path_to_dump(path_to_dump_dir, entity_id)
 
-    def create_dump(self, path_to_dump_dir, entity_id):
-        self.path_to_dump = f'{path_to_dump_dir}/{entity_id}.json'
+    @staticmethod
+    def create_path_to_dump(path_to_dump_dir, entity_id):
+        return f'{path_to_dump_dir}/{entity_id}.json'
 
 
 class JsonDataCustodian(DataCustodian):
@@ -42,11 +64,19 @@ class JsonDataCustodian(DataCustodian):
         super(JsonDataCustodian, self).__init__(path_to_dump_dir, entity_id)
         self.gathered_data = FlatDict()
 
+    def nested_get_item(self, key_sequence):
+        val = self.gathered_data
+        for key in key_sequence:
+            val = val.setdefault(key, {})
+        return val
+
     def nested_fill_in(self, key_sequence, val):
-        dictionary = self.gathered_data
-        for key in key_sequence[:-1]:
-            dictionary = dictionary.setdefault(key, {})
+        dictionary = self.nested_get_item(key_sequence[:-1])
         dictionary[key_sequence[-1]] = val
+
+    def nested_append(self, key_sequence, val):
+        dictionary = self.nested_get_item(key_sequence[:-1])
+        dictionary[key_sequence[-1]].append(val)
 
     def dump_data(self):
         with open(self.path_to_dump, 'w') as dump:

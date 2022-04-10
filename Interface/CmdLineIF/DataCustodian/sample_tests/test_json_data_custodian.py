@@ -8,7 +8,7 @@ class JsonDataCustodianTest(unittest.TestCase):
         path_to_dump_dir = '/tmp'
         self.custodian = JsonDataCustodian(path_to_dump_dir, 1)
 
-    def test(self):
+    def test_fill(self):
         self.custodian.fill_in('1', 'hello')
         self.custodian.fill_in('2', ['bye bye', 'good bye'])
         self.custodian.fill_in('3', {'hi': 10})
@@ -16,8 +16,9 @@ class JsonDataCustodianTest(unittest.TestCase):
         self.custodian.nested_fill_in(('name', ), 42)
         self.custodian.nested_fill_in(('4', 'name', '1'), 'hello')
 
-        self.custodian.fill_in_subdata(
+        self.custodian.extend(
             {
+                '2': ''
                 '3': {
                       '2': {'data': 'name'},
                       'hello': 'hi'
@@ -51,6 +52,20 @@ class JsonDataCustodianTest(unittest.TestCase):
         with open(self.custodian.path_to_dump) as dump:
             dumped_data = json.load(dump)
         self.assertEqual(input_data, dumped_data)
+
+    def test_append(self):
+        self.custodian.fill_in('1', 'hello')
+        self.custodian.fill_in('2', ['bye bye', 'good bye'])
+        self.custodian.fill_in('3', {'hi': []})
+
+        self.custodian.append('2', 'hello')
+        self.custodian.append('2', 'hi')
+
+        self.custodian.nested_append(('3', 'hi'), 100)
+        self.custodian.nested_append(('4', 'data'), 'name')
+        self.custodian.nested_append(('4', 'data'), 'info')
+
+        self.
 
 
 if __name__ == '__main__':
