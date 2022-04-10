@@ -10,7 +10,7 @@ class JsonDataCustodianTest(unittest.TestCase):
 
     def test(self):
         self.custodian.fill_in('1', 'hello')
-        self.custodian.fill_in('2', 'bye bye')
+        self.custodian.fill_in('2', ['bye bye', 'good bye'])
         self.custodian.fill_in('3', {'hi': 10})
         self.custodian.nested_fill_in(('3', '2', 'name'), 'data')
         self.custodian.nested_fill_in(('name', ), 42)
@@ -30,7 +30,7 @@ class JsonDataCustodianTest(unittest.TestCase):
 
         input_data = {
             '1': 'hello',
-            '2': 'bye bye',
+            '2': ['bye bye', 'good bye'],
             '3': {
                   'hi': 10,
                   '2': {

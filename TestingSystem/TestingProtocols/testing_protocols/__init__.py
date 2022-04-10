@@ -34,7 +34,7 @@ class TestingProtocol(ABC):
            static section:
                 - run_code - aux method for running submissions
                 - generate_output/exec_path - aux for file acquisition
-       Aggregated by ProblemData class in relation one problem to many protocols
+       Aggregated by ProblemData class in relation one problem_data_upload to many protocols
 
        Most likely combinations:
             - Several protocols for different programming languages
@@ -237,7 +237,7 @@ class RandomInputCustomChecker(TestingProtocol):
 
 class LimitedWorkSpace(TestingProtocol):
     """Testing protocol which enables validation of student's functions or other parts of code,
-       instead of full programmes. The problem contributor uploads a header and a footer which
+       instead of full programmes. The problem_data_upload contributor uploads a header and a footer which
        would be prepended and appended to student's code. Upon execution, this merged code
        should return 1 or 0, indicating whether the submitted implementation is correct"""
 
@@ -286,7 +286,7 @@ class LimitedWorkSpace(TestingProtocol):
 
 
 class ProblemData:
-    """Problem-specific data: problem id and testing protocols"""
+    """Problem-specific data: problem_data_upload id and testing protocols"""
     def __init__(self, problem_id, testing_protocols_set):
         self.problem_id = problem_id
         self.testing_protocols_set = testing_protocols_set
