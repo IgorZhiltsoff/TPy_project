@@ -6,7 +6,7 @@ from UploadProblemAsTeacher.upload_wizard.problem_data_upload import upload_prob
 def upload_problem(path_to_problems_dir, verbose):
     # PRE
     problem_id = generate_problem_id()
-    print(f"Problem recieved id: {problem_id}")
+    print(f"\033[92mProblem recieved id: {problem_id}\033[0m")
     path_to_dir = create_problem_dir(problem_id, path_to_problems_dir)
 
     # INTERACT
@@ -43,4 +43,4 @@ Specify a path to .pdf or .txt file (leave blank to skip):""")
 Type 1 for .txt and 2 for .pdf''')
             extension = ('.pdf' if code == '2' else '.txt')
 
-    copy_file(path_to_statement, f'{path_to_dir}/statement{extension}')
+        copy_file(path_to_statement, f'{path_to_dir}/statement{extension}')
