@@ -6,6 +6,7 @@ from UploadProblemAsTeacher.upload_wizard.problem_data_upload import upload_prob
 def upload_problem(path_to_problems_dir, verbose):
     # PRE
     problem_id = generate_problem_id()
+    print(f"Problem recieved id: {problem_id}")
     path_to_dir = create_problem_dir(problem_id, path_to_problems_dir)
 
     # INTERACT
@@ -13,7 +14,7 @@ def upload_problem(path_to_problems_dir, verbose):
     upload_statement(path_to_dir)
 
     # HAND OVER CONTROL
-    upload_problem_data(verbose, path_to_problems_dir)
+    upload_problem_data(path_to_dir, verbose)
 
 
 def generate_problem_id():

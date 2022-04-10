@@ -2,6 +2,6 @@ import UploadProblemAsTeacher.upload_wizard.problem_data_upload.protocol_upload_
 import UploadProblemAsTeacher.upload_wizard.problem_data_upload.protocol_upload_wizard.outfiles as outfiles
 
 
-def upload_specific_protocol(key_seq_to_current_dict, custodian, verbose):
-    infiles.upload_infiles(key_seq_to_current_dict, custodian, verbose)
-    outfiles.upload_outfiles(key_seq_to_current_dict, custodian, verbose)
+def upload_specific_protocol(path_to_protocol_dir, key_seq_to_current_dict, custodian):
+    infiles.upload_infiles(path_to_protocol_dir, key_seq_to_current_dict, custodian)
+    outfiles.upload_outfiles(path_to_protocol_dir, key_seq_to_current_dict, custodian)

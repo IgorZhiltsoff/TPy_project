@@ -17,7 +17,7 @@ def upload_protocol(path_to_dir, protocol_number, custodian, verbose):
         upload_opts(opts_type, key_seq_to_current_dict, custodian)
 
     # HAND OVER CONTROL
-    eval(f'{scheme}.upload_specific_protocol')(path_to_protocol_dir, key_seq_to_current_dict, custodian, verbose)
+    eval(f'{scheme}.upload_specific_protocol')(path_to_protocol_dir, key_seq_to_current_dict, custodian)
 
 
 def upload_programming_language_data(key_seq_to_current_dict, custodian):
