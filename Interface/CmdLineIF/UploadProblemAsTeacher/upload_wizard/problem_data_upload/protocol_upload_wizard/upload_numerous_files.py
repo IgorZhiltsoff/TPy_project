@@ -1,4 +1,4 @@
-from UploadProblemAsTeacher.upload_wizard.aux import copy_file
+from UploadProblemAsTeacher.upload_wizard.aux import copy_file, get_path_suffix
 
 
 def upload_numerous_files(semantics, path_to_protocol_dir, key_seq_to_current_dict, custodian):
@@ -9,5 +9,5 @@ def upload_numerous_files(semantics, path_to_protocol_dir, key_seq_to_current_di
         file_dest = f'{path_to_protocol_dir}/{test_count}.{semantics}'
         copy_file(file_src, file_dest)
 
-        suffix = file_dest[file_dest.find('TPy_project'):]
+        suffix = get_path_suffix(file_dest)
         custodian.nested_append(key_seq_to_current_dict + (f'{semantics}files',), suffix)
