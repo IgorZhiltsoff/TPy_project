@@ -73,5 +73,5 @@ Input 1 for InputOutput,
 
 
 def upload_opts(opts_type, key_seq_to_current_dict, custodian):
-    opts = input(f"Input {opts_type} options (leave blank to skip): ").split()
+    opts = input(f"Input {opts_type} (leave blank to skip): ").split()
     custodian.nested_fill_in(key_seq_to_current_dict + (opts_type, ), opts)

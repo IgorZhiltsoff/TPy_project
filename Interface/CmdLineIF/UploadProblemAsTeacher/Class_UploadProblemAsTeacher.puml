@@ -67,18 +67,18 @@ interface specific_protocol_upload {
 protocol_upload <-- specific_protocol_upload
 
 class inout
-infiles <|-- inout
-outfiles <|-- inout
+infiles <-- inout
+outfiles <-- inout
 specific_protocol_upload <|... inout
 
 class in_custom
-infiles <|-- in_custom
-custom_checker <|-- in_custom
+infiles <-- in_custom
+custom_checker <-- in_custom
 specific_protocol_upload <|... in_custom
 
 class rand_custom
-rand_in <|-- rand_custom
-custom_checker <|-- rand_custom
+rand_in <-- rand_custom
+custom_checker <-- rand_custom
 specific_protocol_upload <|... rand_custom
 
 class limited_work_space {

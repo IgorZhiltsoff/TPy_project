@@ -8,38 +8,38 @@ Teacher --> (Upload problem)
 
 'PROTOCOLS
 (Choose protocol scheme) as (Prot)
-(Upload problem) ..> (Assemble ProblemData) : <<include>>
-(Upload problem) ..> (Upload statement) : <<include>>
-(Assemble ProblemData) ..> (Prot) : <<include>>
+(Upload problem) ..> (Assemble ProblemData)
+(Upload problem) ..> (Upload statement)
+(Assemble ProblemData) ..> (Prot)
 
 (InputOutput chosen) as (IO)
-    (IO) ..> (Upload input files) : <<include>>
-    (IO) ..> (Upload correct output files) : <<include>>
+    (IO) ..> (Upload input files)
+    (IO) ..> (Upload correct output files)
 
 
 (InputCustomChecker chosen) as (ICC)
-    (ICC) ..> (Upload input files) : <<include>>
-    (ICC) ..>(Upload custom checker) : <<include>>
+    (ICC) ..> (Upload input files)
+    (ICC) ..>(Upload custom checker)
 
 
 (RandomInputCustomChecker chosen) as (RICC)
-    (RICC) ..> (Upload input generator) : <<include>>
-    (RICC) ..> (Upload custom checker) : <<include>>
+    (RICC) ..> (Upload input generator)
+    (RICC) ..> (Upload custom checker)
 
 
 (LimitedWorkSpace chosen) as (LWS)
-    (LWS) ..> (Upload header) : <<include>>
-    (LWS) ..> (Upload footer) : <<include>>
+    (LWS) ..> (Upload header)
+    (LWS) ..> (Upload footer)
 
 
-(Prot) ..> (IO) : <<include>>
-(Prot) ..> (ICC) : <<include>>
-(Prot) ..> (RICC) : <<include>>
-(Prot) ..> (LWS) : <<include>>
+(Prot) ..> (IO)
+(Prot) ..> (ICC)
+(Prot) ..> (RICC)
+(Prot) ..> (LWS)
 
 'LANGUAGE
 (Specify programming language) as (Lang)
-(Assemble ProblemData) ..> (Lang) : <<include>>
+(Assemble ProblemData) ..> (Lang)
 
 (Lang) ..> (Specify command line options) : <<extend>>
 (Lang) ..> (Specify source conversion to an executable options) : <<extend>>

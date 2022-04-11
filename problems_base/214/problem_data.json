@@ -1,0 +1,22 @@
+{
+    "path to statement": "TPy_project/problems_base/214/statement.txt",
+    "protocols": {
+        "0": {
+            "programming_language_data": "python_data.python3_data",
+            "test_count": 1,
+            "scheme": "inout",
+            "conversion options": [
+                "a"
+            ],
+            "command line options": [
+                "b"
+            ],
+            "infiles": [
+                "TPy_project/problems_base/214/prot0/1.in"
+            ],
+            "outfiles": [
+                "TPy_project/problems_base/214/prot0/1.out"
+            ]
+        }
+    }
+}
