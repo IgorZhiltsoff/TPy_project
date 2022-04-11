@@ -13,7 +13,7 @@ def upload_protocol(path_to_dir, protocol_number, custodian, verbose):
     # INTERACT
     upload_programming_language_data(key_seq_to_current_dict, custodian)
     scheme = choose_protocol_scheme(key_seq_to_current_dict, custodian, verbose)
-    for opts_type in ['conversion options', 'command_line options']:
+    for opts_type in ['conversion options', 'command line options']:
         upload_opts(opts_type, key_seq_to_current_dict, custodian)
 
     # HAND OVER CONTROL

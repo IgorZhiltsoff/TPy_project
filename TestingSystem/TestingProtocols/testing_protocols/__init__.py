@@ -291,6 +291,13 @@ class ProblemData:
         self.problem_id = problem_id
         self.testing_protocols_set = testing_protocols_set
 
+    def check(self, user_submitted_data):
+        for protocol_number, testing_protocol in enumerate(self.testing_protocols_set):
+            verdict = testing_protocol.check(user_submitted_data)
+            if verdict.msg == 'WA':
+                return f'WA{protocol_number}.{verdict.test_number}'
+        return 'AC'
+
 
 class ExtendedSubmission:
     """Full submission data: composed of UserSubmittedData and ProblemData"""
