@@ -2,6 +2,7 @@ from UploadProblemAsTeacher.upload_wizard.aux import copy_file, create_dir, get_
 from random import randint
 from UploadProblemAsTeacher.upload_wizard.problem_data_upload import upload_problem_data
 from data_custodian import JsonDataCustodian
+import os.path
 
 
 def upload_problem(path_to_problems_dir, verbose):
@@ -13,7 +14,7 @@ def upload_problem(path_to_problems_dir, verbose):
 
     # INTERACT
     print("You are running a problem upload wizard")
-    upload_statement(custodian, path_to_dir)
+    upload_statement_and_name(custodian, path_to_dir)
 
     # HAND OVER CONTROL
     upload_problem_data(custodian, path_to_dir, verbose)
@@ -32,19 +33,19 @@ def create_problem_dir(problem_id, path_to_problems_dir):
     return path_to_dir
 
 
-def upload_statement(custodian, path_to_dir):
-    path_to_statement = input("""First, upload a statement. 
-Specify a path to .pdf or .txt file (leave blank to skip):""")
-    if path_to_statement:
-        if path_to_statement.endswith('.pdf'):
-            extension = '.pdf'
-        elif path_to_statement.endswith('.txt'):
-            extension = '.txt'
-        else:
-            code = input('''Supported extension not detected. Please specify format manually
-Type 1 for .txt and 2 for .pdf''')
-            extension = ('.pdf' if code == '2' else '.txt')
+def upload_statement_and_name(custodian, path_to_dir):
+    supported_extensions = {'.md', '.pdf', '.txt'}
+    name = input("First, give the problem a concise and clear name: ")
+    path_to_statement = input("""Now, upload a statement. 
+Specify a path to .md, .pdf or .txt file (leave blank to skip): """)
+    filename, extension = os.path.splitext(path_to_statement)
+    if extension not in supported_extensions:
+        code = input('''Supported extension not detected. Please specify format manually
+Type 1 for .txt, 2 for .pdf and 3 for .md''')
+        extension = {1: '.txt', 2: '.pdf', 3: '.md'}[int(code)]
 
-        path_to_statement_copy = f'{path_to_dir}/statement{extension}'
-        copy_file(path_to_statement, path_to_statement_copy)
-        custodian.fill_in('path to statement', get_path_suffix(path_to_statement_copy))
+    path_to_statement_copy = f'{path_to_dir}/statement{extension}'
+    copy_file(path_to_statement, path_to_statement_copy)
+
+    custodian.fill_in('name', name)
+    custodian.fill_in('path to statement', get_path_suffix(path_to_statement_copy))

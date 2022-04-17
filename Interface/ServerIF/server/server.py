@@ -2,8 +2,6 @@ import flask
 import sys
 import markdown
 
-address = sys.argv[0]
-port = sys.argv[1]
 
 app = flask.Flask(__name__)
 
@@ -34,3 +32,9 @@ def submit():
 @app.route('/upload_problem')
 def upload_problem():
     pass
+
+
+if __name__ == '__main__':
+    address = sys.argv[1]
+    port = int(sys.argv[2])
+    app.run(address, port, debug=True)
