@@ -1,5 +1,6 @@
 import flask
 import sys
+import markdown
 
 address = sys.argv[0]
 port = sys.argv[1]
@@ -14,7 +15,10 @@ def init():
 
 @app.route('/display_readme')
 def display_readme():
-    return flask.render_template('display_readme.html')
+    with open('../../../README.md') as readme:
+        md = readme.read()
+        html = markdown.markdown(md)
+    return html
 
 
 @app.route('/display_problems')
