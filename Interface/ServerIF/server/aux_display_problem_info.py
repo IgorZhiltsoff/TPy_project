@@ -1,25 +1,9 @@
-import json
 import os.path
 import fitz
 import markdown
 from lxml import etree
-from io import StringIO, BytesIO
-
-
-def get_path_to_problem_dir(problem_id):
-    return f'../../../problems_base/{problem_id}'
-
-
-def get_problem_data_dict(problem_id):
-    problem_dir = get_path_to_problem_dir(problem_id)
-    with open(os.path.join(problem_dir, 'problem_data.json')) as data:
-        problem_data_dict = json.load(data)
-    return problem_data_dict
-
-
-def get_problem_name(problem_id):
-    problem_data_dict = get_problem_data_dict(problem_id)
-    return problem_data_dict['name']
+from io import StringIO
+from aux_display_problem import get_problem_data_dict, get_path_to_problem_dir, get_problem_full_name
 
 
 def get_statement_extension(problem_id):
@@ -43,29 +27,29 @@ def get_problem_statement_html_string(problem_id):
     return file_to_html_string(path_to_statement)
 
 
-def pdf_file_to_html_string(filepath):
+def pdf_file_to_html_string(path_to_statement):
     html = ''
-    with fitz.open(filepath) as doc:
+    with fitz.open(path_to_statement) as doc:
         for num, page in enumerate(doc):
             html += page.getText("html")
     return html
 
 
-def md_file_to_html_string(filepath):
-    with open(filepath) as doc:
+def md_file_to_html_string(path_to_statement):
+    with open(path_to_statement) as doc:
         md = doc.read()
         html = markdown.markdown(md)
     return html
 
 
-def txt_file_to_html_string(filepath):
-    with open(filepath) as doc:
+def txt_file_to_html_string(path_to_statement):
+    with open(path_to_statement) as doc:
         return f'<html><body><p>{doc.read()}</p></body></html>'
 
 
-def generate_heading_html_tag(name, problem_id):
+def generate_heading_html_tag(problem_id):
     heading = etree.Element('h1')
-    heading.text = f'Problem #{problem_id}: {name}'
+    heading.text = get_problem_full_name(problem_id)
     return heading
 
 
@@ -101,13 +85,8 @@ def append_return_link_html_tag(return_link_html_tag, html):
     return etree.tostring(tree).decode('utf-8')
 
 
-def display_problem_list():
-    pass
-
-
 def display_problem_info(problem_id):
-    name = get_problem_name(problem_id)
-    heading_html_tag = generate_heading_html_tag(name, problem_id)
+    heading_html_tag = generate_heading_html_tag(problem_id)
     return_link_html_tag = generate_return_link_html_tag()
     html_with_heading = prepend_heading_html_tag(
         heading_html_tag=heading_html_tag,

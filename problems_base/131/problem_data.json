@@ -1,6 +1,7 @@
 {
     "name": "heheproblem",
-    "path to statement": "TPy_project/problems_base/416/statement.txt",
+    "statement file extension": ".pdf",
+    "path to statement": "TPy_project/problems_base/131/statement.pdf",
     "protocols": {
         "0": {
             "programming_language_data": "python_data.python3_data",
@@ -13,10 +14,10 @@
                 "b"
             ],
             "infiles": [
-                "TPy_project/problems_base/416/prot0/1.in"
+                "TPy_project/problems_base/131/prot0/1.in"
             ],
             "outfiles": [
-                "TPy_project/problems_base/416/prot0/1.out"
+                "TPy_project/problems_base/131/prot0/1.out"
             ]
         }
     }

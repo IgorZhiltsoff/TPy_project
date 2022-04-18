@@ -1,7 +1,7 @@
 import flask
 import sys
-import markdown
-from aux import display_problem_list, display_problem_info, md_file_to_html_string
+from aux_display_problem_info import display_problem_info, md_file_to_html_string
+from aux_display_problem_list import display_problem_list
 
 
 app = flask.Flask(__name__)
