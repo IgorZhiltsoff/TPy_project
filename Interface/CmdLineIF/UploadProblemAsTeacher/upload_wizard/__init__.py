@@ -48,4 +48,5 @@ Type 1 for .txt, 2 for .pdf and 3 for .md''')
     copy_file(path_to_statement, path_to_statement_copy)
 
     custodian.fill_in('name', name)
+    custodian.fill_in('statement file extension', extension)
     custodian.fill_in('path to statement', get_path_suffix(path_to_statement_copy))
