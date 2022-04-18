@@ -1,7 +1,7 @@
 import flask
 import sys
 import markdown
-from aux import display_problem_list, display_problem_info
+from aux import display_problem_list, display_problem_info, md_file_to_html_string
 
 
 app = flask.Flask(__name__)
@@ -14,10 +14,7 @@ def init():
 
 @app.route('/display_readme')
 def display_readme():
-    with open('../../../README.md') as readme:
-        md = readme.read()
-        html = markdown.markdown(md)
-    return html
+    return md_file_to_html_string('../../../README.md')
 
 
 @app.route('/display_problems')
