@@ -1,5 +1,6 @@
 #!/bin/bash
 
+rm -r /tmp/nsp
 cp -r ../../../../nonsystem_problem /tmp/nsp
 
 cd ..

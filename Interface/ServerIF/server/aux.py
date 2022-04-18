@@ -43,14 +43,6 @@ def get_problem_statement_html_string(problem_id):
     return file_to_html_string(path_to_statement)
 
 
-def display_problem_info(problem_id):
-    name = get_problem_name(problem_id)
-    heading_html_tag = generate_heading_html_tag(name, problem_id)
-    return append_heading_html_tag(
-        heading=heading_html_tag,
-        html=get_problem_statement_html_string(problem_id))
-
-
 def pdf_file_to_html_string(filepath):
     html = ''
     with fitz.open(filepath) as doc:
@@ -71,20 +63,58 @@ def txt_file_to_html_string(filepath):
         return f'<html><body><p>{doc.read()}</p></body></html>'
 
 
-def append_heading_html_tag(heading, html):
-    parser = etree.HTMLParser()
-    tree = etree.parse(StringIO(html), parser)
-    body = tree.find('body')
-    first_paragraph = body.getchildren()[0]
-    first_paragraph.addprevious(heading)
-    return etree.tostring(tree)
-
-
 def generate_heading_html_tag(name, problem_id):
     heading = etree.Element('h1')
     heading.text = f'Problem #{problem_id}: {name}'
     return heading
 
 
+def get_html_tree(html):
+    parser = etree.HTMLParser()
+    tree = etree.parse(StringIO(html), parser)
+    return tree
+
+
+def get_tree_body(tree):
+    return tree.find('body')
+
+
+def prepend_heading_html_tag(heading_html_tag, html):
+    tree = get_html_tree(html)
+    body = get_tree_body(tree)
+    first_item = body.getchildren()[0]
+    first_item.addprevious(heading_html_tag)
+    return etree.tostring(tree).decode('utf-8')
+
+
+def generate_return_link_html_tag():
+    return_link = etree.Element('a', href="display_problems")
+    return_link.text = 'Return to problems list'
+    return return_link
+
+
+def append_return_link_html_tag(return_link_html_tag, html):
+    tree = get_html_tree(html)
+    body = get_tree_body(tree)
+    last_item = body.getchildren()[-1]
+    last_item.addnext(return_link_html_tag)
+    return etree.tostring(tree).decode('utf-8')
+
+
 def display_problem_list():
     pass
+
+
+def display_problem_info(problem_id):
+    name = get_problem_name(problem_id)
+    heading_html_tag = generate_heading_html_tag(name, problem_id)
+    return_link_html_tag = generate_return_link_html_tag()
+    html_with_heading = prepend_heading_html_tag(
+        heading_html_tag=heading_html_tag,
+        html=get_problem_statement_html_string(problem_id)
+    )
+    full_html = append_return_link_html_tag(
+        return_link_html_tag=return_link_html_tag,
+        html=html_with_heading
+    )
+    return full_html
