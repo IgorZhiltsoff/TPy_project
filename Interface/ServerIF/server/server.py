@@ -1,6 +1,7 @@
 import flask
 import sys
 import markdown
+from aux import display_problem_list, display_problem_info
 
 
 app = flask.Flask(__name__)
@@ -21,7 +22,12 @@ def display_readme():
 
 @app.route('/display_problems')
 def display_problems():
-    return flask.render_template('display_problems.html')
+    problem_id = flask.request.args.get('problem_id')
+    if not problem_id:
+        return display_problem_list()
+    else:
+        problem_id = int(problem_id)
+        return display_problem_info(problem_id)
 
 
 @app.route('/submit')
