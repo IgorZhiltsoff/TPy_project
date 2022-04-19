@@ -1,8 +1,7 @@
 import os
 
 import flask
-from aux_display_problem import \
-    get_path_to_problem_base, get_problem_full_name
+from aux_display_problem import get_path_to_problem_base, get_problem_full_name
 
 
 def display_problem_list():

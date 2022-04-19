@@ -1,7 +1,5 @@
 import json
 import os.path
-from lxml import etree
-from io import StringIO
 
 
 def get_path_to_problem_base():
@@ -26,59 +24,3 @@ def get_problem_name(problem_id):
 
 def get_problem_full_name(problem_id):
     return f'Problem #{problem_id}: {get_problem_name(problem_id)}'
-
-
-def generate_html_tag(descriptor, text, attribute=None, **kwargs):
-    tag = etree.Element(descriptor, attribute, **kwargs)
-    tag.text = text
-    return tag
-
-
-def get_html_tree(html):
-    parser = etree.HTMLParser()
-    tree = etree.parse(StringIO(html), parser)
-    return tree
-
-
-def get_tree_body(tree):
-    return tree.find('body')
-
-
-def append_sibling(new, sibling):
-    return sibling.addnext(new)
-
-
-def prepend_sibling(new, sibling):
-    return sibling.addprevious(new)
-
-
-def get_first_child(tag):
-    return tag.getchildren()[0]
-
-
-def get_last_child(tag):
-    return tag.getchildren()[-1]
-
-
-def append_child_to_nonempty_parent(new, prnt):
-    append_sibling(
-        new=new,
-        sibling=get_last_child(prnt)
-    )
-
-
-def prepend_child_to_nonempty_parent(new, prnt):
-    prepend_sibling(
-        new=new,
-        sibling=get_first_child(prnt)
-    )
-
-
-def append_child_to_body(new, tree):
-    body = get_tree_body(tree)
-    append_child_to_nonempty_parent(new, body)
-
-
-def prepend_child_to_body(new, tree):
-    body = get_tree_body(tree)
-    prepend_child_to_nonempty_parent(new, body)
