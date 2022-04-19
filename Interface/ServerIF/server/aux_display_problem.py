@@ -1,5 +1,7 @@
 import json
 import os.path
+from lxml import etree
+from io import StringIO
 
 
 def get_path_to_problem_base():
@@ -24,3 +26,23 @@ def get_problem_name(problem_id):
 
 def get_problem_full_name(problem_id):
     return f'Problem #{problem_id}: {get_problem_name(problem_id)}'
+
+
+def generate_html_tag(descriptor, text, attribute=None, **kwargs):
+    tag = etree.Element(descriptor, attribute, **kwargs)
+    tag.text = text
+    return tag
+
+
+def get_html_tree(html):
+    parser = etree.HTMLParser()
+    tree = etree.parse(StringIO(html), parser)
+    return tree
+
+
+def get_tree_body(tree):
+    return tree.find('body')
+
+
+def append_sibling(new, sibling):  # todo unify
+    return sibling.addnext(new)
