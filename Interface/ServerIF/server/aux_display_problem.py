@@ -44,5 +44,41 @@ def get_tree_body(tree):
     return tree.find('body')
 
 
-def append_sibling(new, sibling):  # todo unify
+def append_sibling(new, sibling):
     return sibling.addnext(new)
+
+
+def prepend_sibling(new, sibling):
+    return sibling.addprevious(new)
+
+
+def get_first_child(tag):
+    return tag.getchildren()[0]
+
+
+def get_last_child(tag):
+    return tag.getchildren()[-1]
+
+
+def append_child_to_nonempty_parent(new, prnt):
+    append_sibling(
+        new=new,
+        sibling=get_last_child(prnt)
+    )
+
+
+def prepend_child_to_nonempty_parent(new, prnt):
+    prepend_sibling(
+        new=new,
+        sibling=get_last_child(prnt)
+    )
+
+
+def append_child_to_body(new, tree):
+    body = get_tree_body(tree)
+    append_child_to_nonempty_parent(new, body)
+
+
+def prepend_child_to_body(new, tree):
+    body = get_tree_body(tree)
+    prepend_child_to_nonempty_parent(new, body)

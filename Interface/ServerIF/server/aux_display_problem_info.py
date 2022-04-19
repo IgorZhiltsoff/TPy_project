@@ -2,10 +2,9 @@ import os.path
 import fitz
 import markdown
 from lxml import etree
-from io import StringIO
 from aux_display_problem \
     import get_problem_data_dict, get_path_to_problem_dir, get_problem_full_name, generate_html_tag, \
-    get_html_tree, get_tree_body
+    get_html_tree, append_child_to_body, prepend_child_to_body
 
 
 def get_statement_extension(problem_id):
@@ -56,12 +55,11 @@ def generate_heading_html_tag(problem_id):
     )
 
 
-def prepend_heading_html_tag(heading_html_tag, html):  # todo get rid of c&p
-    tree = get_html_tree(html)
-    body = get_tree_body(tree)
-    first_item = body.getchildren()[0]
-    first_item.addprevious(heading_html_tag)
-    return etree.tostring(tree).decode('utf-8')
+def prepend_heading_html_tag(heading_html_tag, tree):
+    prepend_child_to_body(
+        new=heading_html_tag,
+        tree=tree
+    )
 
 
 def generate_return_link_html_tag():
@@ -72,23 +70,26 @@ def generate_return_link_html_tag():
     )
 
 
-def append_return_link_html_tag(return_link_html_tag, html):  # todo get rid of c&p
-    tree = get_html_tree(html)
-    body = get_tree_body(tree)
-    last_item = body.getchildren()[-1]
-    last_item.addnext(return_link_html_tag)
-    return etree.tostring(tree).decode('utf-8')
+def append_return_link_html_tag(return_link_html_tag, tree):
+    append_child_to_body(
+        new=return_link_html_tag,
+        tree=tree
+    )
 
 
 def display_problem_info(problem_id):
+    tree = get_html_tree(get_problem_statement_html_string(problem_id))
     heading_html_tag = generate_heading_html_tag(problem_id)
     return_link_html_tag = generate_return_link_html_tag()
-    html_with_heading = prepend_heading_html_tag(
+
+    prepend_heading_html_tag(
         heading_html_tag=heading_html_tag,
-        html=get_problem_statement_html_string(problem_id)
+        tree=tree
     )
-    full_html = append_return_link_html_tag(
+
+    append_return_link_html_tag(
         return_link_html_tag=return_link_html_tag,
-        html=html_with_heading
+        tree=tree
     )
-    return full_html
+
+    return etree.tostring(tree).decode('utf-8')
