@@ -49,10 +49,11 @@ def txt_file_to_html_string(path_to_statement):
         return f'<html><body><p>{doc.read()}</p></body></html>'
 
 
-def generate_heading_html_tag(problem_id):  # todo get rid of c&p
-    heading = etree.Element('h1')
-    heading.text = get_problem_full_name(problem_id)
-    return heading
+def generate_heading_html_tag(problem_id):
+    return generate_html_tag(
+        descriptor='h1',
+        text=get_problem_full_name(problem_id)
+    )
 
 
 def prepend_heading_html_tag(heading_html_tag, html):  # todo get rid of c&p
