@@ -16,7 +16,7 @@ def get_statement_filename(problem_id):
     return f'statement{get_statement_extension(problem_id)}'
 
 
-def get_problem_statement_html_string(problem_id):
+def get_problem_statement_string(problem_id):
     ext_to_file_parser = {'.md': md_file_to_html_string,
                           '.pdf': pdf_file_to_html_string,
                           '.txt': txt_file_to_html_string}
@@ -48,47 +48,47 @@ def txt_file_to_html_string(path_to_statement):
         return f'<html><body><p>{doc.read()}</p></body></html>'
 
 
-def generate_heading_html_tag(problem_id):
+def generate_heading_tag(problem_id):
     return generate_html_tag(
         descriptor='h1',
         text=get_problem_full_name(problem_id)
     )
 
 
-def prepend_heading_html_tag(heading_html_tag, tree):
+def prepend_heading_tag(heading_tag, tree):
     prepend_child_to_body(
-        new=heading_html_tag,
+        new=heading_tag,
         tree=tree
     )
 
 
-def generate_return_link_html_tag():
+def generate_back_to_list_link_tag():
     return generate_html_tag(
         descriptor='a',
-        text='Return to problems list',
+        text='Back to problems list',
         href="display_problems"
     )
 
 
-def append_return_link_html_tag(return_link_html_tag, tree):
+def append_return_link_tag(return_link_tag, tree):
     append_child_to_body(
-        new=return_link_html_tag,
+        new=return_link_tag,
         tree=tree
     )
 
 
 def display_problem_info(problem_id):
-    tree = get_html_tree(get_problem_statement_html_string(problem_id))
-    heading_html_tag = generate_heading_html_tag(problem_id)
-    return_link_html_tag = generate_return_link_html_tag()
+    tree = get_html_tree(get_problem_statement_string(problem_id))
+    heading_tag = generate_heading_tag(problem_id)
+    return_link_tag = generate_back_to_list_link_tag()
 
-    prepend_heading_html_tag(
-        heading_html_tag=heading_html_tag,
+    prepend_heading_tag(
+        heading_tag=heading_tag,
         tree=tree
     )
 
-    append_return_link_html_tag(
-        return_link_html_tag=return_link_html_tag,
+    append_return_link_tag(
+        return_link_tag=return_link_tag,
         tree=tree
     )
 

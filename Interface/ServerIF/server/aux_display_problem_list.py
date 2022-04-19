@@ -1,7 +1,7 @@
 import os
 from lxml import etree
 from aux_display_problem import \
-    get_path_to_problem_base, get_problem_full_name, get_html_tree, get_tree_body, append_child_to_body
+    get_path_to_problem_base, get_problem_full_name, get_html_tree, append_child_to_body
 
 
 def display_problem_list():
