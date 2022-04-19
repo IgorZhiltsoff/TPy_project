@@ -1,10 +1,19 @@
 import os.path
 import fitz
+import flask
 import markdown
-from lxml import etree
-from aux_display_problem \
-    import get_problem_data_dict, get_path_to_problem_dir, get_problem_full_name, generate_html_tag, \
-    get_html_tree, append_child_to_body, prepend_child_to_body
+from aux_display_problem import get_problem_data_dict, get_path_to_problem_dir, get_problem_full_name
+
+
+def display_problem_info(problem_id):
+    full_name = get_problem_full_name(problem_id)
+    statement_html_string = get_problem_statement_html_string(problem_id)
+    return flask.render_template(
+        'display_problem_info.html',
+        problem_id=problem_id,
+        full_name=full_name,
+        statement_html_string=statement_html_string
+    )
 
 
 def get_statement_extension(problem_id):
@@ -16,7 +25,7 @@ def get_statement_filename(problem_id):
     return f'statement{get_statement_extension(problem_id)}'
 
 
-def get_problem_statement_string(problem_id):
+def get_problem_statement_html_string(problem_id):
     ext_to_file_parser = {'.md': md_file_to_html_string,
                           '.pdf': pdf_file_to_html_string,
                           '.txt': txt_file_to_html_string}
@@ -46,50 +55,3 @@ def md_file_to_html_string(path_to_statement):
 def txt_file_to_html_string(path_to_statement):
     with open(path_to_statement) as doc:
         return f'<html><body><p>{doc.read()}</p></body></html>'
-
-
-def generate_heading_tag(problem_id):
-    return generate_html_tag(
-        descriptor='h1',
-        text=get_problem_full_name(problem_id)
-    )
-
-
-def prepend_heading_tag(heading_tag, tree):
-    prepend_child_to_body(
-        new=heading_tag,
-        tree=tree
-    )
-
-
-def generate_back_to_list_link_tag():
-    return generate_html_tag(
-        descriptor='a',
-        text='Back to problems list',
-        href="display_problems"
-    )
-
-
-def append_return_link_tag(return_link_tag, tree):
-    append_child_to_body(
-        new=return_link_tag,
-        tree=tree
-    )
-
-
-def display_problem_info(problem_id):
-    tree = get_html_tree(get_problem_statement_string(problem_id))
-    heading_tag = generate_heading_tag(problem_id)
-    return_link_tag = generate_back_to_list_link_tag()
-
-    prepend_heading_tag(
-        heading_tag=heading_tag,
-        tree=tree
-    )
-
-    append_return_link_tag(
-        return_link_tag=return_link_tag,
-        tree=tree
-    )
-
-    return etree.tostring(tree).decode('utf-8')
