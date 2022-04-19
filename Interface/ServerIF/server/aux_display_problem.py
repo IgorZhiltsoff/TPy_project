@@ -70,7 +70,7 @@ def append_child_to_nonempty_parent(new, prnt):
 def prepend_child_to_nonempty_parent(new, prnt):
     prepend_sibling(
         new=new,
-        sibling=get_last_child(prnt)
+        sibling=get_first_child(prnt)
     )
 
 

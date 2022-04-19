@@ -1,7 +1,8 @@
 import os
 from lxml import etree
 from aux_display_problem import \
-    get_path_to_problem_base, get_problem_full_name, get_html_tree, append_child_to_body
+    get_path_to_problem_base, get_problem_full_name, get_html_tree, \
+    append_child_to_body, prepend_child_to_body, generate_html_tag
 
 
 def display_problem_list():
@@ -13,6 +14,11 @@ def display_problem_list():
             new=paragraph,
             tree=tree
         )
+
+    append_child_to_body(
+        new=generate_back_to_main_page_link_tag(),
+        tree=tree
+    )
 
     return etree.tostring(tree).decode('utf-8')
 
@@ -30,3 +36,11 @@ def generate_problem_paragraph_link_tag(problem_id):
         href=f"display_problems?problem_id={problem_id}"
     ).text = get_problem_full_name(problem_id)
     return paragraph
+
+
+def generate_back_to_main_page_link_tag():
+    return generate_html_tag(
+        descriptor='a',
+        text='Back to main page',
+        href="/"
+    )
