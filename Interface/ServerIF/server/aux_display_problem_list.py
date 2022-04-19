@@ -10,11 +10,9 @@ def display_problem_list():
     tree = generate_list_skeleton_tree()
     body = get_tree_body(tree)
     previous = body.getchildren()[-1]
-    for problem_link_tag in problem_link_tags:
-        append_sibling(
-            new=problem_link_tag,
-            sibling=previous,
-        )
+    for problem_id in problem_ids:
+        paragraph = etree.SubElement(body, 'p')
+        etree.SubElement(paragraph, 'a', href=f"display_problems?problem_id={problem_id}").text = get_problem_full_name(problem_id)
     return etree.tostring(tree).decode('utf-8')
 
 
