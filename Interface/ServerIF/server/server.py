@@ -15,11 +15,10 @@ def init():
 
 @app.route('/display_readme')
 def display_readme():
-    back_link_html_string = get_back_to_main_page_html_string()
     return flask.render_template(
         'display_readme.html',
         readme_html_string=md_file_to_html_string('../../../README.md'),
-        back_link_html_string=back_link_html_string
+        back_link_html_string=get_back_to_main_page_html_string()
     )
 
 
@@ -35,7 +34,10 @@ def display_problems():
 
 @app.route('/submit')
 def submit():
-    pass
+    return flask.render_template(
+        'submit.html',
+        back_link_html_string=get_back_to_main_page_html_string()
+    )
 
 
 @app.route('/upload_problem')
