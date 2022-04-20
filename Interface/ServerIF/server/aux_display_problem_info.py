@@ -2,17 +2,20 @@ import os.path
 import fitz
 import flask
 import markdown
-from aux_display_problem import get_problem_data_dict, get_path_to_problem_dir, get_problem_full_name
+from aux_display_problem import \
+    get_problem_data_dict, get_path_to_problem_dir, get_problem_full_name, get_back_link_html_string
 
 
 def display_problem_info(problem_id):
     full_name = get_problem_full_name(problem_id)
     statement_html_string = get_problem_statement_html_string(problem_id)
+    back_link_html_string = get_back_link_html_string(ref='display_problems', text='Back to problems list')
     return flask.render_template(
         'display_problem_info.html',
         problem_id=problem_id,
         full_name=full_name,
-        statement_html_string=statement_html_string
+        statement_html_string=statement_html_string,
+        back_link_html_string=back_link_html_string
     )
 
 

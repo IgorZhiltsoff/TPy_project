@@ -11,8 +11,6 @@
         <a href="display_problems?problem_id={{problem_id}}">{{full_name}}</a>
     </p>
     {% endfor %}
-    <div style="position: absolute; top: 0; right: 10px; width: 200px; text-align:right;">
-        <a href="/">Back to main page</a>
-    </div>
+    {{back_link_html_string|safe}}
 </body>
 </html>
