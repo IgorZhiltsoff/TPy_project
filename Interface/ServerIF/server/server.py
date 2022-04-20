@@ -1,5 +1,6 @@
 import flask
 import sys
+from aux_display_problem import get_back_to_main_page_html_string
 from aux_display_problem_info import display_problem_info, md_file_to_html_string
 from aux_display_problem_list import display_problem_list
 
@@ -14,7 +15,12 @@ def init():
 
 @app.route('/display_readme')
 def display_readme():
-    return md_file_to_html_string('../../../README.md')
+    back_link_html_string = get_back_to_main_page_html_string()
+    return flask.render_template(
+        'display_readme.html',
+        readme_html_string=md_file_to_html_string('../../../README.md'),
+        back_link_html_string=back_link_html_string
+    )
 
 
 @app.route('/display_problems')

@@ -33,3 +33,7 @@ def get_back_link_html_string(ref, text):
         ref=ref,
         text=text
     )
+
+
+def get_back_to_main_page_html_string():
+    return get_back_link_html_string(ref='/', text='Back to main page')
