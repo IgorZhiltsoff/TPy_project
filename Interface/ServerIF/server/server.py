@@ -3,6 +3,7 @@ import sys
 from aux_display_problem import get_back_to_main_page_html_string
 from aux_display_problem_info import display_problem_info, md_file_to_html_string
 from aux_display_problem_list import display_problem_list
+from aux_submit import recieve_submission
 
 
 app = flask.Flask(__name__)
@@ -32,12 +33,19 @@ def display_problems():
         return display_problem_info(problem_id)
 
 
-@app.route('/submit')
+@app.route('/submit', methods=['GET', 'POST'])
 def submit():
-    return flask.render_template(
-        'submit.html',
-        back_link_html_string=get_back_to_main_page_html_string()
-    )
+    if flask.request.form.get('mode') != 'Submit':
+        return flask.render_template(
+            'submit.html',
+            back_link_html_string=get_back_to_main_page_html_string()
+        )
+    else:
+        #recieve_submission()
+        print('HAHAHA')
+        print(flask.request.form)
+        print(flask.request.files)
+        return 'haha'
 
 
 @app.route('/upload_problem')
