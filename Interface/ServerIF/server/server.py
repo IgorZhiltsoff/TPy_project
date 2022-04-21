@@ -43,6 +43,7 @@ def submit():
     else:
         process_submission(
             submission_file_storage=flask.request.files['submission'],
+            problem_id=flask.request.form['problem_id'],
             lang=flask.request.form['lang']
         )
         print(flask.request.form)

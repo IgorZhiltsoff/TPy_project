@@ -57,4 +57,4 @@ def md_file_to_html_string(path_to_statement):
 
 def txt_file_to_html_string(path_to_statement):
     with open(path_to_statement) as doc:
-        return flask.Response(doc.read(), mimetype='text/plain')
+        return doc.read()
