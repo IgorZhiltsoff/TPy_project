@@ -3,7 +3,7 @@ import sys
 from aux_display_problem import get_back_to_main_page_html_string
 from aux_display_problem_info import display_problem_info, md_file_to_html_string
 from aux_display_problem_list import display_problem_list
-from aux_submit import recieve_submission
+from aux_submit import process_submission
 
 
 app = flask.Flask(__name__)
@@ -41,8 +41,10 @@ def submit():
             back_link_html_string=get_back_to_main_page_html_string()
         )
     else:
-        #recieve_submission()
-        print('HAHAHA')
+        process_submission(
+            submission_file_storage=flask.request.files['submission'],
+            lang=flask.request.form['lang']
+        )
         print(flask.request.form)
         print(flask.request.files)
         return 'haha'
