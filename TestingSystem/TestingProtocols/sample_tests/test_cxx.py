@@ -22,7 +22,7 @@ class CXXAnswerTest(BaseTestCase):
             input_output_paths_dict={"inout_tests/1.in": "inout_tests/1.out",
                                      "inout_tests/2.in": "inout_tests/2.out",
                                      "inout_tests/3.in": "inout_tests/3.out"},
-            programming_language_data=cxx_data.cxx11_data,
+            language_data=cxx_data.cxx11_data,
             conversion_opts=warning_opts
         )
 
@@ -39,7 +39,7 @@ class CXXAnswerTest(BaseTestCase):
                              "in_custom_tests/2.in",
                              "in_custom_tests/3.in"},
             path_to_checker_exec='in_custom_tests/custom_checker.out',
-            programming_language_data=cxx_data.cxx14_data,
+            language_data=cxx_data.cxx14_data,
             conversion_opts=warning_opts
         )
 
@@ -55,7 +55,7 @@ class CXXAnswerTest(BaseTestCase):
             test_count=3,
             path_to_input_generation_exec='rand_custom_tests/random_generator.out',
             path_to_checker_exec='rand_custom_tests/custom_checker.out',
-            programming_language_data=cxx_data.cxx17_data,
+            language_data=cxx_data.cxx17_data,
             conversion_opts=warning_opts
         )
 
@@ -71,7 +71,7 @@ class CXXAnswerTest(BaseTestCase):
             path_to_header='limited_work_space/header.cpp',
             path_to_footer='limited_work_space/footer.cpp',
             extension='.cpp',
-            programming_language_data=cxx_data.cxx20_data,
+            language_data=cxx_data.cxx20_data,
             conversion_opts=warning_opts
         )
 

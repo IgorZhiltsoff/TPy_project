@@ -20,7 +20,7 @@ class Verdict:
         self.test_number = test_number
 
 
-class ProgrammingLanguageData:
+class LanguageData:
     """Data concerning certain programming language execution"""
     def __init__(self, convert_to_executable_fun):
         self.convert_to_executable = convert_to_executable_fun
@@ -40,8 +40,8 @@ class TestingProtocol(ABC):
             - Several protocols for different programming languages
             - RandomInputCustomChecker for stress/performance testing, other protocol to validate extreme cases"""
 
-    def __init__(self, programming_language_data, conversion_opts=None, command_line_opts=None):
-        self.programming_language_data = programming_language_data
+    def __init__(self, language_data, conversion_opts=None, command_line_opts=None):
+        self.language_data = language_data
         self.conversion_opts = conversion_opts
         self.command_line_opts = command_line_opts
 
@@ -115,7 +115,7 @@ class InputOutput(TestingProtocol):
 
     def check(self, user_submitted_data):
         path_to_executable = TestingProtocol.generate_exec_path(user_submitted_data.submission_id)
-        conversion_return_code = self.programming_language_data.convert_to_executable(
+        conversion_return_code = self.language_data.convert_to_executable(
                                     user_submitted_data.path_to_src,
                                     path_to_executable,
                                     self.conversion_opts
@@ -159,7 +159,7 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
 
     def check(self, user_submitted_data):
         path_to_executable = TestingProtocol.generate_exec_path(user_submitted_data.submission_id)
-        conversion_return_code = self.programming_language_data.convert_to_executable(
+        conversion_return_code = self.language_data.convert_to_executable(
                                 user_submitted_data.path_to_src,
                                 path_to_executable,
                                 self.conversion_opts
@@ -227,7 +227,7 @@ class RandomInputCustomChecker(TestingProtocol):
         deterministic_protocol = InputCustomChecker(
             input_paths_set=random_input_paths_set,
             path_to_checker_exec=self.path_to_checker_exec,
-            programming_language_data=self.programming_language_data,
+            language_data=self.language_data,
             conversion_opts=self.conversion_opts,
             command_line_opts=self.command_line_opts
         )
@@ -277,7 +277,7 @@ class LimitedWorkSpace(TestingProtocol):
         path_to_unit = LimitedWorkSpace.generate_unit_file()
         trivial_protocol = InputOutput(
             input_output_paths_dict={Path('/dev/stdin'): path_to_unit},
-            programming_language_data=self.programming_language_data,
+            language_data=self.language_data,
             conversion_opts=self.conversion_opts,
             command_line_opts=self.command_line_opts
         )

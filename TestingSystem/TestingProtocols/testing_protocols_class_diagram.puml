@@ -26,30 +26,52 @@ class UserSubmittedData {
 }
 
 
-class ProgrammingLanguageData {
+class LanguageData {
         +void __init__(...)
         +int convert_to_executable(path_to_src, non_colliding_exec_name, conversion_opts)
+        +bool check_compatibility(ProgrammingLanguage)
 }
 
-class CXXData
+class CXXLabel
+class CXXDataSet
 
-CXXData "1" <-- "+1..*" ProgrammingLanguageData
+CXXLabel <|-- CXXDataSet
+CXXDataSet "1" <-- "+1..*" LanguageData
 
-class HaskellData
+class HaskellLabel
+class HaskellDataSet
 
-HaskellData "1" <-- "+1..*" ProgrammingLanguageData
+HaskellLabel <|-- HaskellDataSet
+HaskellDataSet "1" <-- "+1..*" LanguageData
 
-class PythonData
+class PythonLabel
+class PythonDataSet
 
-PythonData "1" <-- "+1..*" ProgrammingLanguageData
+PythonLabel <|-- PythonDataSet
+PythonDataSet "1" <-- "+1..*" LanguageData
 
-class JavaData
+class JavaLabel
+class JavaDataSet
 
-JavaData "1" <-- "+1..*" ProgrammingLanguageData
+JavaLabel <|-- JavaDataSet
+JavaDataSet "1" <-- "+1..*" LanguageData
 
-class ScalaData
+class ScalaLabel
+class ScalaDataSet
 
-ScalaData "1" <-- "+1..*" ProgrammingLanguageData
+ScalaLabel <|-- ScalaDataSet
+ScalaDataSet "1" <-- "+1..*" LanguageData
+
+class LanguageLabel {
+    bool check_compatibility(Label)
+}
+
+
+LanguageLabel <|-- CXXLabel
+LanguageLabel <|-- HaskellLabel
+LanguageLabel <|-- PythonLabel
+LanguageLabel <|-- JavaLabel
+LanguageLabel <|-- ScalaLabel
 
 ' ========================== PROTOCOLS =========================
 
@@ -59,6 +81,7 @@ abstract class TestingProtocols {
     -{static} dict return_code_to_error_msg = ...
 
     +void __init__(...)
+    +{abstract} bool check_compatibility(self, user_submitted_data)
     +{abstract} Verdict check(self, user_submitted_data)
     -{static} int run_code(path_to_executable, path_to_input_file, path_to_output_file, command_line_opts))
     -{static} Path prevent_path_collision(initial_number, get_path)
@@ -66,7 +89,8 @@ abstract class TestingProtocols {
     -{static} Path generate_exec_path(submission_id)
 }
 
-TestingProtocols "1" <-- "+1 programming_language_data" ProgrammingLanguageData
+TestingProtocols "1" <---- "+1..* language_datas" LanguageData
+UserSubmittedData "1" <------ "1" LanguageData
 
 class InputOutput {
     -dict input_output_paths_dict

@@ -1,6 +1,6 @@
 # this module defines language support objects
 
-from testing_protocols import ProgrammingLanguageData
+from testing_protocols import LanguageData
 import subprocess
 from pathlib import Path
 
@@ -20,18 +20,18 @@ def cxx_arbitrary_std_convert_to_executable(cxx_standard):
     return cxx_fixed_std_convert_to_executable
 
 
-class CXXData:
+class CXXDataSet:
     @staticmethod
     def __init__(standards_collection):
         for std in standards_collection:
-            setattr(CXXData,
+            setattr(CXXDataSet,
                     f'cxx{std}_data',
-                    ProgrammingLanguageData(
+                    LanguageData(
                         convert_to_executable_fun=cxx_arbitrary_std_convert_to_executable(std)
                     ))
 
 
-cxx_data = CXXData([11, 14, 17, 20])
+cxx_data = CXXDataSet([11, 14, 17, 20])
 
 # =============================================== HASKELL ==============================================================
 
@@ -41,15 +41,15 @@ def haskell_convert_to_executable(path_to_src, non_colliding_exec_name, conversi
     return conversion.returncode
 
 
-class HaskellData:
+class HaskellDataSet:
     @staticmethod
     def __init__():
-        HaskellData.haskell_data = ProgrammingLanguageData(
+        HaskellDataSet.haskell_data = LanguageData(
                         convert_to_executable_fun=haskell_convert_to_executable
                     )
 
 
-haskell_data = HaskellData()
+haskell_data = HaskellDataSet()
 
 # =============================================== PYTHON3 ==============================================================
 
@@ -67,20 +67,20 @@ def python3_arbitrary_interpreter_convert_to_executable(path_to_interpreter):
     return python3_fixed_interpreter_convert_to_executable
 
 
-class PythonData:
+class PythonDataSet:
     @staticmethod
     def __init__(interpreter_path_dict):
         for interpreter in interpreter_path_dict:
-            setattr(PythonData,
+            setattr(PythonDataSet,
                     f'{interpreter}_data',
-                    ProgrammingLanguageData(
+                    LanguageData(
                         convert_to_executable_fun=python3_arbitrary_interpreter_convert_to_executable(
                             path_to_interpreter=interpreter_path_dict[interpreter]
                         )
                     ))
 
 
-python_data = PythonData({'python3': Path('/bin/python3')})
+python_data = PythonDataSet({'python3': Path('/bin/python3')})
 
 # ============================================ JAVA or SCALA ===========================================================
 
