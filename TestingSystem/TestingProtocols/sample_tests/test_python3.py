@@ -4,9 +4,9 @@ from testing_protocols import InputOutput, InputCustomChecker, RandomInputCustom
     UserSubmittedData
 from language_support import python_data
 
-accepted = UserSubmittedData('accepted.py', 1)
-wrong_answer = UserSubmittedData('wrong_answer.py', 2)
-runtime_error = UserSubmittedData('runtime_error.py', 3)
+accepted = UserSubmittedData('accepted.py', 1, None)
+wrong_answer = UserSubmittedData('wrong_answer.py', 2, None)
+runtime_error = UserSubmittedData('runtime_error.py', 3, None)
 
 user_submitted_data_to_expected_verdict_generator = \
     BaseTestCase.standard_user_submitted_data_to_expected_verdict_generator(
@@ -69,8 +69,8 @@ class Python3AnswerTest(BaseTestCase):
             language_data=python_data.python3_data
         )
 
-        limited_work_space_accepted = UserSubmittedData('limited_work_space/accepted.py', 1)
-        limited_work_space_wrong_answer = UserSubmittedData('limited_work_space/wrong_answer.py', 2)
+        limited_work_space_accepted = UserSubmittedData('limited_work_space/accepted.py', 1, None)
+        limited_work_space_wrong_answer = UserSubmittedData('limited_work_space/wrong_answer.py', 2, None)
         limited_work_space_runtime_error = runtime_error
 
         user_submitted_data_to_expected_verdict = \

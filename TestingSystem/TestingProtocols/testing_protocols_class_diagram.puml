@@ -51,15 +51,16 @@ class LanguageLabelHolder {
 }
 
 LanguageLabelHolder "1" <-- "1" LanguageLabel
-UserSubmittedData "1" <--- "1" LanguageLabelHolder
+LanguageLabelHolder <|-- UserSubmittedData
 
 
 
 class LanguageData {
         +void __init__(...)
         +int convert_to_executable(path_to_src, non_colliding_exec_name, conversion_opts)
+        +bool is_compatible_with(user_submitted_data)
 }
-LanguageLabelHolder <|---- LanguageData
+LanguageLabelHolder <|--- LanguageData
 
 class CXXDataSet
 
@@ -90,6 +91,7 @@ abstract class TestingProtocols {
 
     +void __init__(...)
     +{abstract} Verdict check(self, user_submitted_data)
+    -LanguageData choose_language_data(self, user_submitted_data)
     -{static} int run_code(path_to_executable, path_to_input_file, path_to_output_file, command_line_opts))
     -{static} Path prevent_path_collision(initial_number, get_path)
     -{static} Path generate_output_path(submission_id)
@@ -152,14 +154,14 @@ class ProblemData {
     +void __init__(...)
 }
 
-ProblemData "1" <--- "testing_protocols_set 1..*" TestingProtocols
+ProblemData "1" <-- "testing_protocols_set 1..*" TestingProtocols
 
 
 class ExtendedSubmission {
     +void __init__(...)
 }
 
-ExtendedSubmission "1" *--- "+problem_data 1" ProblemData
+ExtendedSubmission "1" *-- "+problem_data 1" ProblemData
 ExtendedSubmission "1" *--- "+user_submitted_ data1" UserSubmittedData
 
 @enduml

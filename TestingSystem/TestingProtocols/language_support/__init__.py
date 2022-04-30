@@ -63,11 +63,13 @@ def cxx_arbitrary_std_convert_to_executable(cxx_standard):
 class CXXDataSet:
     @staticmethod
     def __init__(standards_collection):
+        CXXDataSet.data_set = set()
         for std in standards_collection:
             setattr(CXXDataSet,
                     f'cxx{std}_data',
                     LanguageData(convert_to_executable_fun=cxx_arbitrary_std_convert_to_executable(std),
                                  label=eval(f'LanguageLabel.CXX{std}')))
+            CXXDataSet.data_set.add(getattr(CXXDataSet, f'cxx{std}_data'))
 
 
 cxx_data = CXXDataSet([11, 14, 17, 20])
