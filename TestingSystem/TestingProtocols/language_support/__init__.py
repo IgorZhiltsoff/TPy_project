@@ -45,6 +45,20 @@ class LanguageData(LanguageLabelHolder):
         super().__init__(label)
         self.convert_to_executable = convert_to_executable_fun
 
+
+class ExecutionAndConversionData:
+    """Data concerning certain programming language execution WITH GIVEN PARAMETERS"""
+    def __init__(self, language_data, conversion_opts=None, command_line_opts=None):
+        self.language_data = language_data
+        self.conversion_opts = conversion_opts
+        self.command_line_opts = command_line_opts
+
+    def __getattr__(self, item):
+        try:
+            return getattr(self.language_data, item)
+        except AttributeError:
+            raise AttributeError('NO MATCHING ATTR IN ExecutionAndConversionData HIERARCHY')
+
 # ================================================= CXX ================================================================
 
 

@@ -3,6 +3,7 @@ import subprocess
 from pathlib import Path
 from random import randint
 from language_support import LanguageLabelHolder
+# from enum import Enum, auto
 
 
 class UserSubmittedData(LanguageLabelHolder):
@@ -36,10 +37,8 @@ class TestingProtocol(ABC):
             - Several protocols for different programming languages
             - RandomInputCustomChecker for stress/performance testing, other protocol to validate extreme cases"""
 
-    def __init__(self, language_data_set, conversion_opts=None, command_line_opts=None):
-        self.language_data_set = language_data_set
-        self.conversion_opts = conversion_opts
-        self.command_line_opts = command_line_opts
+    def __init__(self, execution_and_conversion_data_set):
+        self.execution_and_conversion_data_set = execution_and_conversion_data_set
 
     def check(self, user_submitted_data):
         language_data = self.choose_language_data(user_submitted_data)
@@ -49,13 +48,13 @@ class TestingProtocol(ABC):
             return Verdict("SKIP", -1)
 
     @abstractmethod
-    def check_with_chosen_language_data(self, user_submitted_data, language_data):
+    def check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data):
         pass
 
     def choose_language_data(self, user_submitted_data):
-        for language_data in self.language_data_set:
-            if language_data.is_super_label_of(user_submitted_data):
-                return language_data
+        for execution_and_conversion_data in self.execution_and_conversion_data_set:
+            if execution_and_conversion_data.is_super_label_of(user_submitted_data):
+                return execution_and_conversion_data
         return None
 
     @staticmethod
@@ -122,12 +121,12 @@ class InputOutput(TestingProtocol):
                                path_to_solution_output,
                                path_to_correct_output]).returncode == 0
 
-    def check_with_chosen_language_data(self, user_submitted_data, language_data):
+    def check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data):
         path_to_executable = TestingProtocol.generate_exec_path(user_submitted_data.submission_id)
-        conversion_return_code = language_data.convert_to_executable(
+        conversion_return_code = execution_and_conversion_data.convert_to_executable(
                                     user_submitted_data.path_to_src,
                                     path_to_executable,
-                                    self.conversion_opts
+                                    execution_and_conversion_data.conversion_opts
         )
 
         if conversion_return_code != 0:
@@ -138,8 +137,11 @@ class InputOutput(TestingProtocol):
         # ITERATE OVER TESTS
         for test, path_to_input_file in enumerate(self.input_output_paths_dict):
             # RUN
-            feedback = TestingProtocol.run_code(path_to_executable, path_to_input_file,
-                                                path_to_solution_output, self.command_line_opts)
+            feedback = TestingProtocol.run_code(
+                path_to_executable=path_to_executable,
+                path_to_input_file=path_to_input_file,
+                path_to_output_file=path_to_solution_output,
+                command_line_opts=execution_and_conversion_data.command_line_opts)
             if feedback != 0:
                 return Verdict('RE', test)
 
@@ -166,12 +168,12 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
         return int(subprocess.run([self.path_to_checker_exec, path_to_input_file, path_to_solution_output],
                                   stdout=subprocess.PIPE).stdout.decode('utf-8')) == 1
 
-    def check_with_chosen_language_data(self, user_submitted_data, language_data):
+    def check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data):
         path_to_executable = TestingProtocol.generate_exec_path(user_submitted_data.submission_id)
-        conversion_return_code = language_data.convert_to_executable(
+        conversion_return_code = execution_and_conversion_data.convert_to_executable(
                                 user_submitted_data.path_to_src,
                                 path_to_executable,
-                                self.conversion_opts
+                                execution_and_conversion_data.conversion_opts
         )
 
         if conversion_return_code != 0:
@@ -182,8 +184,12 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
         # ITERATE OVER TESTS
         for test, path_to_input_file in enumerate(self.input_paths_set):
             # RUN
-            feedback = TestingProtocol.run_code(path_to_executable, path_to_input_file,
-                                                path_to_solution_output, self.command_line_opts)
+            feedback = TestingProtocol.run_code(
+                path_to_executable=path_to_executable,
+                path_to_input_file=path_to_input_file,
+                path_to_output_file=path_to_solution_output,
+                command_line_opts=execution_and_conversion_data.command_line_opts
+            )
             if feedback != 0:
                 return Verdict('RE', test)
 
@@ -230,15 +236,13 @@ class RandomInputCustomChecker(TestingProtocol):
             input_paths_set.add(infile_path)
         return input_paths_set
 
-    def check_with_chosen_language_data(self, user_submitted_data, language_data):
+    def check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data):
         random_input_paths_set = self.generate_input(user_submitted_data.submission_id)
 
         deterministic_protocol = InputCustomChecker(
             input_paths_set=random_input_paths_set,
             path_to_checker_exec=self.path_to_checker_exec,
-            language_data_set={language_data},
-            conversion_opts=self.conversion_opts,
-            command_line_opts=self.command_line_opts
+            execution_and_conversion_data_set={execution_and_conversion_data},
         )
 
         return deterministic_protocol.check(user_submitted_data=user_submitted_data)
@@ -278,7 +282,7 @@ class LimitedWorkSpace(TestingProtocol):
                            stdout=merged)
         return path_to_merged
 
-    def check_with_chosen_language_data(self, user_submitted_data, language_data):
+    def check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data):
         # GENERATE SRC
         path_to_merged = self.generate_merged(user_submitted_data)
 
@@ -286,9 +290,7 @@ class LimitedWorkSpace(TestingProtocol):
         path_to_unit = LimitedWorkSpace.generate_unit_file()
         trivial_protocol = InputOutput(
             input_output_paths_dict={Path('/dev/stdin'): path_to_unit},
-            language_data_set={language_data},
-            conversion_opts=self.conversion_opts,
-            command_line_opts=self.command_line_opts
+            execution_and_conversion_data_set={execution_and_conversion_data},
         )
         merged_data = UserSubmittedData(path_to_merged, user_submitted_data.submission_id, user_submitted_data.label)
         return trivial_protocol.check(user_submitted_data=merged_data)

@@ -56,49 +56,67 @@ LanguageLabelHolder <|-- UserSubmittedData
 
 
 class LanguageData {
-        +void __init__(...)
-        +int convert_to_executable(path_to_src, non_colliding_exec_name, conversion_opts)
-        +bool is_compatible_with(user_submitted_data)
+    +void __init__(...)
+    +int convert_to_executable(path_to_src, non_colliding_exec_name, conversion_opts)
+    +bool is_compatible_with(user_submitted_data)
 }
 LanguageLabelHolder <|--- LanguageData
 
-class CXXDataSet
+class CXXDataSet {
+    +set data_set
+}
 
 CXXDataSet "1" <-- "+1..*" LanguageData
 
-class HaskellDataSet
+class HaskellDataSet {
+    +set data_set
+}
 
 HaskellDataSet "1" <-- "+1..*" LanguageData
 
-class PythonDataSet
+class PythonDataSet {
+    +set data_set
+}
 
 PythonDataSet "1" <-- "+1..*" LanguageData
 
-class JavaDataSet
+class JavaDataSet {
+    +set data_set
+}
 
 JavaDataSet "1" <-- "+1..*" LanguageData
 
-class ScalaDataSet
+class ScalaDataSet {
+    +set data_set
+}
 
 ScalaDataSet "1" <-- "+1..*" LanguageData
+
+
+class ExecutionAndConversionData {
+    -list conversion_opts_lst
+    -list command_line_opts_lst
+
+    +void __init__(...)
+}
+
+ExecutionAndConversionData "1" <--- "1 language_data" LanguageData
+TestingProtocols "1" <--- "-1..* execution_and_conversion_data_set" ExecutionAndConversionData
 
 ' ========================== PROTOCOLS =========================
 
 abstract class TestingProtocols {
-    -list conversion_opts_lst
-    -list command_line_opts_lst
     -{static} dict return_code_to_error_msg = ...
 
     +void __init__(...)
-    +{abstract} Verdict check(self, user_submitted_data)
-    -LanguageData choose_language_data(self, user_submitted_data)
+    +Verdict check(self, user_submitted_data)
+    -ExecutionAndConversionData choose_language_data(self, user_submitted_data)
+    -{abstract} Verdict check_with_chosen_language_data(self, user_submitted_data)
     -{static} int run_code(path_to_executable, path_to_input_file, path_to_output_file, command_line_opts))
     -{static} Path prevent_path_collision(initial_number, get_path)
     -{static} Path generate_output_path(submission_id)
     -{static} Path generate_exec_path(submission_id)
 }
-
-TestingProtocols "1" <---- "+1..* language_datas" LanguageData
 
 class InputOutput {
     -dict input_output_paths_dict
