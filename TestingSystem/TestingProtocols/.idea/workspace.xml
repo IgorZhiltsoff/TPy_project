@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Passed PYTHON tests">
-      <change beforePath="$PROJECT_DIR$/../../TaskManager.ods" beforeDir="false" afterPath="$PROJECT_DIR$/../../TaskManager.ods" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/language_support/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/language_support/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sample_tests/test_cxx.py" beforeDir="false" afterPath="$PROJECT_DIR$/sample_tests/test_cxx.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sample_tests/test_python3.py" beforeDir="false" afterPath="$PROJECT_DIR$/sample_tests/test_python3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testing_protocols/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_protocols/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testing_protocols_class_diagram.puml" beforeDir="false" afterPath="$PROJECT_DIR$/testing_protocols_class_diagram.puml" afterDir="false" />
+    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Added script for running tests">
+      <change beforePath="$PROJECT_DIR$/sample_tests/run_tests.sh" beforeDir="false" afterPath="$PROJECT_DIR$/run_tests.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,7 +139,7 @@
       <workItem from="1650628700836" duration="6913000" />
       <workItem from="1650654638014" duration="665000" />
       <workItem from="1651256343641" duration="2726000" />
-      <workItem from="1651311045958" duration="10299000" />
+      <workItem from="1651311045958" duration="10630000" />
     </task>
     <task id="LOCAL-00001" summary="Enforced enumerate">
       <created>1649197810547</created>
@@ -238,7 +232,21 @@
       <option name="project" value="LOCAL" />
       <updated>1651316575544</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Banished opts from TestingProtocol class to ExecutionAndConversionData">
+      <created>1651337054055</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1651337054055</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Added script for running tests">
+      <created>1651337287509</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1651337287509</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -266,7 +274,9 @@
     <MESSAGE value="Passed Python tests" />
     <MESSAGE value="Passed CXX tests" />
     <MESSAGE value="Passed PYTHON tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="Passed PYTHON tests" />
+    <MESSAGE value="Banished opts from TestingProtocol class to ExecutionAndConversionData" />
+    <MESSAGE value="Added script for running tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added script for running tests" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -280,6 +290,6 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/TestingProtocols$.coverage" NAME=" Coverage Results" MODIFIED="1651336982226" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sample_tests" />
+    <SUITE FILE_PATH="coverage/TestingProtocols$.coverage" NAME=" Coverage Results" MODIFIED="1651337234892" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sample_tests" />
   </component>
 </project>
