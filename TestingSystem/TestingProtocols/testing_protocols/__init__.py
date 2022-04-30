@@ -3,7 +3,7 @@ import subprocess
 from pathlib import Path
 from random import randint
 from language_support import LanguageLabelHolder
-# from enum import Enum, auto
+from enum import Enum, auto
 
 
 class UserSubmittedData(LanguageLabelHolder):
