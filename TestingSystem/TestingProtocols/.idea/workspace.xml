@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Verdict message made enum!">
+    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Started enforcing tempfile">
       <change beforePath="$PROJECT_DIR$/../../TaskManager.ods" beforeDir="false" afterPath="$PROJECT_DIR$/../../TaskManager.ods" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Class_TestingProtocols.puml" beforeDir="false" afterPath="$PROJECT_DIR$/Class_TestingProtocols.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testing_protocols/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_protocols/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,8 +36,9 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/language_support/__init__.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/testing_protocols/__init__.py" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/testing_protocols/__init__.py" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -146,7 +148,7 @@
       <workItem from="1650628700836" duration="6913000" />
       <workItem from="1650654638014" duration="665000" />
       <workItem from="1651256343641" duration="2726000" />
-      <workItem from="1651311045958" duration="19490000" />
+      <workItem from="1651311045958" duration="21224000" />
     </task>
     <task id="LOCAL-00001" summary="Enforced enumerate">
       <created>1649197810547</created>
@@ -309,7 +311,21 @@
       <option name="project" value="LOCAL" />
       <updated>1651344270034</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Started enforcing tempfile">
+      <created>1651346656885</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1651346656885</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Started enforcing tempfile">
+      <created>1651346746583</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1651346746583</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -342,7 +358,8 @@
     <MESSAGE value="Rendered" />
     <MESSAGE value="Enabled pre-commit hook" />
     <MESSAGE value="Verdict message made enum!" />
-    <option name="LAST_COMMIT_MESSAGE" value="Verdict message made enum!" />
+    <MESSAGE value="Started enforcing tempfile" />
+    <option name="LAST_COMMIT_MESSAGE" value="Started enforcing tempfile" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -361,6 +378,6 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/TestingProtocols$.coverage" NAME=" Coverage Results" MODIFIED="1651346563261" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sample_tests" />
+    <SUITE FILE_PATH="coverage/TestingProtocols$.coverage" NAME=" Coverage Results" MODIFIED="1651348288140" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sample_tests" />
   </component>
 </project>

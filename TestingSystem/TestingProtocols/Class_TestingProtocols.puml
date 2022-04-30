@@ -110,16 +110,16 @@ abstract class TestingProtocols {
     +Verdict check(self, user_submitted_data)
     -ExecutionAndConversionData choose_language_data(self, user_submitted_data)
     -{abstract} Verdict check_with_chosen_language_data(self, user_submitted_data)
+    -bool verify(self, scope)
+    -Verdict basic_check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data, attr_to_iterate_over)
     -{static} int run_code(path_to_executable, path_to_input_file, path_to_output_file, command_line_opts))
-    -{static} Path prevent_path_collision(initial_number, get_path)
-    -{static} Path generate_output_path(submission_id)
-    -{static} Path generate_exec_path(submission_id)
 }
 
 class InputOutput {
     -dict input_output_paths_dict
 
     +void __init__(...)
+    -bool verify(self, scope)
     -{static} bool equal_files(path_to_solution_output, path_to_correct_output)
     -{static} void truncate_terminating_newline_if_necessary(path_to_file)
 }
@@ -129,6 +129,7 @@ class InputCustomChecker {
     -Path path_to_checker_exec
 
     +void __init__(...)
+    -bool verify(self, scope)
     -bool passes_custom_checker(self, path_to_input_file, path_to_solution_output)
 }
 

@@ -60,6 +60,50 @@ class TestingProtocol(ABC):
     def check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data):
         pass
 
+    def verify(self, scope):
+        pass
+
+    def basic_check_with_chosen_language_data(
+            self,
+            user_submitted_data,
+            execution_and_conversion_data,
+            attr_to_iterate_over
+    ):
+        with tempfile.NamedTemporaryFile() as executable:
+            executable.file.close()
+            path_to_executable = executable.name
+
+            conversion_return_code = execution_and_conversion_data.convert_to_executable(
+                                        user_submitted_data.path_to_src,
+                                        path_to_executable,
+                                        execution_and_conversion_data.conversion_opts
+            )
+
+            if conversion_return_code != 0:
+                return Verdict(VerdictMessage.CE, -1)
+
+            with tempfile.NamedTemporaryFile() as solution_output:
+                path_to_solution_output = solution_output.name
+
+                # ITERATE OVER TESTS
+                for test, path_to_input_file in enumerate(attr_to_iterate_over):
+                    # RUN
+                    feedback = TestingProtocol.run_code(
+                        path_to_executable=path_to_executable,
+                        path_to_input_file=path_to_input_file,
+                        path_to_solution_output=path_to_solution_output,
+                        command_line_opts=execution_and_conversion_data.command_line_opts)
+                    if feedback != 0:
+                        return Verdict(VerdictMessage.RE, test)
+
+                    # CHECK
+                    if not self.verify(locals()):
+                        return Verdict(VerdictMessage.WA, test)
+
+                    test += 1
+
+        return Verdict(VerdictMessage.AC, -1)
+
     def choose_language_data(self, user_submitted_data):
         for execution_and_conversion_data in self.execution_and_conversion_data_set:
             if execution_and_conversion_data.is_super_label_of(user_submitted_data):
@@ -116,41 +160,17 @@ class InputOutput(TestingProtocol):
                                path_to_solution_output,
                                path_to_correct_output]).returncode == 0
 
+    def verify(self, scope):
+        path_to_solution_output = scope['path_to_solution_output']
+        path_to_input_file = scope['path_to_input_file']
+        return InputOutput.equal_files(path_to_solution_output, self.input_output_paths_dict[path_to_input_file])
+
     def check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data):
-        with tempfile.NamedTemporaryFile() as executable:
-            executable.file.close()
-            path_to_executable = executable.name
-
-            conversion_return_code = execution_and_conversion_data.convert_to_executable(
-                                        user_submitted_data.path_to_src,
-                                        path_to_executable,
-                                        execution_and_conversion_data.conversion_opts
-            )
-
-            if conversion_return_code != 0:
-                return Verdict(VerdictMessage.CE, -1)
-
-            with tempfile.NamedTemporaryFile() as solution_output:
-                path_to_solution_output = solution_output.name
-
-                # ITERATE OVER TESTS
-                for test, path_to_input_file in enumerate(self.input_output_paths_dict):
-                    # RUN
-                    feedback = TestingProtocol.run_code(
-                        path_to_executable=path_to_executable,
-                        path_to_input_file=path_to_input_file,
-                        path_to_solution_output=path_to_solution_output,
-                        command_line_opts=execution_and_conversion_data.command_line_opts)
-                    if feedback != 0:
-                        return Verdict(VerdictMessage.RE, test)
-
-                    # CHECK
-                    if not InputOutput.equal_files(path_to_solution_output, self.input_output_paths_dict[path_to_input_file]):
-                        return Verdict(VerdictMessage.WA, test)
-
-                    test += 1
-
-        return Verdict(VerdictMessage.AC, -1)
+        return self.basic_check_with_chosen_language_data(
+            user_submitted_data=user_submitted_data,
+            execution_and_conversion_data=execution_and_conversion_data,
+            attr_to_iterate_over=self.input_output_paths_dict
+        )
 
 
 class InputCustomChecker(TestingProtocol):  # todo: checker safety
@@ -167,42 +187,18 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
         return int(subprocess.run([self.path_to_checker_exec, path_to_input_file, path_to_solution_output],
                                   stdout=subprocess.PIPE).stdout.decode('utf-8')) == 1
 
+    def verify(self, scope):
+        path_to_input_file = scope['path_to_input_file']
+        path_to_solution_output = scope['path_to_solution_output']
+
+        return self.passes_custom_checker(path_to_input_file, path_to_solution_output)
+
     def check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data):
-        with tempfile.NamedTemporaryFile() as executable:
-            executable.file.close()
-            path_to_executable = executable.name
-
-            conversion_return_code = execution_and_conversion_data.convert_to_executable(
-                                    user_submitted_data.path_to_src,
-                                    path_to_executable,
-                                    execution_and_conversion_data.conversion_opts
-            )
-
-            if conversion_return_code != 0:
-                return Verdict(VerdictMessage.CE, -1)
-
-            with tempfile.NamedTemporaryFile() as solution_output:
-                path_to_solution_output = solution_output.name
-
-                # ITERATE OVER TESTS
-                for test, path_to_input_file in enumerate(self.input_paths_set):
-                    # RUN
-                    feedback = TestingProtocol.run_code(
-                        path_to_executable=path_to_executable,
-                        path_to_input_file=path_to_input_file,
-                        path_to_solution_output=path_to_solution_output,
-                        command_line_opts=execution_and_conversion_data.command_line_opts
-                    )
-                    if feedback != 0:
-                        return Verdict(VerdictMessage.RE, test)
-
-                    # CHECK
-                    if not self.passes_custom_checker(path_to_input_file, path_to_solution_output):
-                        return Verdict(VerdictMessage.WA, test)
-
-                    test += 1
-
-        return Verdict(VerdictMessage.AC, -1)
+        return self.basic_check_with_chosen_language_data(
+            user_submitted_data=user_submitted_data,
+            execution_and_conversion_data=execution_and_conversion_data,
+            attr_to_iterate_over=self.input_paths_set
+        )
 
 
 class RandomInputCustomChecker(TestingProtocol):
