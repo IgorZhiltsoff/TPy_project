@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Added script for running tests">
-      <change beforePath="$PROJECT_DIR$/../../TaskManager.ods" beforeDir="false" afterPath="$PROJECT_DIR$/../../TaskManager.ods" afterDir="false" />
+    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Rendered">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Class_TestingProtocols.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Class_TestingProtocols.puml" beforeDir="false" afterPath="$PROJECT_DIR$/Class_TestingProtocols.puml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +145,7 @@
       <workItem from="1650628700836" duration="6913000" />
       <workItem from="1650654638014" duration="665000" />
       <workItem from="1651256343641" duration="2726000" />
-      <workItem from="1651311045958" duration="13257000" />
+      <workItem from="1651311045958" duration="14286000" />
     </task>
     <task id="LOCAL-00001" summary="Enforced enumerate">
       <created>1649197810547</created>
@@ -275,7 +273,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651337506485</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Rendered">
+      <created>1651340885517</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1651340885517</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -305,7 +310,8 @@
     <MESSAGE value="Passed PYTHON tests" />
     <MESSAGE value="Banished opts from TestingProtocol class to ExecutionAndConversionData" />
     <MESSAGE value="Added script for running tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added script for running tests" />
+    <MESSAGE value="Rendered" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rendered" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
