@@ -1,3 +1,4 @@
+import os
 from abc import ABC, abstractmethod
 import subprocess
 from pathlib import Path
@@ -5,6 +6,7 @@ import tempfile
 from random import randint
 from language_support import LanguageLabelHolder
 from enum import Enum, auto
+from contextlib import contextmanager
 
 
 class UserSubmittedData(LanguageLabelHolder):
@@ -250,39 +252,37 @@ class LimitedWorkSpace(TestingProtocol):
         self.path_to_footer = path_to_footer
         self.extension = extension
 
-    def generate_merged_path(self, submission_id):
-        def get_merged_path(number):
-            return Path(f"/tmp/{number}merge{self.extension}")
-
-        return TestingProtocol.prevent_path_collision(submission_id, get_merged_path)
-
     @staticmethod
-    def generate_unit_file():
-        path_to_unit = Path('/tmp/unit')
-        if not path_to_unit.exists():
-            with open(path_to_unit, 'w') as unit:
-                subprocess.run(['echo', '-n', '1'], stdout=unit)
-        return path_to_unit
+    @contextmanager
+    def unit_file():
+        with tempfile.NamedTemporaryFile() as unit:
+            unit.write("1".encode())
+            unit.flush()
+            yield unit
 
-    def generate_merged(self, user_submitted_data):
-        path_to_merged = self.generate_merged_path(user_submitted_data.submission_id)
-        with open(path_to_merged, 'w') as merged:
-            subprocess.run(['sed', '', self.path_to_header, user_submitted_data.path_to_src, self.path_to_footer],
-                           stdout=merged)
-        return path_to_merged
+    def generate_merged(self, user_submitted_data, merged):
+        for path in [self.path_to_header, user_submitted_data.path_to_src, self.path_to_footer]:
+            with open(path, 'r+b') as contents:
+                merged.write(contents.read())
+                merged.write(os.linesep.encode())
+        merged.flush()
 
     def check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data):
         # GENERATE SRC
-        path_to_merged = self.generate_merged(user_submitted_data)
+        with tempfile.NamedTemporaryFile(suffix=self.extension) as merged:
+            path_to_merged = merged.name
+            self.generate_merged(user_submitted_data, merged)
 
-        # REINTERPRET CUSTOM TESTING AS INPUT-OUTPUT TESTING
-        path_to_unit = LimitedWorkSpace.generate_unit_file()
-        trivial_protocol = InputOutput(
-            input_output_paths_dict={Path('/dev/stdin'): path_to_unit},
-            execution_and_conversion_data_set={execution_and_conversion_data},
-        )
-        merged_data = UserSubmittedData(path_to_merged, user_submitted_data.submission_id, user_submitted_data.label)
-        return trivial_protocol.check(user_submitted_data=merged_data)
+            # REINTERPRET CUSTOM TESTING AS INPUT-OUTPUT TESTING
+            with self.unit_file() as unit:
+                path_to_unit = unit.name
+                with tempfile.NamedTemporaryFile() as empty:
+                    trivial_protocol = InputOutput(
+                        input_output_paths_dict={empty.name: path_to_unit},
+                        execution_and_conversion_data_set={execution_and_conversion_data},
+                    )
+                    merged_data = UserSubmittedData(path_to_merged, user_submitted_data.submission_id, user_submitted_data.label)
+                    return trivial_protocol.check(user_submitted_data=merged_data)
 
 
 class ProblemData:

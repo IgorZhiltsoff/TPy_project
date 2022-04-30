@@ -149,11 +149,12 @@ class LimitedWorkSpace {
     -str extension
 
     +void __init__(...)
-    -Path generate_merged_path(self, submission_id)
-    -{static} Path generate_unit_file()
+    -{static} ... unit_file()
     -Path generate_merged(self, user_submitted_data)
 }
-
+note left of LimitedWorkSpace::unit_file
+context manager
+end note
 
 TestingProtocols <|--- InputCustomChecker
 TestingProtocols <|--- RandomInputCustomChecker
