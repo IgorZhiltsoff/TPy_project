@@ -212,22 +212,11 @@ class RandomInputCustomChecker(TestingProtocol):
         self.path_to_input_generation_exec = path_to_input_generation_exec
         self.path_to_checker_exec = path_to_checker_exec
 
-    @staticmethod
-    def generate_input_dir(submission_id):
-        def get_rand_dir_path(number):
-            return Path(f"/tmp/{number}rand")
-
-        input_dir = TestingProtocol.prevent_path_collision(submission_id, get_rand_dir_path)
-        subprocess.run(['mkdir', input_dir])
-        return input_dir
-
-    def generate_input(self, submission_id):  # todo: timeout
-        input_dir = RandomInputCustomChecker.generate_input_dir(submission_id)
-
+    def generate_input(self, path_to_input_dir):  # todo: timeout
         input_paths_set = set()
         for test in range(self.test_count):
-            infile_path = Path(f'{input_dir}/{test}.in')  # no need to check collision as placed in fresh dir
-            subprocess.run(['touch', infile_path])
+            infile_path = path_to_input_dir / f'{test}.in'  # no need to check collision as placed in fresh dir
+            infile_path.touch()
             with open(infile_path, 'w') as infile:
                 return_code = -1
                 while return_code != 0:
@@ -236,15 +225,16 @@ class RandomInputCustomChecker(TestingProtocol):
         return input_paths_set
 
     def check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data):
-        random_input_paths_set = self.generate_input(user_submitted_data.submission_id)
+        with tempfile.TemporaryDirectory() as path_to_input_dir:
+            random_input_paths_set = self.generate_input(Path(path_to_input_dir))
 
-        deterministic_protocol = InputCustomChecker(
-            input_paths_set=random_input_paths_set,
-            path_to_checker_exec=self.path_to_checker_exec,
-            execution_and_conversion_data_set={execution_and_conversion_data},
-        )
+            deterministic_protocol = InputCustomChecker(
+                input_paths_set=random_input_paths_set,
+                path_to_checker_exec=self.path_to_checker_exec,
+                execution_and_conversion_data_set={execution_and_conversion_data},
+            )
 
-        return deterministic_protocol.check(user_submitted_data=user_submitted_data)
+            return deterministic_protocol.check(user_submitted_data=user_submitted_data)
 
 
 class LimitedWorkSpace(TestingProtocol):

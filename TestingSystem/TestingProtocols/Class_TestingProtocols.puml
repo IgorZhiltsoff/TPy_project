@@ -140,8 +140,7 @@ class RandomInputCustomChecker {
 
 
     +void __init__(...)
-    -{static} Path generate_input_dir(submission_id)
-    -set generate_input(self, submission_id)
+    -set generate_input(self, path_to_input_dir)
 }
 
 class LimitedWorkSpace {
