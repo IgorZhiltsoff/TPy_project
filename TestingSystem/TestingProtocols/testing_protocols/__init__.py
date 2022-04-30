@@ -236,7 +236,7 @@ class RandomInputCustomChecker(TestingProtocol):
         deterministic_protocol = InputCustomChecker(
             input_paths_set=random_input_paths_set,
             path_to_checker_exec=self.path_to_checker_exec,
-            language_data=language_data,
+            language_data_set={language_data},
             conversion_opts=self.conversion_opts,
             command_line_opts=self.command_line_opts
         )
