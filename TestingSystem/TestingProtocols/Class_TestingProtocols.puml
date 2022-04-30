@@ -1,9 +1,19 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-skinparam enumFontColour Blue
+skinparam enum {
+    BackGroundColor Aqua
+}
 
 ' ============================ AUX ============================
+
+enum VerdictMessage {
+    AC
+    WA
+    CE
+    RE
+    SKIP
+}
 
 class Verdict {
     +str msg
@@ -19,6 +29,7 @@ as it simply
 initializes attributes
 end note
 
+Verdict "*" <-- "1 msg" VerdictMessage
 
 class UserSubmittedData {
     +Path path_to_src
@@ -27,9 +38,6 @@ class UserSubmittedData {
     +void __init__(...)
 }
 
-skinparam enum {
-    BackGroundColor Aqua
-}
 
 enum LanguageLabel {
     CXX
@@ -50,7 +58,7 @@ class LanguageLabelHolder {
     +bool is_super_label_of(LanguageLabelHolder)
 }
 
-LanguageLabelHolder "1" <-- "1" LanguageLabel
+LanguageLabelHolder "*" <-- "1 label" LanguageLabel
 LanguageLabelHolder <|-- UserSubmittedData
 
 
@@ -62,33 +70,23 @@ class LanguageData {
 }
 LanguageLabelHolder <|--- LanguageData
 
-class CXXDataSet {
-    +set data_set
-}
+class CXXDataSet
 
 CXXDataSet "1" <-- "+1..*" LanguageData
 
-class HaskellDataSet {
-    +set data_set
-}
+class HaskellDataSet
 
 HaskellDataSet "1" <-- "+1..*" LanguageData
 
-class PythonDataSet {
-    +set data_set
-}
+class PythonDataSet
 
 PythonDataSet "1" <-- "+1..*" LanguageData
 
-class JavaDataSet {
-    +set data_set
-}
+class JavaDataSet
 
 JavaDataSet "1" <-- "+1..*" LanguageData
 
-class ScalaDataSet {
-    +set data_set
-}
+class ScalaDataSet
 
 ScalaDataSet "1" <-- "+1..*" LanguageData
 
@@ -100,8 +98,8 @@ class ExecutionAndConversionData {
     +void __init__(...)
 }
 
-ExecutionAndConversionData "1" <--- "1 language_data" LanguageData
-TestingProtocols "1" <--- "-1..* execution_and_conversion_data_set" ExecutionAndConversionData
+ExecutionAndConversionData "*" <--- "1 language_data" LanguageData
+TestingProtocols "*" <--- "-1..* execution_and_conversion_data_set" ExecutionAndConversionData
 
 ' ========================== PROTOCOLS =========================
 
@@ -179,7 +177,7 @@ class ExtendedSubmission {
     +void __init__(...)
 }
 
-ExtendedSubmission "1" *-- "+problem_data 1" ProblemData
+ExtendedSubmission "*" *-- "+problem_data 1" ProblemData
 ExtendedSubmission "1" *--- "+user_submitted_ data1" UserSubmittedData
 
 @enduml
