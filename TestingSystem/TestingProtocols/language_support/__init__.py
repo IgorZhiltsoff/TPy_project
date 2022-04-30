@@ -65,11 +65,12 @@ class CXXDataSet:
     def __init__(standards_collection):
         CXXDataSet.data_set = set()
         for std in standards_collection:
+            attr_name = f'cxx{std}_data'
             setattr(CXXDataSet,
-                    f'cxx{std}_data',
+                    attr_name,
                     LanguageData(convert_to_executable_fun=cxx_arbitrary_std_convert_to_executable(std),
                                  label=eval(f'LanguageLabel.CXX{std}')))
-            CXXDataSet.data_set.add(getattr(CXXDataSet, f'cxx{std}_data'))
+            CXXDataSet.data_set.add(getattr(CXXDataSet, attr_name))
 
 
 cxx_data = CXXDataSet([11, 14, 17, 20])
@@ -110,12 +111,15 @@ def python3_arbitrary_interpreter_convert_to_executable(path_to_interpreter):
 class PythonDataSet:
     @staticmethod
     def __init__(interpreter_path_dict):
+        PythonDataSet.data_set = set()
         for interpreter in interpreter_path_dict:
+            attr_name = f'{interpreter}_data'
             setattr(PythonDataSet,
-                    f'{interpreter}_data',
+                    attr_name,
                     LanguageData(convert_to_executable_fun=python3_arbitrary_interpreter_convert_to_executable(
                         path_to_interpreter=interpreter_path_dict[interpreter]
                     ), label=LanguageLabel.PYTHON3))
+            PythonDataSet.data_set.add(getattr(PythonDataSet, attr_name))
 
 
 python_data = PythonDataSet({'python3': Path('/bin/python3')})

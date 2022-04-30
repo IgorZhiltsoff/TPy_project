@@ -286,11 +286,11 @@ class LimitedWorkSpace(TestingProtocol):
         path_to_unit = LimitedWorkSpace.generate_unit_file()
         trivial_protocol = InputOutput(
             input_output_paths_dict={Path('/dev/stdin'): path_to_unit},
-            language_data=language_data,
+            language_data_set={language_data},
             conversion_opts=self.conversion_opts,
             command_line_opts=self.command_line_opts
         )
-        merged_data = UserSubmittedData(path_to_merged, user_submitted_data.submission_id, None)
+        merged_data = UserSubmittedData(path_to_merged, user_submitted_data.submission_id, user_submitted_data.label)
         return trivial_protocol.check(user_submitted_data=merged_data)
 
 

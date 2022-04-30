@@ -76,9 +76,9 @@ class CXXAnswerTest(BaseTestCase):
             conversion_opts=warning_opts
         )
 
-        limited_work_space_accepted = UserSubmittedData('limited_work_space/accepted.cpp', 1, LanguageLabel.CXX)
-        limited_work_space_wrong_answer = UserSubmittedData('limited_work_space/wrong_answer.cpp', 2, LanguageLabel.CXX)
-        limited_work_space_compilation_error = UserSubmittedData('compilation_error.cpp', 2, LanguageLabel.CXX)
+        limited_work_space_accepted = UserSubmittedData('limited_work_space/accepted.cpp', 1, LanguageLabel.CXX11)
+        limited_work_space_wrong_answer = UserSubmittedData('limited_work_space/wrong_answer.cpp', 2, LanguageLabel.CXX14)
+        limited_work_space_compilation_error = UserSubmittedData('compilation_error.cpp', 2, LanguageLabel.CXX17)
 
         user_submitted_data_to_expected_verdict = \
             user_submitted_data_to_expected_verdict_generator('limited_work_space_').evaluate(locals())

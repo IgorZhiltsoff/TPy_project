@@ -2,11 +2,11 @@ import unittest
 from base_test_case import BaseTestCase
 from testing_protocols import InputOutput, InputCustomChecker, RandomInputCustomChecker, LimitedWorkSpace, \
     UserSubmittedData
-from language_support import python_data
+from language_support import python_data, LanguageLabel
 
-accepted = UserSubmittedData('accepted.py', 1, None)
-wrong_answer = UserSubmittedData('wrong_answer.py', 2, None)
-runtime_error = UserSubmittedData('runtime_error.py', 3, None)
+accepted = UserSubmittedData('accepted.py', 1, LanguageLabel.PYTHON3)
+wrong_answer = UserSubmittedData('wrong_answer.py', 2, LanguageLabel.PYTHON3)
+runtime_error = UserSubmittedData('runtime_error.py', 3, LanguageLabel.PYTHON3)
 
 user_submitted_data_to_expected_verdict_generator = \
     BaseTestCase.standard_user_submitted_data_to_expected_verdict_generator(
@@ -20,7 +20,7 @@ class Python3AnswerTest(BaseTestCase):
             input_output_paths_dict={"inout_tests/1.in": "inout_tests/1.out",
                                      "inout_tests/2.in": "inout_tests/2.out",
                                      "inout_tests/3.in": "inout_tests/3.out"},
-            language_data=python_data.python3_data
+            language_data_set=python_data.python3_data
         )
 
         user_submitted_data_to_expected_verdict = \
@@ -36,7 +36,7 @@ class Python3AnswerTest(BaseTestCase):
                              "in_custom_tests/2.in",
                              "in_custom_tests/3.in"},
             path_to_checker_exec='in_custom_tests/custom_checker.out',
-            language_data=python_data.python3_data
+            language_data_set=python_data.python3_data
         )
 
         user_submitted_data_to_expected_verdict = \
@@ -51,7 +51,7 @@ class Python3AnswerTest(BaseTestCase):
             test_count=3,
             path_to_input_generation_exec='rand_custom_tests/random_generator.out',
             path_to_checker_exec='rand_custom_tests/custom_checker.out',
-            language_data=python_data.python3_data
+            language_data_set=python_data.python3_data
         )
 
         user_submitted_data_to_expected_verdict = \
@@ -66,11 +66,11 @@ class Python3AnswerTest(BaseTestCase):
             path_to_header='limited_work_space/header.py',
             path_to_footer='limited_work_space/footer.py',
             extension='.py',
-            language_data=python_data.python3_data
+            language_data_set=python_data.python3_data
         )
 
-        limited_work_space_accepted = UserSubmittedData('limited_work_space/accepted.py', 1, None)
-        limited_work_space_wrong_answer = UserSubmittedData('limited_work_space/wrong_answer.py', 2, None)
+        limited_work_space_accepted = UserSubmittedData('limited_work_space/accepted.py', 1, LanguageLabel.PYTHON3)
+        limited_work_space_wrong_answer = UserSubmittedData('limited_work_space/wrong_answer.py', 2, LanguageLabel.PYTHON3)
         limited_work_space_runtime_error = runtime_error
 
         user_submitted_data_to_expected_verdict = \
