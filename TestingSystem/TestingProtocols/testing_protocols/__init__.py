@@ -20,12 +20,6 @@ class Verdict:
         self.test_number = test_number
 
 
-class LanguageData:
-    """Data concerning certain programming language execution"""
-    def __init__(self, convert_to_executable_fun):
-        self.convert_to_executable = convert_to_executable_fun
-
-
 class TestingProtocol(ABC):
     """Abstract class for testing protocols - a data type that constitutes
        the process of testing a solution. API includes 3 methods:

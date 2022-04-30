@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Added scripts for running tests: TestingSystem/TestingProtocols/run_*_tests.sh">
+    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Improved naming in testing_protocols">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/language_support/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/language_support/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sample_tests/test_cxx.py" beforeDir="false" afterPath="$PROJECT_DIR$/sample_tests/test_cxx.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sample_tests/test_python3.py" beforeDir="false" afterPath="$PROJECT_DIR$/sample_tests/test_python3.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testing_protocols/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_protocols/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testing_protocols_class_diagram.puml" beforeDir="false" afterPath="$PROJECT_DIR$/testing_protocols_class_diagram.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testing_protocols_class_diagram.svg" beforeDir="false" afterPath="$PROJECT_DIR$/testing_protocols_class_diagram.svg" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +36,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/language_support/__init__.py" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RunManager" selected="Python tests.Python tests for test_python3.Python3AnswerTest">
@@ -125,7 +123,10 @@
       <workItem from="1649443258676" duration="12000" />
       <workItem from="1649444873171" duration="648000" />
       <workItem from="1650472166095" duration="224000" />
-      <workItem from="1650628700836" duration="3736000" />
+      <workItem from="1650628700836" duration="6913000" />
+      <workItem from="1650654638014" duration="665000" />
+      <workItem from="1651256343641" duration="2726000" />
+      <workItem from="1651311045958" duration="913000" />
     </task>
     <task id="LOCAL-00001" summary="Enforced enumerate">
       <created>1649197810547</created>
@@ -148,7 +149,21 @@
       <option name="project" value="LOCAL" />
       <updated>1649201769608</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Improved naming in testing_protocols">
+      <created>1650650004159</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1650650004159</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Improved naming in testing_protocols">
+      <created>1650650375989</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1650650375989</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -168,7 +183,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Enforced enumerate" />
     <MESSAGE value="Added scripts for running tests: TestingSystem/TestingProtocols/run_*_tests.sh" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added scripts for running tests: TestingSystem/TestingProtocols/run_*_tests.sh" />
+    <MESSAGE value="Improved naming in testing_protocols" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improved naming in testing_protocols" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/TestingProtocols$.coverage" NAME=" Coverage Results" MODIFIED="1650649939446" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sample_tests" />

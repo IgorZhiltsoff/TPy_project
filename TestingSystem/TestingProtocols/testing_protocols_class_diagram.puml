@@ -1,6 +1,8 @@
 @startuml
 'https://plantuml.com/class-diagram
 
+skinparam enumFontColour Blue
+
 ' ============================ AUX ============================
 
 class Verdict {
@@ -25,53 +27,59 @@ class UserSubmittedData {
     +void __init__(...)
 }
 
+skinparam enum {
+    BackGroundColor Aqua
+}
+
+enum LanguageLabel {
+    CXX
+    CXX11
+    CXX14
+    CXX17
+    CXX20
+
+    PYTHON3
+
+    HASKELL2010
+
+    JAVA
+    SCALA
+}
+
+class LanguageLabelHolder {
+    +bool is_super_label_of(LanguageLabelHolder)
+}
+
+LanguageLabelHolder "1" <-- "1" LanguageLabel
+UserSubmittedData "1" <--- "1" LanguageLabelHolder
+
+
 
 class LanguageData {
         +void __init__(...)
         +int convert_to_executable(path_to_src, non_colliding_exec_name, conversion_opts)
-        +bool check_compatibility(ProgrammingLanguage)
 }
+LanguageLabelHolder <|---- LanguageData
 
-class CXXLabel
 class CXXDataSet
 
-CXXLabel <|-- CXXDataSet
 CXXDataSet "1" <-- "+1..*" LanguageData
 
-class HaskellLabel
 class HaskellDataSet
 
-HaskellLabel <|-- HaskellDataSet
 HaskellDataSet "1" <-- "+1..*" LanguageData
 
-class PythonLabel
 class PythonDataSet
 
-PythonLabel <|-- PythonDataSet
 PythonDataSet "1" <-- "+1..*" LanguageData
 
-class JavaLabel
 class JavaDataSet
 
-JavaLabel <|-- JavaDataSet
 JavaDataSet "1" <-- "+1..*" LanguageData
 
-class ScalaLabel
 class ScalaDataSet
 
-ScalaLabel <|-- ScalaDataSet
 ScalaDataSet "1" <-- "+1..*" LanguageData
-
-class LanguageLabel {
-    bool check_compatibility(Label)
-}
-
-
-LanguageLabel <|-- CXXLabel
-LanguageLabel <|-- HaskellLabel
-LanguageLabel <|-- PythonLabel
-LanguageLabel <|-- JavaLabel
-LanguageLabel <|-- ScalaLabel
 
 ' ========================== PROTOCOLS =========================
 
@@ -81,7 +89,6 @@ abstract class TestingProtocols {
     -{static} dict return_code_to_error_msg = ...
 
     +void __init__(...)
-    +{abstract} bool check_compatibility(self, user_submitted_data)
     +{abstract} Verdict check(self, user_submitted_data)
     -{static} int run_code(path_to_executable, path_to_input_file, path_to_output_file, command_line_opts))
     -{static} Path prevent_path_collision(initial_number, get_path)
@@ -90,7 +97,6 @@ abstract class TestingProtocols {
 }
 
 TestingProtocols "1" <---- "+1..* language_datas" LanguageData
-UserSubmittedData "1" <------ "1" LanguageData
 
 class InputOutput {
     -dict input_output_paths_dict

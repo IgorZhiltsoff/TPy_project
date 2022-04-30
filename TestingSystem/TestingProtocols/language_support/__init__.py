@@ -1,9 +1,49 @@
 # this module defines language support objects
 
-from testing_protocols import LanguageData
 import subprocess
 from pathlib import Path
+from enum import Enum, auto
 
+# =============================================== GENERAL ==============================================================
+
+
+class LanguageLabel(Enum):
+    CXX = auto()
+    CXX11 = auto()
+    CXX14 = auto()
+    CXX17 = auto()
+    CXX20 = auto()
+
+    PYTHON3 = auto()
+
+    HASKELL2010 = auto()
+
+    JAVA = auto()
+    SCALA = auto()
+
+
+class LanguageLabelHolder:
+    def __init__(self, label):
+        self.label = label
+
+    def is_super_label_of(self, other_label_holder):
+        if self.label == LanguageLabel.CXX:
+            return other_label_holder.label in {
+                LanguageLabel.CXX,
+                LanguageLabel.CXX11,
+                LanguageLabel.CXX14,
+                LanguageLabel.CXX17,
+                LanguageLabel.CXX20,
+            }
+        else:
+            return self.label == other_label_holder.label
+
+
+class LanguageData(LanguageLabelHolder):
+    """Data concerning certain programming language execution"""
+    def __init__(self, convert_to_executable_fun, label):
+        super().__init__(label)
+        self.convert_to_executable = convert_to_executable_fun
 
 # ================================================= CXX ================================================================
 
@@ -26,9 +66,8 @@ class CXXDataSet:
         for std in standards_collection:
             setattr(CXXDataSet,
                     f'cxx{std}_data',
-                    LanguageData(
-                        convert_to_executable_fun=cxx_arbitrary_std_convert_to_executable(std)
-                    ))
+                    LanguageData(convert_to_executable_fun=cxx_arbitrary_std_convert_to_executable(std),
+                                 label=eval(f'LanguageLabel.CXX{std}')))
 
 
 cxx_data = CXXDataSet([11, 14, 17, 20])
@@ -44,9 +83,8 @@ def haskell_convert_to_executable(path_to_src, non_colliding_exec_name, conversi
 class HaskellDataSet:
     @staticmethod
     def __init__():
-        HaskellDataSet.haskell_data = LanguageData(
-                        convert_to_executable_fun=haskell_convert_to_executable
-                    )
+        HaskellDataSet.haskell_data = LanguageData(convert_to_executable_fun=haskell_convert_to_executable,
+                                                   label=LanguageLabel.HASKELL2010)
 
 
 haskell_data = HaskellDataSet()
@@ -73,11 +111,9 @@ class PythonDataSet:
         for interpreter in interpreter_path_dict:
             setattr(PythonDataSet,
                     f'{interpreter}_data',
-                    LanguageData(
-                        convert_to_executable_fun=python3_arbitrary_interpreter_convert_to_executable(
-                            path_to_interpreter=interpreter_path_dict[interpreter]
-                        )
-                    ))
+                    LanguageData(convert_to_executable_fun=python3_arbitrary_interpreter_convert_to_executable(
+                        path_to_interpreter=interpreter_path_dict[interpreter]
+                    ), label=LanguageLabel.PYTHON3))
 
 
 python_data = PythonDataSet({'python3': Path('/bin/python3')})
