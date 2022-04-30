@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 import subprocess
 from pathlib import Path
+import tempfile
 from random import randint
 from language_support import LanguageLabelHolder
 from enum import Enum, auto
@@ -66,11 +67,11 @@ class TestingProtocol(ABC):
         return None
 
     @staticmethod
-    def run_code(path_to_executable, path_to_input_file, path_to_output_file, command_line_opts):
+    def run_code(path_to_executable, path_to_input_file, path_to_solution_output, command_line_opts):
         command_line_opts = command_line_opts if command_line_opts else []
 
         with open(path_to_input_file, 'r') as input_file:
-            with open(path_to_output_file, 'w') as output_file:
+            with open(path_to_solution_output, 'w') as output_file:
                 feedback = subprocess.run([path_to_executable] + command_line_opts,
                                           stdin=input_file, stdout=output_file)
                 if feedback.returncode != 0:
@@ -86,20 +87,6 @@ class TestingProtocol(ABC):
             current_number %= 65536
             current_path = get_path(current_number)
         return current_path
-
-    @staticmethod
-    def generate_output_path(submission_id):
-        def get_out_path(number):
-            return Path(f"/tmp/{number}out")
-
-        return TestingProtocol.prevent_path_collision(submission_id, get_out_path)
-
-    @staticmethod
-    def generate_exec_path(submission_id):
-        def get_exec_path(number):
-            return Path(f"/tmp/{number}exe")
-
-        return TestingProtocol.prevent_path_collision(submission_id, get_exec_path)
 
     return_code_to_error_msg = {1: "FAIL"}
 
@@ -130,34 +117,38 @@ class InputOutput(TestingProtocol):
                                path_to_correct_output]).returncode == 0
 
     def check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data):
-        path_to_executable = TestingProtocol.generate_exec_path(user_submitted_data.submission_id)
-        conversion_return_code = execution_and_conversion_data.convert_to_executable(
-                                    user_submitted_data.path_to_src,
-                                    path_to_executable,
-                                    execution_and_conversion_data.conversion_opts
-        )
+        with tempfile.NamedTemporaryFile() as executable:
+            executable.file.close()
+            path_to_executable = executable.name
 
-        if conversion_return_code != 0:
-            return Verdict(VerdictMessage.CE, -1)
+            conversion_return_code = execution_and_conversion_data.convert_to_executable(
+                                        user_submitted_data.path_to_src,
+                                        path_to_executable,
+                                        execution_and_conversion_data.conversion_opts
+            )
 
-        path_to_solution_output = TestingProtocol.generate_output_path(user_submitted_data.submission_id)
+            if conversion_return_code != 0:
+                return Verdict(VerdictMessage.CE, -1)
 
-        # ITERATE OVER TESTS
-        for test, path_to_input_file in enumerate(self.input_output_paths_dict):
-            # RUN
-            feedback = TestingProtocol.run_code(
-                path_to_executable=path_to_executable,
-                path_to_input_file=path_to_input_file,
-                path_to_output_file=path_to_solution_output,
-                command_line_opts=execution_and_conversion_data.command_line_opts)
-            if feedback != 0:
-                return Verdict(VerdictMessage.RE, test)
+            with tempfile.NamedTemporaryFile() as solution_output:
+                path_to_solution_output = solution_output.name
 
-            # CHECK
-            if not InputOutput.equal_files(path_to_solution_output, self.input_output_paths_dict[path_to_input_file]):
-                return Verdict(VerdictMessage.WA, test)
+                # ITERATE OVER TESTS
+                for test, path_to_input_file in enumerate(self.input_output_paths_dict):
+                    # RUN
+                    feedback = TestingProtocol.run_code(
+                        path_to_executable=path_to_executable,
+                        path_to_input_file=path_to_input_file,
+                        path_to_solution_output=path_to_solution_output,
+                        command_line_opts=execution_and_conversion_data.command_line_opts)
+                    if feedback != 0:
+                        return Verdict(VerdictMessage.RE, test)
 
-            test += 1
+                    # CHECK
+                    if not InputOutput.equal_files(path_to_solution_output, self.input_output_paths_dict[path_to_input_file]):
+                        return Verdict(VerdictMessage.WA, test)
+
+                    test += 1
 
         return Verdict(VerdictMessage.AC, -1)
 
@@ -177,35 +168,39 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
                                   stdout=subprocess.PIPE).stdout.decode('utf-8')) == 1
 
     def check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data):
-        path_to_executable = TestingProtocol.generate_exec_path(user_submitted_data.submission_id)
-        conversion_return_code = execution_and_conversion_data.convert_to_executable(
-                                user_submitted_data.path_to_src,
-                                path_to_executable,
-                                execution_and_conversion_data.conversion_opts
-        )
+        with tempfile.NamedTemporaryFile() as executable:
+            executable.file.close()
+            path_to_executable = executable.name
 
-        if conversion_return_code != 0:
-            return Verdict(VerdictMessage.CE, -1)
-
-        path_to_solution_output = TestingProtocol.generate_output_path(user_submitted_data.submission_id)
-
-        # ITERATE OVER TESTS
-        for test, path_to_input_file in enumerate(self.input_paths_set):
-            # RUN
-            feedback = TestingProtocol.run_code(
-                path_to_executable=path_to_executable,
-                path_to_input_file=path_to_input_file,
-                path_to_output_file=path_to_solution_output,
-                command_line_opts=execution_and_conversion_data.command_line_opts
+            conversion_return_code = execution_and_conversion_data.convert_to_executable(
+                                    user_submitted_data.path_to_src,
+                                    path_to_executable,
+                                    execution_and_conversion_data.conversion_opts
             )
-            if feedback != 0:
-                return Verdict(VerdictMessage.RE, test)
 
-            # CHECK
-            if not self.passes_custom_checker(path_to_input_file, path_to_solution_output):
-                return Verdict(VerdictMessage.WA, test)
+            if conversion_return_code != 0:
+                return Verdict(VerdictMessage.CE, -1)
 
-            test += 1
+            with tempfile.NamedTemporaryFile() as solution_output:
+                path_to_solution_output = solution_output.name
+
+                # ITERATE OVER TESTS
+                for test, path_to_input_file in enumerate(self.input_paths_set):
+                    # RUN
+                    feedback = TestingProtocol.run_code(
+                        path_to_executable=path_to_executable,
+                        path_to_input_file=path_to_input_file,
+                        path_to_solution_output=path_to_solution_output,
+                        command_line_opts=execution_and_conversion_data.command_line_opts
+                    )
+                    if feedback != 0:
+                        return Verdict(VerdictMessage.RE, test)
+
+                    # CHECK
+                    if not self.passes_custom_checker(path_to_input_file, path_to_solution_output):
+                        return Verdict(VerdictMessage.WA, test)
+
+                    test += 1
 
         return Verdict(VerdictMessage.AC, -1)
 
