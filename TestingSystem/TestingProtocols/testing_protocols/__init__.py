@@ -16,6 +16,14 @@ class UserSubmittedData(LanguageLabelHolder):
         self.submission_id = submission_id
 
 
+class VerdictMessage(Enum):
+    AC = auto()
+    WA = auto()
+    CE = auto()
+    RE = auto()
+    SKIP = auto()
+
+
 class Verdict:
     """An object of this type is to be returned upon testing is finished"""
     def __init__(self, msg, test_number):
@@ -45,7 +53,7 @@ class TestingProtocol(ABC):
         if language_data is not None:
             return self.check_with_chosen_language_data(user_submitted_data, language_data)
         else:
-            return Verdict("SKIP", -1)
+            return Verdict(VerdictMessage.SKIP, -1)
 
     @abstractmethod
     def check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data):
@@ -130,7 +138,7 @@ class InputOutput(TestingProtocol):
         )
 
         if conversion_return_code != 0:
-            return Verdict('CE', -1)
+            return Verdict(VerdictMessage.CE, -1)
 
         path_to_solution_output = TestingProtocol.generate_output_path(user_submitted_data.submission_id)
 
@@ -143,15 +151,15 @@ class InputOutput(TestingProtocol):
                 path_to_output_file=path_to_solution_output,
                 command_line_opts=execution_and_conversion_data.command_line_opts)
             if feedback != 0:
-                return Verdict('RE', test)
+                return Verdict(VerdictMessage.RE, test)
 
             # CHECK
             if not InputOutput.equal_files(path_to_solution_output, self.input_output_paths_dict[path_to_input_file]):
-                return Verdict('WA', test)
+                return Verdict(VerdictMessage.WA, test)
 
             test += 1
 
-        return Verdict('AC', -1)
+        return Verdict(VerdictMessage.AC, -1)
 
 
 class InputCustomChecker(TestingProtocol):  # todo: checker safety
@@ -177,7 +185,7 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
         )
 
         if conversion_return_code != 0:
-            return Verdict('CE', -1)
+            return Verdict(VerdictMessage.CE, -1)
 
         path_to_solution_output = TestingProtocol.generate_output_path(user_submitted_data.submission_id)
 
@@ -191,15 +199,15 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
                 command_line_opts=execution_and_conversion_data.command_line_opts
             )
             if feedback != 0:
-                return Verdict('RE', test)
+                return Verdict(VerdictMessage.RE, test)
 
             # CHECK
             if not self.passes_custom_checker(path_to_input_file, path_to_solution_output):
-                return Verdict('WA', test)
+                return Verdict(VerdictMessage.WA, test)
 
             test += 1
 
-        return Verdict('AC', -1)
+        return Verdict(VerdictMessage.AC, -1)
 
 
 class RandomInputCustomChecker(TestingProtocol):
@@ -305,9 +313,9 @@ class ProblemData:
     def check(self, user_submitted_data):
         for protocol_number, testing_protocol in enumerate(self.testing_protocols_set):
             verdict = testing_protocol.check(user_submitted_data)
-            if verdict.msg != 'AC':
+            if verdict.msg != VerdictMessage.AC:
                 return f'{verdict.msg}{protocol_number}.{verdict.test_number}'
-        return 'AC'
+        return VerdictMessage.AC
 
 
 class ExtendedSubmission:

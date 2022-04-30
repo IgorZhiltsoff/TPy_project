@@ -1,7 +1,7 @@
 import unittest
 from base_test_case import BaseTestCase
 from testing_protocols import InputOutput, InputCustomChecker, RandomInputCustomChecker, LimitedWorkSpace, \
-    UserSubmittedData
+    UserSubmittedData, VerdictMessage
 from language_support import python_data, LanguageLabel, ExecutionAndConversionData
 
 python_language_data_set = python_data.data_set
@@ -16,7 +16,7 @@ runtime_error = UserSubmittedData('runtime_error.py', 3, LanguageLabel.PYTHON3)
 
 user_submitted_data_to_expected_verdict_generator = \
     BaseTestCase.standard_user_submitted_data_to_expected_verdict_generator(
-        ['AC', 'WA', 'RE']
+        [VerdictMessage.AC, VerdictMessage.WA, VerdictMessage.RE]
     )
 
 

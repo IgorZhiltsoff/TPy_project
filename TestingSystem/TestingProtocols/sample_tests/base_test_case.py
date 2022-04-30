@@ -1,4 +1,5 @@
 import unittest
+from testing_protocols import VerdictMessage
 
 
 class BaseTestCase(unittest.TestCase):
@@ -18,15 +19,16 @@ class BaseTestCase(unittest.TestCase):
                 return eval(self.unevaluated)
 
         def gen(prefix=''):
-            verdict_to_standard_name = {
-                'AC': f'{prefix}accepted',
-                'WA': f'{prefix}wrong_answer',
-                'CE': f'{prefix}compilation_error',
-                'RE': f'{prefix}runtime_error',
+            verdict_to_standard_variable_name = {
+                VerdictMessage.AC: f'{prefix}accepted',
+                VerdictMessage.WA: f'{prefix}wrong_answer',
+                VerdictMessage.CE: f'{prefix}compilation_error',
+                VerdictMessage.RE: f'{prefix}runtime_error',
+                VerdictMessage.SKIP: f'{prefix}skipped'
             }
 
             keys_to_vals = map(
-                lambda verdict: f"{verdict_to_standard_name[verdict]}: '{verdict}'",
+                lambda verdict: f"{verdict_to_standard_variable_name[verdict]}: {verdict}",
                 verdicts)
 
             return ToEval(f'{{ {", ".join(keys_to_vals)} }}')

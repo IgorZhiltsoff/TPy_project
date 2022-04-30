@@ -1,7 +1,7 @@
 import unittest
 from base_test_case import BaseTestCase
 from testing_protocols import InputOutput, InputCustomChecker, RandomInputCustomChecker, LimitedWorkSpace, \
-    UserSubmittedData
+    UserSubmittedData, VerdictMessage
 from language_support import cxx_data, ExecutionAndConversionData, LanguageLabel
 
 cxx_language_data_set = cxx_data.data_set
@@ -17,7 +17,7 @@ compilation_error = UserSubmittedData('compilation_error.cpp', 3, LanguageLabel.
 
 user_submitted_data_to_expected_verdict_generator = \
     BaseTestCase.standard_user_submitted_data_to_expected_verdict_generator(
-        ['AC', 'WA', 'CE']
+        [VerdictMessage.AC, VerdictMessage.WA, VerdictMessage.CE]
     )
 
 
