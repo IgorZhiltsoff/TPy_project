@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Prettified context manager use">
-      <change afterPath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadProblemAsTeacher/sample_test/template_input" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadProblemAsTeacher/Class_UploadProblemAsTeacher.puml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadProblemAsTeacher/Class_UploadProblemAsTeacher.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadProblemAsTeacher/main_driver.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadProblemAsTeacher/main_driver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadProblemAsTeacher/run.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadProblemAsTeacher/run.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadProblemAsTeacher/sample_test/input" beforeDir="false" afterPath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadProblemAsTeacher/sample_test/input" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadProblemAsTeacher/template_problem_data.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadProblemAsTeacher/template_problem_data.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadProblemAsTeacher/upload_wizard/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadProblemAsTeacher/upload_wizard/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadProblemAsTeacher/upload_wizard/problem_data_upload/protocol_upload_wizard/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadProblemAsTeacher/upload_wizard/problem_data_upload/protocol_upload_wizard/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

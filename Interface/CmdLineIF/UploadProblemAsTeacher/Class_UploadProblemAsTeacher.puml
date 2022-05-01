@@ -4,11 +4,11 @@
 ' ========================== GENERAL =========================
 
 class upload_wizard {
-    +void upload_problem(verbose, path_to_problems_dir, wizard_version_running)
+    +{static} void upload_problem(verbose, path_to_problems_dir, wizard_version_running)
 
-    -int generate_problem_id()
-    -void create_problem_dir(problem_id, path_to_problems_dir)
-    -void upload_statement()
+    -{static} int generate_problem_id()
+    -{static} void create_problem_dir(problem_id, path_to_problems_dir)
+    -{static} void upload_statement()
 }
 
 note left of upload_wizard
@@ -20,23 +20,24 @@ The Pythonic way to implement such a hierarchy is encapsulating wizards'
 logic in modules (separate .py files)
 To manage imports easily, we will organize them as packages
 Note, that not every class will get its own module
-E.g. incomplete wizards will inhabit the protocol_upload package,
+E.g. incomplete wizards, marked as abstract classes,
+will inhabit the protocol_upload package,
 as they should not be visible outside of this hierarchy
 end note
 
 class problem_data_upload {
-    +void upload_problem_data(verbose, path_to_problems_dir)
+    +{static} void upload_problem_data(verbose, path_to_problems_dir)
 }
 upload_wizard "1" <--- "1" problem_data_upload
 
 ' ========================== PROTOCOLS =========================
 
-abstract class protocol_upload {
-    +void upload_protocol(protocol_number, custodian, verbose)
-    -void choose_protocol_scheme(key_seq_to_current_dict, custodian)
-    -void upload_execution_and_conversion_data(key_seq_to_current_dict, custodian)
-    -void upload_programming_language_data(key_seq_to_current_dict, custodian)
-    -void upload_opts(key_seq_to_current_dict, custodian, verbose)
+class protocol_upload {
+    +{static} void upload_protocol(protocol_number, custodian, verbose)
+    -{static} void choose_protocol_scheme(key_seq_to_current_dict, custodian)
+    -{static} void upload_execution_and_conversion_data(key_seq_to_current_dict, custodian)
+    -{static} void upload_programming_language_data(key_seq_to_current_dict, custodian)
+    -{static} void upload_opts(key_seq_to_current_dict, custodian, verbose)
 }
 problem_data_upload "1" <--- "4" protocol_upload : one for each protocol
 
