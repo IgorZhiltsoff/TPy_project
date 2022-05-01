@@ -1,47 +1,61 @@
+import contextlib
 import os
 import tempfile
 import subprocess
+from UploadSubmissionAsStudent.submission_wizard import label_to_submission_wizard_lang_code
+from language_support import LanguageLabel
 
 
 def process_submission(submission_file_storage, problem_id, lang):
+    lang_label = eval(lang)
     with tempfile.TemporaryDirectory() as tmp_dir:
-        submission_file = save_submission_file(submission_file_storage, lang, tmp_dir)
+        path_to_submission_file = save_submission_file(submission_file_storage, lang_label, tmp_dir)
         with generate_submission_wizard_input(
-                path_to_submission_file=submission_file.name,
+                path_to_submission_file=path_to_submission_file,
                 problem_id=problem_id,
-                lang=lang) as wizard_input:
-            pass_input_to_wizard(wizard_input.name)
+                lang_label=lang_label) as wizard_input:
+            return pass_input_to_wizard(wizard_input)
 
 
-def pass_input_to_wizard(path_to_wizard_input):
-    subprocess.run([''])
+def pass_input_to_wizard(wizard_input):
+    return subprocess.run(['../../CmdLineIF/UploadSubmissionAsStudent/run.sh'],
+                          stdin=wizard_input,
+                          stdout=subprocess.PIPE).stdout.decode()
 
 
-def generate_submission_wizard_input(path_to_submission_file, problem_id, lang):
-    wizard_input = tempfile.TemporaryFile()
-    wizard_input.write(f'{problem_id}\n')
-    wizard_input.write(f'{lang}\n')
-    wizard_input.write(f'{path_to_submission_file}\n')
-    return wizard_input
+@contextlib.contextmanager
+def generate_submission_wizard_input(path_to_submission_file, problem_id, lang_label):
+    with tempfile.NamedTemporaryFile('w') as wizard_input:
+        d = label_to_submission_wizard_lang_code
+        wizard_input.write(f'{problem_id}\n')
+        wizard_input.write(f'{label_to_submission_wizard_lang_code[lang_label]}\n')
+        wizard_input.write(f'{path_to_submission_file}\n')
+        wizard_input.flush()
+        wizard_input.seek(0)
+        yield wizard_input
 
 
-def save_submission_file(submission_file_storage, lang, dest_dir):
-    return submission_file_storage.save(os.path.join(dest_dir, generate_submission_name(lang)))
+def save_submission_file(submission_file_storage, lang_label, dest_dir):
+    path_to_submission_file = os.path.join(dest_dir, generate_submission_name(lang_label))
+    submission_file_storage.save(path_to_submission_file)
+    return path_to_submission_file
 
 
-def generate_submission_name(lang):
-    return f'submission{get_lang_extension(lang)}'
+def generate_submission_name(lang_label):
+    return f'submission{get_lang_extension(lang_label)}'
 
 
-def get_lang_extension(lang):
-    lang_family_to_ext = {
-        "python": '.py',
-        "cxx": '.cpp',
-        "haskell": '.hs',
-        "java": '.java',
-        "scala": '.scala'
+def get_lang_extension(lang_label):
+    lang_label_to_ext = {
+        LanguageLabel.CXX: '.cpp',
+        LanguageLabel.CXX11: '.cpp',
+        LanguageLabel.CXX14: '.cpp',
+        LanguageLabel.CXX17: '.cpp',
+        LanguageLabel.CXX20: '.cpp',
+        LanguageLabel.PYTHON3: '.py',
+        LanguageLabel.HASKELL2010: '.hs',
+        LanguageLabel.JAVA: '.java',
+        LanguageLabel.SCALA: '.scala'
     }
 
-    lang_family = ''.join(symbol for symbol in lang if not symbol.isdigit())
-
-    return lang_family_to_ext[lang_family]
+    return lang_label_to_ext[lang_label]

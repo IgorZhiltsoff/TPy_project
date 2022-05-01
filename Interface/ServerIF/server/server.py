@@ -41,14 +41,11 @@ def submit():
             back_link_html_string=get_back_to_main_page_html_string()
         )
     else:
-        process_submission(
+        return process_submission(
             submission_file_storage=flask.request.files['submission'],
             problem_id=flask.request.form['problem_id'],
             lang=flask.request.form['lang']
         )
-        print(flask.request.form)
-        print(flask.request.files)
-        return 'haha'
 
 
 @app.route('/upload_problem')
@@ -57,6 +54,6 @@ def upload_problem():
 
 
 if __name__ == '__main__':
-    address = sys.argv[1]
-    port = int(sys.argv[2])
+    address = 'localhost'  # sys.argv[1]
+    port = 5000  # int(sys.argv[2])
     app.run(address, port, debug=True)
