@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Prettified context manager use">
-      <change beforePath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadProblemAsTeacher/Class_UploadProblemAsTeacher.puml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadProblemAsTeacher/Class_UploadProblemAsTeacher.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadSubmissionAsStudent/helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadSubmissionAsStudent/helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadSubmissionAsStudent/problem_data_retriever.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadSubmissionAsStudent/problem_data_retriever.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TaskManager.ods" beforeDir="false" afterPath="$PROJECT_DIR$/../../TaskManager.ods" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -9,16 +9,33 @@ def find_dir(problem_id, path_to_problems_dir):
     return f'{path_to_problems_dir}/{problem_id}'
 
 
-def get_programming_language_data(protocol_data):
-    return eval(protocol_data["programming_language_data"])
+def get_execution_and_conversion_data_set(protocol_data):
+    execution_and_conversion_data_set = set()
+    raw_execution_and_conversion_data_set = protocol_data['execution_and_conversion_data_set']
+    for key in raw_execution_and_conversion_data_set:
+        execution_and_conversion_data = raw_execution_and_conversion_data_set[key]
+        programming_language_data = get_programming_language_data(execution_and_conversion_data)
+        conversion_opts = get_conversion_opts(execution_and_conversion_data)
+        command_line_opts = get_command_line_opts(execution_and_conversion_data)
+        execution_and_conversion_data_set.add(
+            ExecutionAndConversionData(
+                language_data=programming_language_data,
+                conversion_opts=conversion_opts,
+                command_line_opts=command_line_opts
+            )
+        )
 
 
-def get_conversion_opts(protocol_data):
-    return protocol_data["conversion options"]
+def get_programming_language_data(execution_and_conversion_data):
+    return eval(execution_and_conversion_data["programming_language_data"])
 
 
-def get_command_line_opts(protocol_data):
-    return protocol_data["command line options"]
+def get_conversion_opts(execution_and_conversion_data):
+    return execution_and_conversion_data["conversion options"]
+
+
+def get_command_line_opts(execution_and_conversion_data):
+    return execution_and_conversion_data["command line options"]
 
 
 def get_scheme(protocol_data):
