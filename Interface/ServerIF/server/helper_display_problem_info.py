@@ -11,7 +11,7 @@ def display_problem_info(problem_id):
     statement_html_string = get_problem_statement_html_string(problem_id)
     back_link_html_string = get_back_link_html_string(ref='display_problems', text='Back to problems list')
     return flask.render_template(
-        'display_problem_info.html',
+        'display_problems_templates/display_problem_info.html',
         problem_id=problem_id,
         full_name=full_name,
         statement_html_string=statement_html_string,

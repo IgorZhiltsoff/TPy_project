@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Choose Protocol Scheme</title>
+</head>
+<body>
+  <h2>Choose Protocol Scheme</h2>
+  <form action="upload_problem" method="POST">
+      <input type="radio" id="protocolScheme1" name="protocolScheme" value="InputOutput">
+      <label for="protocolScheme1">InputOutput</label>
+
+      <input type="radio" id="protocolScheme2" name="protocolScheme" value="InputCustomChecker">
+      <label for="protocolScheme2">InputCustomChecker</label>
+
+      <input type="radio" id="protocolScheme3" name="protocolScheme" value="RandomInputCustomChecker">
+      <label for="protocolScheme3">RandomInputCustomChecker</label>
+
+      <input type="radio" id="protocolScheme4" name="protocolScheme" value="LimitedWorkSpace">
+      <label for="protocolScheme4">LimitedWorkSpace</label>
+
+      <p><input type="submit" value="Choose Protocol Scheme" name="mode"/></p>
+    </form>
+</body>
+</html>

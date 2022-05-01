@@ -48,9 +48,17 @@ def submit():
         )
 
 
-@app.route('/upload_problem')
+@app.route('/upload_problem', methods=['GET', 'POST'])
 def upload_problem():
-    pass
+    if not flask.request.form.get('mode'):
+        return flask.render_template(
+            'upload_problem_templates/upload_problem.html',
+            back_link_html_string=get_back_to_main_page_html_string()
+        )
+    elif flask.request.form.get('mode') == 'Upload Metadata':
+        return flask.render_template('upload_problem_templates/choose_protocol_scheme.html')
+    elif flask.request.form.get('mode') == 'Choose Protocol Scheme':
+        return ''
 
 
 if __name__ == '__main__':
