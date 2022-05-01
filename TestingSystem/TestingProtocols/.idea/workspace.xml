@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Enforcing tempfile in lws">
-      <change beforePath="$PROJECT_DIR$/../../TaskManager.ods" beforeDir="false" afterPath="$PROJECT_DIR$/../../TaskManager.ods" afterDir="false" />
+    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Enforced tempfile in lws">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Class_TestingProtocols.puml" beforeDir="false" afterPath="$PROJECT_DIR$/Class_TestingProtocols.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testing_protocols/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_protocols/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +146,7 @@
       <workItem from="1650628700836" duration="6913000" />
       <workItem from="1650654638014" duration="665000" />
       <workItem from="1651256343641" duration="2726000" />
-      <workItem from="1651311045958" duration="31960000" />
+      <workItem from="1651311045958" duration="32687000" />
     </task>
     <task id="LOCAL-00001" summary="Enforced enumerate">
       <created>1649197810547</created>
@@ -359,7 +358,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651362118696</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Enforced tempfile in lws">
+      <created>1651363031810</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1651363031810</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -395,27 +401,22 @@
     <MESSAGE value="Started enforcing tempfile" />
     <MESSAGE value="Got rid of inout-cust copy&amp;paste (check_with_chosen_language_data)" />
     <MESSAGE value="Used tempfile in randcust" />
-    <MESSAGE value="Enforced tempfile in lws" />
     <MESSAGE value="Enforcing tempfile in lws" />
-    <option name="LAST_COMMIT_MESSAGE" value="Enforcing tempfile in lws" />
+    <MESSAGE value="Enforced tempfile in lws" />
+    <option name="LAST_COMMIT_MESSAGE" value="Enforced tempfile in lws" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/testing_protocols/__init__.py</url>
-          <line>159</line>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/testing_protocols/__init__.py</url>
-          <line>257</line>
-          <option name="timeStamp" value="15" />
+          <line>157</line>
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/TestingProtocols$.coverage" NAME=" Coverage Results" MODIFIED="1651362082663" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sample_tests" />
+    <SUITE FILE_PATH="coverage/TestingProtocols$.coverage" NAME=" Coverage Results" MODIFIED="1651363742904" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sample_tests" />
   </component>
 </project>

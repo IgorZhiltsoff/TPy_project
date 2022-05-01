@@ -124,16 +124,6 @@ class TestingProtocol(ABC):
                     return TestingProtocol.return_code_to_error_msg[feedback.returncode]
                 return 0
 
-    @staticmethod
-    def prevent_path_collision(initial_number, get_path):
-        current_path = get_path(initial_number)
-        current_number = initial_number
-        while current_path.exists():
-            current_number -= randint(1, 1000)  # goes back not to collide with new submissions
-            current_number %= 65536
-            current_path = get_path(current_number)
-        return current_path
-
     return_code_to_error_msg = {1: "FAIL"}
 
 
@@ -144,28 +134,23 @@ class InputOutput(TestingProtocol):
         super().__init__(**kwargs)
         self.input_output_paths_dict = input_output_paths_dict
 
-        # truncate newlines terminating correct output files
-        for path_to_input_file in input_output_paths_dict:
-            InputOutput.truncate_terminating_newline_if_necessary(input_output_paths_dict[path_to_input_file])
+    @staticmethod
+    def nonempty_lines_without_trailing_whitespaces(file):
+        lines = file.readlines()
+        return list(map(lambda line: line.rstrip(), filter(lambda line: line, lines)))
 
     @staticmethod
-    def truncate_terminating_newline_if_necessary(path_to_file):
-        last_character = subprocess.run(['tail', '-c', '1', path_to_file],
-                                        stdout=subprocess.PIPE).stdout.decode('utf-8')
-        if last_character == '\n':
-            subprocess.run(['truncate', '-s', '-1', path_to_file])
-
-    @staticmethod
-    def equal_files(path_to_solution_output, path_to_correct_output):
-        InputOutput.truncate_terminating_newline_if_necessary(path_to_solution_output)
-        return subprocess.run(['cmp', '--silent',
-                               path_to_solution_output,
-                               path_to_correct_output]).returncode == 0
+    def compare_output(path_to_solution_output, path_to_correct_output):
+        with open(path_to_solution_output) as solution_output_raw:
+            with open(path_to_correct_output) as correct_output_raw:
+                solution_output = InputOutput.nonempty_lines_without_trailing_whitespaces(solution_output_raw)
+                correct_output = InputOutput.nonempty_lines_without_trailing_whitespaces(correct_output_raw)
+                return solution_output == correct_output
 
     def verify(self, scope):
         path_to_solution_output = scope['path_to_solution_output']
         path_to_input_file = scope['path_to_input_file']
-        return InputOutput.equal_files(path_to_solution_output, self.input_output_paths_dict[path_to_input_file])
+        return InputOutput.compare_output(path_to_solution_output, self.input_output_paths_dict[path_to_input_file])
 
     def check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data):
         return self.basic_check_with_chosen_language_data(
@@ -281,7 +266,11 @@ class LimitedWorkSpace(TestingProtocol):
                         input_output_paths_dict={empty.name: path_to_unit},
                         execution_and_conversion_data_set={execution_and_conversion_data},
                     )
-                    merged_data = UserSubmittedData(path_to_merged, user_submitted_data.submission_id, user_submitted_data.label)
+                    merged_data = UserSubmittedData(
+                        path_to_src=path_to_merged,
+                        submission_id=user_submitted_data.submission_id,
+                        label=user_submitted_data.label
+                    )
                     return trivial_protocol.check(user_submitted_data=merged_data)
 
 
