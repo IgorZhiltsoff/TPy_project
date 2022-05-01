@@ -26,7 +26,8 @@ Here and further,
 _ _init_ _'s signature
 will be omitted
 as it simply
-initializes attributes
+initializes non-static
+attributes
 end note
 
 Verdict "*" <-- "1 msg" VerdictMessage
@@ -108,12 +109,17 @@ abstract class TestingProtocols {
 
     +void __init__(...)
     +Verdict check(self, user_submitted_data)
-    -ExecutionAndConversionData choose_language_data(self, user_submitted_data)
+    -ExecutionAndConversionData cho/home/zhilts/PycharmProjects/TPy_project/Interface/ServerIFose_language_data(self, user_submitted_data)
     -{abstract} Verdict check_with_chosen_language_data(self, user_submitted_data)
     -bool verify(self, scope)
+    -{static} ... executable_file()
     -Verdict basic_check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data, attr_to_iterate_over)
     -{static} int run_code(path_to_executable, path_to_input_file, path_to_output_file, command_line_opts))
 }
+
+note left of TestingProtocols::executable_file
+context manager
+end note
 
 class InputOutput {
     -dict input_output_paths_dict
@@ -150,9 +156,12 @@ class LimitedWorkSpace {
 
     +void __init__(...)
     -{static} ... unit_file()
-    -Path generate_merged(self, user_submitted_data)
+    -... merged_file(self, user_submitted_data)
 }
 note left of LimitedWorkSpace::unit_file
+context manager
+end note
+note left of LimitedWorkSpace::merged_file
 context manager
 end note
 
@@ -179,6 +188,6 @@ class ExtendedSubmission {
 }
 
 ExtendedSubmission "*" *-- "+problem_data 1" ProblemData
-ExtendedSubmission "1" *--- "+user_submitted_ data1" UserSubmittedData
+ExtendedSubmission "1" *---- "+user_submitted_ data 1" UserSubmittedData
 
 @enduml

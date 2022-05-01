@@ -64,14 +64,20 @@ class TestingProtocol(ABC):
     def verify(self, scope):
         pass
 
+    @staticmethod
+    @contextmanager
+    def executable_file():
+        with tempfile.NamedTemporaryFile() as executable:
+            executable.file.close()
+            yield executable
+
     def basic_check_with_chosen_language_data(
             self,
             user_submitted_data,
             execution_and_conversion_data,
             attr_to_iterate_over
     ):
-        with tempfile.NamedTemporaryFile() as executable:
-            executable.file.close()
+        with TestingProtocol.executable_file() as executable:
             path_to_executable = executable.name
 
             conversion_return_code = execution_and_conversion_data.convert_to_executable(
@@ -244,21 +250,23 @@ class LimitedWorkSpace(TestingProtocol):
             unit.flush()
             yield unit
 
-    def generate_merged(self, user_submitted_data, merged):
-        for path in [self.path_to_header, user_submitted_data.path_to_src, self.path_to_footer]:
-            with open(path, 'r+b') as contents:
-                merged.write(contents.read())
-                merged.write(os.linesep.encode())
-        merged.flush()
+    @contextmanager
+    def merged_file(self, user_submitted_data):
+        with tempfile.NamedTemporaryFile(suffix=self.extension) as merged:
+            for path in [self.path_to_header, user_submitted_data.path_to_src, self.path_to_footer]:
+                with open(path, 'r+b') as contents:
+                    merged.write(contents.read())
+                    merged.write(os.linesep.encode())
+            merged.flush()
+            yield merged
 
     def check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data):
         # GENERATE SRC
-        with tempfile.NamedTemporaryFile(suffix=self.extension) as merged:
+        with self.merged_file(user_submitted_data) as merged:
             path_to_merged = merged.name
-            self.generate_merged(user_submitted_data, merged)
 
             # REINTERPRET CUSTOM TESTING AS INPUT-OUTPUT TESTING
-            with self.unit_file() as unit:
+            with LimitedWorkSpace.unit_file() as unit:
                 path_to_unit = unit.name
                 with tempfile.NamedTemporaryFile() as empty:
                     trivial_protocol = InputOutput(
