@@ -1,5 +1,5 @@
-import flask
 import sys
+import flask
 from helper_display_problem import get_back_to_main_page_html_string
 from helper_display_problem_info import display_problem_info, md_file_to_html_string
 from helper_display_problem_list import display_problem_list
@@ -54,6 +54,6 @@ def upload_problem():
 
 
 if __name__ == '__main__':
-    address = 'localhost'  # sys.argv[1]
-    port = 5000  # int(sys.argv[2])
+    address = sys.argv[1]
+    port = int(sys.argv[2])
     app.run(address, port, debug=True)

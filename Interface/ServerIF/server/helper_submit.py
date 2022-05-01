@@ -18,7 +18,7 @@ def process_submission(submission_file_storage, problem_id, lang):
 
 
 def pass_input_to_wizard(wizard_input):
-    return subprocess.run(['../../CmdLineIF/UploadSubmissionAsStudent/run.sh'],
+    return subprocess.run(['../../CmdLineIF/UploadSubmissionAsStudent/run.sh', '1'],
                           stdin=wizard_input,
                           stdout=subprocess.PIPE).stdout.decode()
 
@@ -26,7 +26,6 @@ def pass_input_to_wizard(wizard_input):
 @contextlib.contextmanager
 def generate_submission_wizard_input(path_to_submission_file, problem_id, lang_label):
     with tempfile.NamedTemporaryFile('w') as wizard_input:
-        d = label_to_submission_wizard_lang_code
         wizard_input.write(f'{problem_id}\n')
         wizard_input.write(f'{label_to_submission_wizard_lang_code[lang_label]}\n')
         wizard_input.write(f'{path_to_submission_file}\n')
