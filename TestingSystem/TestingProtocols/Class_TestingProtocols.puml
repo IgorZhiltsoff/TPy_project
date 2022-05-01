@@ -99,7 +99,7 @@ class ExecutionAndConversionData {
 }
 
 ExecutionAndConversionData "*" <--- "1 language_data" LanguageData
-TestingProtocols "*" <--- "-1..* execution_and_conversion_data_set" ExecutionAndConversionData
+TestingProtocols "*" <---- "-1..* execution_and_conversion_data_set" ExecutionAndConversionData
 
 ' ========================== PROTOCOLS =========================
 
