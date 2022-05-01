@@ -2,7 +2,7 @@ import os.path
 import fitz
 import flask
 import markdown
-from aux_display_problem import \
+from helper_display_problem import \
     get_problem_data_dict, get_path_to_problem_dir, get_problem_full_name, get_back_link_html_string
 
 

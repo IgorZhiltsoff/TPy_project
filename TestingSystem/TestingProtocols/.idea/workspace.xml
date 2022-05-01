@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Enforced tempfile in lws">
+    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Got rid of subprocess where possible in testing_protocols">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testing_protocols/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_protocols/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,7 +145,8 @@
       <workItem from="1650628700836" duration="6913000" />
       <workItem from="1650654638014" duration="665000" />
       <workItem from="1651256343641" duration="2726000" />
-      <workItem from="1651311045958" duration="32687000" />
+      <workItem from="1651311045958" duration="33156000" />
+      <workItem from="1651391646690" duration="716000" />
     </task>
     <task id="LOCAL-00001" summary="Enforced enumerate">
       <created>1649197810547</created>
@@ -365,7 +365,49 @@
       <option name="project" value="LOCAL" />
       <updated>1651363031810</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Got rid of subprocess where possible in testing_protocols">
+      <created>1651363775491</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1651363775491</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Got rid of subprocess where possible in testing_protocols">
+      <created>1651363812963</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1651363812963</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Got rid of subprocess where possible in testing_protocols">
+      <created>1651363832280</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1651363832280</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Got rid of subprocess where possible in testing_protocols">
+      <created>1651363907573</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1651363907573</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Got rid of subprocess where possible in testing_protocols">
+      <created>1651363930817</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1651363930817</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Got rid of subprocess where possible in testing_protocols">
+      <created>1651364095434</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1651364095434</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -403,14 +445,15 @@
     <MESSAGE value="Used tempfile in randcust" />
     <MESSAGE value="Enforcing tempfile in lws" />
     <MESSAGE value="Enforced tempfile in lws" />
-    <option name="LAST_COMMIT_MESSAGE" value="Enforced tempfile in lws" />
+    <MESSAGE value="Got rid of subprocess where possible in testing_protocols" />
+    <option name="LAST_COMMIT_MESSAGE" value="Got rid of subprocess where possible in testing_protocols" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/testing_protocols/__init__.py</url>
-          <line>157</line>
+          <line>146</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>

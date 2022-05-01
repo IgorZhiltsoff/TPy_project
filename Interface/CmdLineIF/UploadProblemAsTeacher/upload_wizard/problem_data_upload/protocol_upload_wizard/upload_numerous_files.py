@@ -1,4 +1,4 @@
-from UploadProblemAsTeacher.upload_wizard.aux import copy_file, get_path_suffix
+from UploadProblemAsTeacher.upload_wizard.helper import copy_file, get_path_suffix
 
 
 def upload_numerous_files(semantics, path_to_protocol_dir, key_seq_to_current_dict, custodian):

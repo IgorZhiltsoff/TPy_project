@@ -2,7 +2,7 @@ import UploadProblemAsTeacher.upload_wizard.problem_data_upload.protocol_upload_
 import UploadProblemAsTeacher.upload_wizard.problem_data_upload.protocol_upload_wizard.in_custom
 import UploadProblemAsTeacher.upload_wizard.problem_data_upload.protocol_upload_wizard.rand_custom
 import UploadProblemAsTeacher.upload_wizard.problem_data_upload.protocol_upload_wizard.limited_work_space
-from UploadProblemAsTeacher.upload_wizard.aux import create_dir
+from UploadProblemAsTeacher.upload_wizard.helper import create_dir
 
 
 def upload_protocol(path_to_dir, protocol_number, custodian, verbose):

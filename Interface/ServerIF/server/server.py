@@ -1,9 +1,9 @@
 import flask
 import sys
-from aux_display_problem import get_back_to_main_page_html_string
-from aux_display_problem_info import display_problem_info, md_file_to_html_string
-from aux_display_problem_list import display_problem_list
-from aux_submit import process_submission
+from helper_display_problem import get_back_to_main_page_html_string
+from helper_display_problem_info import display_problem_info, md_file_to_html_string
+from helper_display_problem_list import display_problem_list
+from helper_submit import process_submission
 
 
 app = flask.Flask(__name__)

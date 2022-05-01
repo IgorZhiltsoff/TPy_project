@@ -1,4 +1,4 @@
-from UploadProblemAsTeacher.upload_wizard.aux import copy_file, create_dir, get_path_suffix
+from UploadProblemAsTeacher.upload_wizard.helper import copy_file, create_dir, get_path_suffix
 from random import randint
 from UploadProblemAsTeacher.upload_wizard.problem_data_upload import upload_problem_data
 from data_custodian import JsonDataCustodian

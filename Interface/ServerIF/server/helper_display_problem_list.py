@@ -1,6 +1,6 @@
 import os
 import flask
-from aux_display_problem import get_path_to_problem_base, get_problem_full_name, get_back_to_main_page_html_string
+from helper_display_problem import get_path_to_problem_base, get_problem_full_name, get_back_to_main_page_html_string
 
 
 def display_problem_list():

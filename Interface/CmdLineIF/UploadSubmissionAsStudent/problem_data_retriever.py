@@ -1,6 +1,6 @@
 import json
 from testing_protocols import *
-from UploadSubmissionAsStudent.aux import *
+from UploadSubmissionAsStudent.helper import *
 
 
 def retrieve_problem_data(problem_id, path_to_problems_dir, mount_point):
