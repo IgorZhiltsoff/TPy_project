@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Prettified">
-      <change beforePath="$PROJECT_DIR$/../../TaskManager.ods" beforeDir="false" afterPath="$PROJECT_DIR$/../../TaskManager.ods" afterDir="false" />
+    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Prettified context manager use">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Class_TestingProtocols.puml" beforeDir="false" afterPath="$PROJECT_DIR$/Class_TestingProtocols.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testing_protocols/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_protocols/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,6 +147,7 @@
       <workItem from="1651256343641" duration="2726000" />
       <workItem from="1651311045958" duration="33156000" />
       <workItem from="1651391646690" duration="2193000" />
+      <workItem from="1651397510461" duration="1939000" />
     </task>
     <task id="LOCAL-00001" summary="Enforced enumerate">
       <created>1649197810547</created>
@@ -410,7 +408,21 @@
       <option name="project" value="LOCAL" />
       <updated>1651364095434</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Prettified context manager use">
+      <created>1651397597547</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1651397597547</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Prettified context manager use">
+      <created>1651397707387</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1651397707387</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -449,7 +461,8 @@
     <MESSAGE value="Enforcing tempfile in lws" />
     <MESSAGE value="Enforced tempfile in lws" />
     <MESSAGE value="Got rid of subprocess where possible in testing_protocols" />
-    <option name="LAST_COMMIT_MESSAGE" value="Got rid of subprocess where possible in testing_protocols" />
+    <MESSAGE value="Prettified context manager use" />
+    <option name="LAST_COMMIT_MESSAGE" value="Prettified context manager use" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
