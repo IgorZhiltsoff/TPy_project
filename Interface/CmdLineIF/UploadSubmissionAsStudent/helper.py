@@ -24,6 +24,7 @@ def get_execution_and_conversion_data_set(protocol_data):
                 command_line_opts=command_line_opts
             )
         )
+    return execution_and_conversion_data_set
 
 
 def get_programming_language_data(execution_and_conversion_data):
