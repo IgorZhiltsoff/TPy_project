@@ -2,7 +2,7 @@ import contextlib
 import os
 import tempfile
 import subprocess
-from UploadSubmissionAsStudent.submission_wizard import label_to_submission_wizard_lang_code
+from submission_wizard import label_to_submission_wizard_lang_code
 from language_support import LanguageLabel
 
 

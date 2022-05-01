@@ -1,3 +1,3 @@
 #!/bin/bash
 
-python3 server.py "$1" "$2"
+PYTHONPATH=../../CmdLineIF/:../../CmdLineIF/UploadSubmissionAsStudent:../../../TestingSystem/TestingProtocols/ python3 server.py "$1" "$2"
