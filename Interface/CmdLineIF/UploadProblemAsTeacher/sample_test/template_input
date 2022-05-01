@@ -1,0 +1,12 @@
+NAME
+PATH/TO/STATEMENT
+TEST CNT
+SCHEME
+LANGUAGES SUPPORTED CNT
+<<repeat LANGUAGES SUPPORTED CNT times>>
+    LANGUAGE
+    CONVERSION OPTS
+    CMD LINE OPTS
+<<specific to SCHEME, e.g. TEST CNT infiles and TEST CNT outfiles>>
+[Y/n]
+<<repeat if Y>>

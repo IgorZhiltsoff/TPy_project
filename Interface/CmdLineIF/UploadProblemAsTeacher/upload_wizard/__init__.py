@@ -5,15 +5,17 @@ from data_custodian import JsonDataCustodian
 import os.path
 
 
-def upload_problem(path_to_problems_dir, verbose):
+def upload_problem(path_to_problems_dir, verbose, wizard_version_running):
     # PRE
+    print(f"You are running a problem upload wizard v{wizard_version_running}")
+    custodian.fill_in("uploaded_by_wizard_version", wizard_version_running)
+
     problem_id = generate_problem_id()
-    print(f"\033[92mProblem recieved id: {problem_id}\033[0m")
+    print(f"\033[92mProblem received id: {problem_id}\033[0m")
     path_to_dir = create_problem_dir(problem_id, path_to_problems_dir)
     custodian = JsonDataCustodian(path_to_dir, 'problem_data')
 
     # INTERACT
-    print("You are running a problem upload wizard")
     upload_statement_and_name(custodian, path_to_dir)
 
     # HAND OVER CONTROL
@@ -22,7 +24,7 @@ def upload_problem(path_to_problems_dir, verbose):
 
 def generate_problem_id():
     problem_id = randint(1, 1000)
-    if problem_id % 10 == 0:  # multiples of 10 are reserved for preuploaded problems
+    if problem_id % 10 == 0:  # multiples of 10 are reserved
         problem_id += randint(1, 9)
     return problem_id
 
@@ -35,8 +37,8 @@ def create_problem_dir(problem_id, path_to_problems_dir):
 
 def upload_statement_and_name(custodian, path_to_dir):
     supported_extensions = {'.md', '.pdf', '.txt'}
-    name = input("First, give the problem a concise and clear name: ")
-    path_to_statement = input("""Now, upload a statement. 
+    name = input("Give your problem a concise and clear name: ")
+    path_to_statement = input("""Upload a statement. 
 Specify a path to .md, .pdf or .txt file (leave blank to skip): """)
     filename, extension = os.path.splitext(path_to_statement)
     if extension not in supported_extensions:

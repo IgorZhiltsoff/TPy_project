@@ -1,0 +1,18 @@
+{
+    "uploaded_by_wizard_version": "1.0.0",
+    "name": "hehe",
+    "statement file extension": ".txt",
+    "path to statement": "TPy_project/problems_base/571/statement.txt",
+    "protocols": {
+        "0": {
+            "test_count": 1,
+            "scheme": "inout",
+            "infiles": [
+                "TPy_project/problems_base/571/prot0/1.in"
+            ],
+            "outfiles": [
+                "TPy_project/problems_base/571/prot0/1.out"
+            ]
+        }
+    }
+}

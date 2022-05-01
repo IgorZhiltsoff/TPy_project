@@ -4,7 +4,7 @@
 ' ========================== GENERAL =========================
 
 class upload_wizard {
-    +void upload_problem(verbose, path_to_problems_dir)
+    +void upload_problem(verbose, path_to_problems_dir, wizard_version_running)
 
     -int generate_problem_id()
     -void create_problem_dir(problem_id, path_to_problems_dir)
@@ -32,11 +32,11 @@ upload_wizard "1" <--- "1" problem_data_upload
 ' ========================== PROTOCOLS =========================
 
 abstract class protocol_upload {
-    +{abstract} void upload_protocol(protocol_number, custodian, verbose)
-    -void upload_programming_language_data(key_seq_to_current_dict, custodian, verbose)
-    -void upload_opts(opts_type, key_seq_to_current_dict, custodian, verbose)
+    +void upload_protocol(protocol_number, custodian, verbose)
     -void choose_protocol_scheme(key_seq_to_current_dict, custodian)
-    -void run_specific_protocol_upload_subwizard(key_seq_to_current_dict, custodian, scheme, verbose)
+    -void upload_execution_and_conversion_data(key_seq_to_current_dict, custodian)
+    -void upload_programming_language_data(key_seq_to_current_dict, custodian)
+    -void upload_opts(key_seq_to_current_dict, custodian, verbose)
 }
 problem_data_upload "1" <--- "4" protocol_upload : one for each protocol
 

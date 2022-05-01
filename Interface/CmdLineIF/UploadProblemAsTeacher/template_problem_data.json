@@ -1,5 +1,5 @@
 {
-    "uploaded by wizard version": "1.0.0",
+    "uploaded_by_wizard_version": "1.0.0",
     "name": "...",
     "statement file extension": ".{pdf, md, txt}",
     "path to statement": "TPy_project/problems_base/{problem_id}/statement.pdf",
