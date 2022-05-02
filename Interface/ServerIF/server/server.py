@@ -51,26 +51,10 @@ def submit():
 
 @app.route('/upload_problem', methods=['GET', 'POST'])
 def upload_problem():
-    return flask.render_template(
-        'upload_problem_templates/choose_protocol_scheme.html',
-        semantics='header',
-        time_limit=10,
-        memory_limit_megabytes=1536
-        #'upload_problem_templates/upload_specific_protocol_templates/upload_randin_custchecker_template.html',
-        #semantics='custom checker',
-        #bin_dir_file_count=len(os.listdir('/bin')),
-        #time_limit=10,
-        #memory_limit_megabytes=1536
-    )
-    #if not flask.request.form.get('mode'):
-    #    return flask.render_template(
-    #        'upload_problem_templates/upload_problem_metadata.html',
-    #        back_link_html_string=get_back_to_main_page_html_string()
-    #    )
-    #elif flask.request.form.get('mode') == 'Upload Metadata':
-    #    return flask.render_template('upload_problem_templates/choose_protocol_scheme.html')
-    #elif flask.request.form.get('mode') == 'Choose Protocol Scheme':
-    #    return ''
+    if flask.request.form.get('mode') != 'Initiate Problem Upload':
+        return flask.render_template('upload_problem_templates/upload_problem_metadata.html')
+    else:
+        return 'hehe'
 
 
 if __name__ == '__main__':
