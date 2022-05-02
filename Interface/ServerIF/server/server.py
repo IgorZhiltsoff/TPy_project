@@ -52,7 +52,7 @@ def submit():
 @app.route('/upload_problem', methods=['GET', 'POST'])
 def upload_problem():
     return flask.render_template(
-        'upload_problem_templates/upload_specific_protocol_templates/upload_header_footer_template.html',
+        'upload_problem_templates/choose_protocol_scheme.html',
         semantics='header',
         time_limit=10,
         memory_limit_megabytes=1536
