@@ -1,4 +1,5 @@
 import sys
+import os
 import flask
 from helper_display_problem import get_back_to_main_page_html_string
 from helper_display_problem_info import display_problem_info, md_file_to_html_string
@@ -50,15 +51,22 @@ def submit():
 
 @app.route('/upload_problem', methods=['GET', 'POST'])
 def upload_problem():
-    if not flask.request.form.get('mode'):
-        return flask.render_template(
-            'upload_problem_templates/upload_problem.html',
-            back_link_html_string=get_back_to_main_page_html_string()
-        )
-    elif flask.request.form.get('mode') == 'Upload Metadata':
-        return flask.render_template('upload_problem_templates/choose_protocol_scheme.html')
-    elif flask.request.form.get('mode') == 'Choose Protocol Scheme':
-        return ''
+    return flask.render_template(
+        'upload_problem_templates/upload_specific_protocol_templates/subparts/upload_randin_custchecker_template.html',
+        semantics='custom checker',
+        bin_dir_file_count=len(os.listdir('/bin')),
+        time_limit=10,
+        memory_limit_megabytes=1536
+    )
+    #if not flask.request.form.get('mode'):
+    #    return flask.render_template(
+    #        'upload_problem_templates/upload_problem_metadata.html',
+    #        back_link_html_string=get_back_to_main_page_html_string()
+    #    )
+    #elif flask.request.form.get('mode') == 'Upload Metadata':
+    #    return flask.render_template('upload_problem_templates/choose_protocol_scheme.html')
+    #elif flask.request.form.get('mode') == 'Choose Protocol Scheme':
+    #    return ''
 
 
 if __name__ == '__main__':
