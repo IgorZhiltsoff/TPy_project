@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload execution and conversion data set</title>
+</head>
+<body>
+    <h2>Specify Execution & Conversion Data</h2>
+    <form action="upload_problem" method="POST">
+        <label for="lang">
+            Programming language:
+            <select name="lang" id="lang">
+                <option value="" disabled selected>PROGRAMMING LANG</option>
+                <option value="LanguageLabel.PYTHON3">Python3.10</option>
+                <option value="LanguageLabel.CXX11">C++11</option>
+                <option value="LanguageLabel.CXX14">C++14</option>
+                <option value="LanguageLabel.CXX17">C++17</option>
+                <option value="LanguageLabel.CXX20">C++20</option>
+                <option value="LanguageLabel.HASKELL2010">Haskell GHC</option>
+                <option value="LanguageLabel.JAVA">Java</option>
+                <option value="LanguageLabel.SCALA">Scala</option>
+            </select>
+        </label>
+        <p><label>
+            Conversion options: <input placeholder="CONVERSION OPTS" name="conversion_opts"/>
+        </label></p>
+        <p><label>
+            Command line options: <input placeholder="CMD LINE OPTS" name="command_line_opts"/>
+        </label></p>
+        <p><label>
+            Time limit: <input type="number" min=0 step=0.5 placeholder="1.5" name="time_limit"/> seconds
+        </label></p>
+        <p><label>
+            Memory limit: <input type="number" min=0 step=0.5 placeholder="256" name="memory_limit_megabytes"/> * 2<sup>20</sup> bytes (megabytes)
+        </label></p>
+        <p>
+            <input type="submit" name="mode" value="Upload Execution and Conversion Data"/>
+        </p>
+    </form>
+</body>
+</html>
