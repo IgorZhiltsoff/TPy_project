@@ -7,9 +7,9 @@
 <body>
     <h2>Specify Execution & Conversion Data</h2>
     <form action="upload_problem" method="POST">
-        <label for="lang">
+        <label for="lang{{idx}}">
             Programming language:
-            <select name="lang" id="lang">
+            <select name="lang{{idx}}" id="lang{{idx}}">
                 <option value="" disabled selected>PROGRAMMING LANG</option>
                 <option value="LanguageLabel.PYTHON3">Python3.10</option>
                 <option value="LanguageLabel.CXX11">C++11</option>
@@ -22,20 +22,17 @@
             </select>
         </label>
         <p><label>
-            Conversion options: <input placeholder="CONVERSION OPTS" name="conversion_opts"/>
+            Conversion options: <input placeholder="CONVERSION OPTS" name="conversion_opts{{idx}}"/>
         </label></p>
         <p><label>
-            Command line options: <input placeholder="CMD LINE OPTS" name="command_line_opts"/>
+            Command line options: <input placeholder="CMD LINE OPTS" name="command_line_opts{{idx}}"/>
         </label></p>
         <p><label>
-            Time limit: <input type="number" min=0 step=0.5 placeholder="1.5" name="time_limit"/> seconds
+            Time limit: <input type="number" min=0 step=0.5 placeholder="1.5" name="time_limit{{idx}}"/> seconds
         </label></p>
         <p><label>
-            Memory limit: <input type="number" min=0 step=0.5 placeholder="256" name="memory_limit_megabytes"/> * 2<sup>20</sup> bytes (megabytes)
+            Memory limit: <input type="number" min=0 step=0.5 placeholder="256" name="memory_limit_megabytes{{idx}}"/> * 2<sup>20</sup> bytes (megabytes)
         </label></p>
-        <p>
-            <input type="submit" name="mode" value="Upload Execution and Conversion Data"/>
-        </p>
     </form>
 </body>
 </html>

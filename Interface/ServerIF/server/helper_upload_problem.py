@@ -1,14 +1,32 @@
 import tempfile
 
 # ==================================================== PROCESSOR =======================================================
-
-
-def commutator():
-    pass
+import flask
 
 
 def pass_input_to_wizard():
     pass
+
+
+def protocol_metadata_upload_html_list_generator(protocols_cnt):
+    return [flask.render_template(
+        'upload_problem_templates/upload_protocol_metadata.html',
+        idx=idx
+    ) for idx in range(protocols_cnt)]
+
+
+def html_list_generator():
+    return [(flask.render_template(
+
+    )]
+
+def scheme_to_template(scheme):
+    return {
+        'InputOutput': 'forms/upload_specific_protocols_templates',
+        'InputCustomChecker': ,
+        'RandomInputCustomChecker': ,
+        'LimitedWorkSpace': ,
+    }
 
 # ==================================================== GENERAL =========================================================
 

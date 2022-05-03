@@ -4,7 +4,7 @@ from helper_display_problem import get_back_to_main_page_html_string
 from helper_display_problem_info import display_problem_info, md_file_to_html_string
 from helper_display_problem_list import display_problem_list
 from helper_submit import process_submission
-# from helper_upload_problem import
+from helper_upload_problem import protocol_metadata_upload_html_list_generator
 
 
 app = flask.Flask(__name__)
@@ -51,56 +51,22 @@ def submit():
 
 @app.route('/upload_problem', methods=['GET', 'POST'])
 def upload_problem():
-    """Responsible for general data input and redirection"""
-    if flask.request.form.get('mode') != 'Initiate Problem Upload':
+    if not flask.request.form.get('mode'):
         return flask.render_template(
-            'upload_problem_templates/upload_problem_metadata.html',
-            back_link_html_string=get_back_to_main_page_html_string()
-        )
-    else:
+                'upload_problem_templates/upload_problem_metadata.html',
+                back_link_html_string=get_back_to_main_page_html_string()
+            )
+    elif flask.request.form.get('mode') == 'Initiate Problem Upload':
         protocols_cnt = int(flask.request.form.get('protocols_cnt'))
-        for protocol_idx in range(protocols_cnt):
-            flask.redirect('/upload_protocol_master')
-
-
-@app.route('/upload_protocol_master', methods=['GET', 'POST'])
-def upload_protocol_master():
-    if flask.request.form.get('mode') != 'Specify Protocol Metadata':
-        return flask.render_template('upload_problem_templates/upload_protocol_metadata.html')
-    else:
-        scheme = flask.request.form.get('scheme')
-        test_cnt = int(flask.request.form.get('test_cnt'))
-        supported_langs_cnt = int(flask.request.form.get('supported_langs_cnt'))
-        for supported_lang_idx in range(supported_langs_cnt):
-            upload_execution_and_conversion_data()
-
-
-@app.route('/upload_execution_and_conversion_data', methods=['GET', 'POST'])
-def upload_execution_and_conversion_data():
-    if flask.request.form.get('mode') != 'Upload Execution and Conversion Data':
-        return flask.render_template('upload_problem_templates/upload_execution_and_conversion_data.html')
-    else:
-        return 'haha'
-
-
-@app.route('/upload_inout', methods=['GET', 'POST'])
-def upload_inout():
-    pass
-
-
-@app.route('/upload_incustom', methods=['GET', 'POST'])
-def upload_incustom():
-    pass
-
-
-@app.route('/upload_randcustom', methods=['GET', 'POST'])
-def upload_randcustom():
-    pass
-
-
-@app.route('/upload_limited_work_space', methods=['GET', 'POST'])
-def upload_limited_work_space():
-    pass
+        return flask.render_template(
+            'upload_problem_templates/forms/protocol_metadatas_form.html',
+            protocol_metadata_upload_html_list=protocol_metadata_upload_html_list_generator(protocols_cnt)
+        )
+    elif flask.request.form.get('mode') == 'Specify Protocol Metadatas':
+        return flask.render_template(
+            'upload_problem_templates/forms/protocols_form.html',
+            html_list=
+        )
 
 
 if __name__ == '__main__':
