@@ -99,7 +99,8 @@ class TestingProtocol(ABC):
                         path_to_executable=path_to_executable,
                         path_to_input_file=path_to_input_file,
                         path_to_solution_output=path_to_solution_output,
-                        command_line_opts=execution_and_conversion_data.command_line_opts)
+                        command_line_opts=execution_and_conversion_data.command_line_opts
+                    )
                     if feedback != 0:
                         return Verdict(VerdictMessage.RE, test)
 
@@ -122,11 +123,16 @@ class TestingProtocol(ABC):
         command_line_opts = command_line_opts if command_line_opts else []
 
         with open(path_to_input_file, 'r') as input_file:
-            with open(path_to_solution_output, 'w') as output_file:
-                feedback = subprocess.run([path_to_executable] + command_line_opts,
-                                          stdin=input_file, stdout=output_file)
+            with open(path_to_solution_output, 'w+b') as output_file:
+                subprocess.run(['sudo', 'chown', 'nobody', path_to_executable])
+
+                feedback = subprocess.run(['sudo', '-u', 'nobody',
+                                           path_to_executable] + command_line_opts,
+                                          stdin=input_file, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                x = feedback.stderr.decode()
                 if feedback.returncode != 0:
                     return TestingProtocol.return_code_to_error_msg[feedback.returncode]
+                output_file.write(feedback.stdout)
                 return 0
 
     return_code_to_error_msg = {1: "FAIL"}

@@ -6,7 +6,7 @@ from language_support import python_data, LanguageLabel, ExecutionAndConversionD
 
 python_language_data_set = python_data.data_set
 python_execution_and_conversion_data_set = {
-    ExecutionAndConversionData(language_data=language_data)
+    ExecutionAndConversionData(language_data=language_data, time_limit=1, memory_limit_megabytes=5)
     for language_data in python_language_data_set
 }
 

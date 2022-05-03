@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Prettified context manager use">
-      <change beforePath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadSubmissionAsStudent/sample_test/input_accepted" beforeDir="false" afterPath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadSubmissionAsStudent/sample_test/input_accepted" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadSubmissionAsStudent/sample_test/input_runtime_error" beforeDir="false" afterPath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadSubmissionAsStudent/sample_test/input_runtime_error" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadSubmissionAsStudent/sample_test/input_wrong_answer" beforeDir="false" afterPath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadSubmissionAsStudent/sample_test/input_wrong_answer" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadSubmissionAsStudent/submission_wizard.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadSubmissionAsStudent/submission_wizard.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Interface/ServerIF/server/helper_submit.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../Interface/ServerIF/server/helper_submit.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Interface/ServerIF/server/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../Interface/ServerIF/server/server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Interface/ServerIF/server/templates/submit.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../Interface/ServerIF/server/templates/submit.html" afterDir="false" />
+    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Can input TL and ML floats via CMDLine!">
       <change beforePath="$PROJECT_DIR$/../../TaskManager.ods" beforeDir="false" afterPath="$PROJECT_DIR$/../../TaskManager.ods" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sample_tests/test_cxx.py" beforeDir="false" afterPath="$PROJECT_DIR$/sample_tests/test_cxx.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sample_tests/test_python3.py" beforeDir="false" afterPath="$PROJECT_DIR$/sample_tests/test_python3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testing_protocols/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_protocols/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,22 +49,7 @@
       <recent name="$PROJECT_DIR$/" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Python tests for test_python3.Python3AnswerTest.test_limited_work_space">
-    <configuration name="Python tests for test_cxx.CXXAnswerTest.test_in_custom" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
-      <module name="TestingProtocols" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/sample_tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_cxx.CXXAnswerTest.test_in_custom&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python tests.Python tests for test_python3.Python3AnswerTest.test_in_out">
     <configuration name="Python tests for test_cxx.CXXAnswerTest.test_in_out" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="TestingProtocols" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -96,7 +80,7 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for test_cxx.CXXAnswerTest.test_rand_custom" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests for test_python3.Python3AnswerTest" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="TestingProtocols" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -107,7 +91,22 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_cxx.CXXAnswerTest.test_rand_custom&quot;" />
+      <option name="_new_target" value="&quot;test_python3.Python3AnswerTest&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for test_python3.Python3AnswerTest.test_in_out" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="TestingProtocols" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/sample_tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_python3.Python3AnswerTest.test_in_out&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
@@ -128,11 +127,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.Python tests for test_python3.Python3AnswerTest.test_in_out" />
+        <item itemvalue="Python tests.Python tests for test_python3.Python3AnswerTest" />
         <item itemvalue="Python tests.Python tests for test_python3.Python3AnswerTest.test_limited_work_space" />
         <item itemvalue="Python tests.Python tests for test_cxx.CXXAnswerTest.test_limited_work_space" />
         <item itemvalue="Python tests.Python tests for test_cxx.CXXAnswerTest.test_in_out" />
-        <item itemvalue="Python tests.Python tests for test_cxx.CXXAnswerTest.test_in_custom" />
-        <item itemvalue="Python tests.Python tests for test_cxx.CXXAnswerTest.test_rand_custom" />
       </list>
     </recent_temporary>
   </component>
@@ -157,6 +156,9 @@
       <workItem from="1651391646690" duration="2193000" />
       <workItem from="1651397510461" duration="1939000" />
       <workItem from="1651402506319" duration="1151000" />
+      <workItem from="1651582274415" duration="762000" />
+      <workItem from="1651583051938" duration="2428000" />
+      <workItem from="1651591597488" duration="238000" />
     </task>
     <task id="LOCAL-00001" summary="Enforced enumerate">
       <created>1649197810547</created>
@@ -431,7 +433,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651397707387</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Can input TL and ML floats via CMDLine!">
+      <created>1651582315966</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1651582315966</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -471,20 +480,28 @@
     <MESSAGE value="Enforced tempfile in lws" />
     <MESSAGE value="Got rid of subprocess where possible in testing_protocols" />
     <MESSAGE value="Prettified context manager use" />
-    <option name="LAST_COMMIT_MESSAGE" value="Prettified context manager use" />
+    <MESSAGE value="Can input TL and ML floats via CMDLine!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Can input TL and ML floats via CMDLine!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/testing_protocols/__init__.py</url>
-          <line>152</line>
+          <line>158</line>
           <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/sample_tests/test_python3.py</url>
+          <line>49</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/testing_protocols/__init__.py</url>
+          <line>122</line>
+          <option name="timeStamp" value="20" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/TestingProtocols$.coverage" NAME=" Coverage Results" MODIFIED="1651397058572" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sample_tests" />
   </component>
 </project>
