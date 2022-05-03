@@ -56,7 +56,7 @@ Input 1 for InputOutput,
 
 
 def upload_execution_and_conversion_data(key_seq_to_current_dict, custodian):
-    supported_languages_count = int(input("Each protocol can support multiple programming languages"
+    supported_languages_count = int(input("Each protocol can support multiple programming languages."
                                           "Specify the number of languages supported by this protocol: "))
 
     for language_idx in range(supported_languages_count):
@@ -64,6 +64,7 @@ def upload_execution_and_conversion_data(key_seq_to_current_dict, custodian):
             = key_seq_to_current_dict + ("execution_and_conversion_data_set", str(language_idx))
         upload_programming_language_data(key_seq_to_current_execution_and_conversion_data, custodian)
         upload_opts(key_seq_to_current_execution_and_conversion_data, custodian)
+        upload_limits(key_seq_to_current_execution_and_conversion_data, custodian)
 
 
 def upload_programming_language_data(key_seq_to_current_dict, custodian):
@@ -85,3 +86,9 @@ def upload_opts(key_seq_to_current_dict, custodian):
     for opts_type in ['conversion options', 'command line options']:
         opts = input(f"Input {opts_type} (leave blank to skip): ").split()
         custodian.nested_fill_in(key_seq_to_current_dict + (opts_type, ), opts)
+
+
+def upload_limits(key_seq_to_current_dict, custodian):
+    for limit_type, unit in [('time limit', 'seconds'), ('memory limit', '2^20 bytes (MB)')]:
+        limit = float(input(f'Input {limit_type} (unit: {unit}): '))
+        custodian.nested_fill_in(key_seq_to_current_dict + (limit_type, ), limit)

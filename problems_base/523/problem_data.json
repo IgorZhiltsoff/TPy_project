@@ -1,0 +1,31 @@
+{
+    "uploaded_by_wizard_version": "1.0.0",
+    "name": "hehe",
+    "statement file extension": ".txt",
+    "path to statement": "TPy_project/problems_base/523/statement.txt",
+    "protocols": {
+        "0": {
+            "test_count": 1,
+            "scheme": "inout",
+            "execution_and_conversion_data_set": {
+                "0": {
+                    "programming_language_data": "python_data.python3_data",
+                    "conversion options": [
+                        "a"
+                    ],
+                    "command line options": [
+                        "b"
+                    ],
+                    "time limit": 1.5,
+                    "memory limit": 128.0
+                }
+            },
+            "infiles": [
+                "TPy_project/problems_base/523/prot0/1.in"
+            ],
+            "outfiles": [
+                "TPy_project/problems_base/523/prot0/1.out"
+            ]
+        }
+    }
+}

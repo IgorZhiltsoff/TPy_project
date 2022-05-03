@@ -7,13 +7,14 @@ import os.path
 
 def upload_problem(path_to_problems_dir, verbose, wizard_version_running):
     # PRE
+    problem_id = generate_problem_id()
+    path_to_dir = create_problem_dir(problem_id, path_to_problems_dir)
+
+    custodian = JsonDataCustodian(path_to_dir, 'problem_data')
     print(f"You are running a problem upload wizard v{wizard_version_running}")
     custodian.fill_in("uploaded_by_wizard_version", wizard_version_running)
 
-    problem_id = generate_problem_id()
     print(f"\033[92mProblem received id: {problem_id}\033[0m")
-    path_to_dir = create_problem_dir(problem_id, path_to_problems_dir)
-    custodian = JsonDataCustodian(path_to_dir, 'problem_data')
 
     # INTERACT
     upload_statement_and_name(custodian, path_to_dir)
