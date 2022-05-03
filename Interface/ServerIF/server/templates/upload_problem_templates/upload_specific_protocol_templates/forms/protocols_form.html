@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Protocols Form</title>
+</head>
+<body>
+{{% for rendered_protocol_upload_html in rendered_protocol_upload_html_list %}}
+    {{rendered_protocol_upload_html|safe}}
+{{% endfor %}}
+</body>
+</html>

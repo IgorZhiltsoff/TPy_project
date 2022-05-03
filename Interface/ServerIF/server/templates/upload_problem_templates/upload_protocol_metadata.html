@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Specify Protocol Metadata</title>
+</head>
+<body>
+  <h2>Specify Protocol Metadata</h2>
+  <form action="upload_protocol_master" method="POST">
+      <h4>Specify protocol scheme:</h4>
+      <p>
+          <input type="radio" id="InputOutput" name="protocolScheme{{idx}}" value="InputOutput">
+          <label for="InputOutput">InputOutput</label>
+      </p><p>
+          <input type="radio" id="InputCustomChecker" name="protocolScheme{{idx}}" value="InputCustomChecker">
+          <label for="InputCustomChecker">InputCustomChecker</label>
+      </p><p>
+          <input type="radio" id="RandomInputCustomChecker" name="protocolScheme{{idx}}" value="RandomInputCustomChecker">
+          <label for="RandomInputCustomChecker">RandomInputCustomChecker</label>
+      </p><p>
+          <input type="radio" id="LimitedWorkSpace" name="protocolScheme{{idx}}" value="LimitedWorkSpace">
+          <label for="LimitedWorkSpace">LimitedWorkSpace</label>
+      </p>
+      <p><label>
+            Test count: <input type="number" placeholder="5" name="test_cnt{{idx}}"/>
+      </label></p>
+      <p><label>
+            Supported languages count: <input type="number" placeholder="2" name="supported_langs_cnt{{idx}}"/>
+      </label></p>
+    </form>
+</body>
+</html>
