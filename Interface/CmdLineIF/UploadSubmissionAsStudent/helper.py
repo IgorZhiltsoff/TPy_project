@@ -15,11 +15,20 @@ def get_execution_and_conversion_data_set(protocol_data):
     for key in raw_execution_and_conversion_data_set:
         execution_and_conversion_data = raw_execution_and_conversion_data_set[key]
         programming_language_data = get_programming_language_data(execution_and_conversion_data)
+
+        time_limit = get_time_limit(execution_and_conversion_data)
+        memory_limit_megabytes = get_memory_limit_megabytes(execution_and_conversion_data)
+
         conversion_opts = get_conversion_opts(execution_and_conversion_data)
         command_line_opts = get_command_line_opts(execution_and_conversion_data)
+
         execution_and_conversion_data_set.add(
             ExecutionAndConversionData(
                 language_data=programming_language_data,
+
+                time_limit=time_limit,
+                memory_limit_megabytes=memory_limit_megabytes,
+
                 conversion_opts=conversion_opts,
                 command_line_opts=command_line_opts
             )
@@ -29,6 +38,14 @@ def get_execution_and_conversion_data_set(protocol_data):
 
 def get_programming_language_data(execution_and_conversion_data):
     return eval(execution_and_conversion_data["programming_language_data"])
+
+
+def get_time_limit(execution_and_conversion_data):
+    return execution_and_conversion_data["time limit"]
+
+
+def get_memory_limit_megabytes(execution_and_conversion_data):
+    return execution_and_conversion_data["memory limit"]
 
 
 def get_conversion_opts(execution_and_conversion_data):

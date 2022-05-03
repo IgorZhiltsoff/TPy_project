@@ -48,8 +48,12 @@ class LanguageData(LanguageLabelHolder):
 
 class ExecutionAndConversionData:
     """Data concerning certain programming language execution WITH GIVEN PARAMETERS"""
-    def __init__(self, language_data, conversion_opts=None, command_line_opts=None):
+    def __init__(self, language_data, time_limit, memory_limit_megabytes, conversion_opts=None, command_line_opts=None):
         self.language_data = language_data
+
+        self.time_limit = time_limit
+        self.memory_limit_megabytes = memory_limit_megabytes
+
         self.conversion_opts = conversion_opts
         self.command_line_opts = command_line_opts
 
