@@ -6,7 +6,7 @@ from language_support import python_data, LanguageLabel, ExecutionAndConversionD
 
 python_language_data_set = python_data.data_set
 python_execution_and_conversion_data_set = {
-    ExecutionAndConversionData(language_data=language_data, time_limit_seconds=1.5, memory_limit_megabytes=64)
+    ExecutionAndConversionData(language_data=language_data, time_limit_seconds=0.5, memory_limit_megabytes=64)
     for language_data in python_language_data_set
 }
 
@@ -19,7 +19,12 @@ skipped = UserSubmittedData('accepted.cpp', 6, LanguageLabel.CXX11)
 
 user_submitted_data_to_expected_verdict_generator = \
     BaseTestCase.standard_user_submitted_data_to_expected_verdict_generator(
-        [VerdictMessage.AC, VerdictMessage.WA, VerdictMessage.RE, VerdictMessage.TL, VerdictMessage.ML, VerdictMessage.SKIP]
+        [VerdictMessage.AC,
+         VerdictMessage.WA,
+         VerdictMessage.RE,
+         VerdictMessage.TL,
+         VerdictMessage.ML,
+         VerdictMessage.SKIP]
     )
 
 

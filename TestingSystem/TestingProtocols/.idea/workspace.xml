@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Added ML and SKIP to tests!">
+    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Added TL test to C++">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sample_tests/test_cxx.py" beforeDir="false" afterPath="$PROJECT_DIR$/sample_tests/test_cxx.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sample_tests/test_python3.py" beforeDir="false" afterPath="$PROJECT_DIR$/sample_tests/test_python3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testing_protocols/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_protocols/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,11 +62,14 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/sample_tests/limited_work_space" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/testing_protocols/__init__.py" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/sample_tests/limited_work_space" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/sample_tests/" />
       <recent name="$PROJECT_DIR$/" />
@@ -182,20 +188,6 @@
       <workItem from="1651615950600" duration="1913000" />
       <workItem from="1651618106043" duration="5879000" />
       <workItem from="1651627150189" duration="3000" />
-    </task>
-    <task id="LOCAL-00011" summary="Passed CXX tests">
-      <created>1651316140675</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1651316140675</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Passed PYTHON tests">
-      <created>1651316213575</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1651316213575</updated>
     </task>
     <task id="LOCAL-00013" summary="Passed PYTHON tests">
       <created>1651316575544</created>
@@ -526,7 +518,21 @@
       <option name="project" value="LOCAL" />
       <updated>1651707558230</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="Improved naming">
+      <created>1651707652183</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1651707652183</updated>
+    </task>
+    <task id="LOCAL-00061" summary="Added TL test to C++">
+      <created>1651708297348</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1651708297348</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -556,8 +562,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Verdict message made enum!" />
-    <MESSAGE value="Started enforcing tempfile" />
     <MESSAGE value="Got rid of inout-cust copy&amp;paste (check_with_chosen_language_data)" />
     <MESSAGE value="Used tempfile in randcust" />
     <MESSAGE value="Enforcing tempfile in lws" />
@@ -581,14 +585,16 @@
     <MESSAGE value="Added RE test for C++" />
     <MESSAGE value="Added ML to tests!" />
     <MESSAGE value="Added ML and SKIP to tests!" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added ML and SKIP to tests!" />
+    <MESSAGE value="Improved naming" />
+    <MESSAGE value="Added TL test to C++" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added TL test to C++" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/testing_protocols/__init__.py</url>
-          <line>214</line>
+          <line>215</line>
           <option name="timeStamp" value="30" />
         </line-breakpoint>
       </breakpoints>

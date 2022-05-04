@@ -275,7 +275,7 @@ class InputOutput(TestingProtocol):
         )
 
 
-class InputCustomChecker(TestingProtocol):  # todo: checker safety
+class InputCustomChecker(TestingProtocol):
     """Testing protocol which passes given input to submission and then validates the output running custom code
        Might come in handy in problems with multiple answer"""
 
