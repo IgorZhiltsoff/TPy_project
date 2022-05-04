@@ -133,11 +133,9 @@ class TestingProtocol(ABC):
                                            path_to_executable] + command_line_opts,
                                           stdin=input_file, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 if feedback.returncode != 0:
-                    return TestingProtocol.return_code_to_error_msg[feedback.returncode]
+                    return feedback.returncode
                 output_file.write(feedback.stdout)
                 return 0
-
-    return_code_to_error_msg = {1: "FAIL"}
 
 
 class InputOutput(TestingProtocol):

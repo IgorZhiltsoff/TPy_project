@@ -111,8 +111,6 @@ TestingProtocols "*" <---- "-1..* execution_and_conversion_data_set" ExecutionAn
 ' ========================== PROTOCOLS =========================
 
 abstract class TestingProtocols {
-    -{static} dict return_code_to_error_msg = ...
-
     +void __init__(...)
     +Verdict check(self, user_submitted_data)
     -ExecutionAndConversionData cho/home/zhilts/PycharmProjects/TPy_project/Interface/ServerIFose_language_data(self, user_submitted_data)
@@ -120,11 +118,13 @@ abstract class TestingProtocols {
     -bool verify(self, scope)
     -{static} ... executable_file()
     -Verdict basic_check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data, attr_to_iterate_over)
-    -{static} int run_code(path_to_executable, path_to_input_file, path_to_output_file, command_line_opts))
+    -{static} Verdict run_code(path_to_executable, path_to_input_file, path_to_output_file, command_line_opts))
 }
-
 note left of TestingProtocols::executable_file
 context manager
+end note
+note left of TestingProtocols::run_code
+returns a negative verdict or None
 end note
 
 class InputOutput {

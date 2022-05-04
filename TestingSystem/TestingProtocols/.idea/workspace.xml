@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Enforced execution as nobody in other parts of code">
+    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Brushed up">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Class_TestingProtocols.svg" beforeDir="false" afterPath="$PROJECT_DIR$/Class_TestingProtocols.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Class_TestingProtocols.puml" beforeDir="false" afterPath="$PROJECT_DIR$/Class_TestingProtocols.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testing_protocols/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_protocols/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -164,7 +164,7 @@
       <workItem from="1651591597488" duration="238000" />
       <workItem from="1651615918820" duration="9000" />
       <workItem from="1651615950600" duration="1913000" />
-      <workItem from="1651618106043" duration="4680000" />
+      <workItem from="1651618106043" duration="5879000" />
     </task>
     <task id="LOCAL-00001" summary="Enforced enumerate">
       <created>1649197810547</created>
@@ -446,7 +446,21 @@
       <option name="project" value="LOCAL" />
       <updated>1651582315966</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Enforced execution as nobody in other parts of code">
+      <created>1651625073478</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1651625073478</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Brushed up">
+      <created>1651625682990</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1651625682990</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -464,7 +478,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Enforced enumerate" />
     <MESSAGE value="Added scripts for running tests: TestingSystem/TestingProtocols/run_*_tests.sh" />
     <MESSAGE value="Improved naming in testing_protocols" />
     <MESSAGE value="Safely added labels" />
@@ -489,14 +502,15 @@
     <MESSAGE value="Can input TL and ML floats via CMDLine!" />
     <MESSAGE value="Enabled execution as nobody" />
     <MESSAGE value="Enforced execution as nobody in other parts of code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Enforced execution as nobody in other parts of code" />
+    <MESSAGE value="Brushed up" />
+    <option name="LAST_COMMIT_MESSAGE" value="Brushed up" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/testing_protocols/__init__.py</url>
-          <line>163</line>
+          <line>161</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
