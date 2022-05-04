@@ -25,7 +25,7 @@ user_submitted_data_to_expected_verdict_generator = \
     )
 
 
-class CXXAnswerTest(BaseTestCase):
+class CXXTest(BaseTestCase):
     def test_in_out(self):
         inout = InputOutput(
             input_output_paths_dict={"inout_tests/1.in": "inout_tests/1.out",

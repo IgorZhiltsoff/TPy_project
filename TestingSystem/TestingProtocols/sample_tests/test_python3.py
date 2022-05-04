@@ -23,7 +23,7 @@ user_submitted_data_to_expected_verdict_generator = \
     )
 
 
-class Python3AnswerTest(BaseTestCase):
+class Python3Test(BaseTestCase):
     def test_in_out(self):
         inout = InputOutput(
             input_output_paths_dict={"inout_tests/1.in": "inout_tests/1.out",
