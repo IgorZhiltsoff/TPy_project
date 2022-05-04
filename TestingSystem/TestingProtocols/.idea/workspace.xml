@@ -4,14 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="First timeout enforcement">
-      <change beforePath="$PROJECT_DIR$/Class_TestingProtocols.puml" beforeDir="false" afterPath="$PROJECT_DIR$/Class_TestingProtocols.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testing_protocols/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_protocols/__init__.py" afterDir="false" />
+    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Getting ready to refactor run_code to measure resources">
+      <change afterPath="$PROJECT_DIR$/sample_tests/memory_leak.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sample_tests/memory_limit.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sample_tests/time_limit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
@@ -53,12 +62,13 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="/tmp/file" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/testing_protocols/__init__.py" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/sample_tests/" />
       <recent name="$PROJECT_DIR$/" />
     </key>
   </component>
@@ -506,7 +516,21 @@
       <option name="project" value="LOCAL" />
       <updated>1651627797032</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="Enforced timeout in rest of the places">
+      <created>1651628281854</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1651628281854</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Enforced timeout in rest of the places">
+      <created>1651628424002</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1651628424002</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -536,7 +560,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Got cpp tests to run&#10;test rand failed: TestingProtocol.__init__() got an unexpected keyword argument 'language_data'&#10;test lws failed: SKIP != AC" />
     <MESSAGE value="Fixed rand test" />
     <MESSAGE value="Passed Python tests" />
     <MESSAGE value="Passed CXX tests" />
@@ -561,7 +584,8 @@
     <MESSAGE value="Placed resource monitoring programme &#10;SRC: https://github.com/pshved/timeout" />
     <MESSAGE value="Merge pull request #20 from edwwlui/patch-1&#10;&#10;fixing typo in the memory limiting example" />
     <MESSAGE value="First timeout enforcement" />
-    <option name="LAST_COMMIT_MESSAGE" value="First timeout enforcement" />
+    <MESSAGE value="Enforced timeout in rest of the places" />
+    <option name="LAST_COMMIT_MESSAGE" value="Enforced timeout in rest of the places" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
