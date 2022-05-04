@@ -25,6 +25,7 @@ class BaseTestCase(unittest.TestCase):
                 VerdictMessage.CE: f'{prefix}compilation_error',
                 VerdictMessage.RE: f'{prefix}runtime_error',
                 VerdictMessage.TL: f'{prefix}time_limit',
+                VerdictMessage.ML: f'{prefix}memory_limit',
                 VerdictMessage.SKIP: f'{prefix}skipped'
             }
 

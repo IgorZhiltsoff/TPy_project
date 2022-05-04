@@ -5,7 +5,7 @@ from testing_protocols import InputOutput, InputCustomChecker, RandomInputCustom
 from language_support import cxx_data, ExecutionAndConversionData, LanguageLabel
 
 cxx_language_data_set = cxx_data.data_set
-warning_opts = ['-O2', '-Werror', '-Wpedantic']
+warning_opts = ['-O0', '-Werror']
 cxx_execution_and_conversion_data_set = {
     ExecutionAndConversionData(language_data=language_data, conversion_opts=warning_opts, time_limit_seconds=1.5, memory_limit_megabytes=64)
     for language_data in cxx_language_data_set
@@ -15,10 +15,13 @@ accepted = UserSubmittedData('accepted.cpp', 1, LanguageLabel.CXX11)
 wrong_answer = UserSubmittedData('wrong_answer.cpp', 2, LanguageLabel.CXX14)
 compilation_error = UserSubmittedData('compilation_error.cpp', 3, LanguageLabel.CXX17)
 runtime_error = UserSubmittedData('runtime_error.cpp', 4, LanguageLabel.CXX20)
+memory_limit = UserSubmittedData('memory_leak.cpp', 5, LanguageLabel.CXX17)
+skipped = UserSubmittedData('accepted.py', 6, LanguageLabel.PYTHON3)
+
 
 user_submitted_data_to_expected_verdict_generator = \
     BaseTestCase.standard_user_submitted_data_to_expected_verdict_generator(
-        [VerdictMessage.AC, VerdictMessage.WA, VerdictMessage.CE, VerdictMessage.RE]
+        [VerdictMessage.AC, VerdictMessage.WA, VerdictMessage.CE, VerdictMessage.RE, VerdictMessage.ML, VerdictMessage.SKIP]
     )
 
 
@@ -81,6 +84,8 @@ class CXXAnswerTest(BaseTestCase):
         limited_work_space_wrong_answer = UserSubmittedData('limited_work_space/wrong_answer.cpp', 2, LanguageLabel.CXX14)
         limited_work_space_compilation_error = compilation_error
         limited_work_space_runtime_error = UserSubmittedData('limited_work_space/runtime_error.cpp', 4, LanguageLabel.CXX20)
+        limited_work_space_memory_limit = UserSubmittedData('limited_work_space/memory_leak.cpp', 5, LanguageLabel.CXX17)
+        limited_work_space_skipped = UserSubmittedData('limited_work_space/accepted.py', 6, LanguageLabel.PYTHON3)
 
         user_submitted_data_to_expected_verdict = \
             user_submitted_data_to_expected_verdict_generator('limited_work_space_').evaluate(locals())

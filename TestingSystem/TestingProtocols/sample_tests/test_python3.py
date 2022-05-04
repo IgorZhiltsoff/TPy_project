@@ -14,10 +14,12 @@ accepted = UserSubmittedData('accepted.py', 1, LanguageLabel.PYTHON3)
 wrong_answer = UserSubmittedData('wrong_answer.py', 2, LanguageLabel.PYTHON3)
 runtime_error = UserSubmittedData('runtime_error.py', 3, LanguageLabel.PYTHON3)
 time_limit = UserSubmittedData('time_limit.py', 4, LanguageLabel.PYTHON3)
+memory_limit = UserSubmittedData('memory_leak.py', 5, LanguageLabel.PYTHON3)
+skipped = UserSubmittedData('accepted.cpp', 6, LanguageLabel.CXX11)
 
 user_submitted_data_to_expected_verdict_generator = \
     BaseTestCase.standard_user_submitted_data_to_expected_verdict_generator(
-        [VerdictMessage.AC, VerdictMessage.WA, VerdictMessage.RE, VerdictMessage.TL]
+        [VerdictMessage.AC, VerdictMessage.WA, VerdictMessage.RE, VerdictMessage.TL, VerdictMessage.ML, VerdictMessage.SKIP]
     )
 
 
@@ -80,6 +82,8 @@ class Python3AnswerTest(BaseTestCase):
         limited_work_space_wrong_answer = UserSubmittedData('limited_work_space/wrong_answer.py', 2, LanguageLabel.PYTHON3)
         limited_work_space_runtime_error = runtime_error
         limited_work_space_time_limit = time_limit
+        limited_work_space_memory_limit = memory_limit
+        limited_work_space_skipped = UserSubmittedData('limited_work_space/accepted.cpp', 6, LanguageLabel.CXX11)
 
         user_submitted_data_to_expected_verdict = \
             user_submitted_data_to_expected_verdict_generator('limited_work_space_').evaluate(locals())

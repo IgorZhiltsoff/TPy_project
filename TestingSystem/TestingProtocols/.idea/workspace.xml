@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Removed bugs, improved naming">
-      <change afterPath="$PROJECT_DIR$/sample_tests/runtime_error.cpp" afterDir="false" />
+    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Added ML to tests!">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sample_tests/test_cxx.py" beforeDir="false" afterPath="$PROJECT_DIR$/sample_tests/test_cxx.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sample_tests/test_python3.py" beforeDir="false" afterPath="$PROJECT_DIR$/sample_tests/test_python3.py" afterDir="false" />
     </list>
@@ -71,7 +71,7 @@
       <recent name="$PROJECT_DIR$/" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Python tests for test_cxx.CXXAnswerTest.test_limited_work_space">
+  <component name="RunManager" selected="Python tests.Python tests for test_python3.Python3AnswerTest">
     <configuration name="Python tests for test_cxx.CXXAnswerTest.test_limited_work_space" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="TestingProtocols" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -148,9 +148,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.Python tests for test_cxx.CXXAnswerTest.test_limited_work_space" />
         <item itemvalue="Python tests.Python tests for test_python3.Python3AnswerTest" />
         <item itemvalue="Python tests.Python tests for test_python3.Python3AnswerTest.test_in_out" />
+        <item itemvalue="Python tests.Python tests for test_cxx.CXXAnswerTest.test_limited_work_space" />
         <item itemvalue="Python tests.Python tests for test_python3.Python3AnswerTest.test_rand_custom" />
         <item itemvalue="Python tests.Python tests for test_python3.Python3AnswerTest.test_limited_work_space" />
       </list>
@@ -184,20 +184,6 @@
       <workItem from="1651615950600" duration="1913000" />
       <workItem from="1651618106043" duration="5879000" />
       <workItem from="1651627150189" duration="3000" />
-    </task>
-    <task id="LOCAL-00008" summary="Got cpp tests to run&#10;test rand failed: TestingProtocol.__init__() got an unexpected keyword argument 'language_data'&#10;test lws failed: SKIP != AC">
-      <created>1651315070136</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1651315070136</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Fixed rand test">
-      <created>1651315180596</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1651315180596</updated>
     </task>
     <task id="LOCAL-00010" summary="Passed CXX tests">
       <created>1651316050703</created>
@@ -528,7 +514,21 @@
       <option name="project" value="LOCAL" />
       <updated>1651705103568</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="Added RE test for C++">
+      <created>1651705624613</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1651705624614</updated>
+    </task>
+    <task id="LOCAL-00058" summary="Added ML to tests!">
+      <created>1651706627278</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1651706627278</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -558,8 +558,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added script for running tests" />
-    <MESSAGE value="Rendered" />
     <MESSAGE value="Enabled pre-commit hook" />
     <MESSAGE value="Verdict message made enum!" />
     <MESSAGE value="Started enforcing tempfile" />
@@ -583,7 +581,9 @@
     <MESSAGE value="Enforced resource consumption record!" />
     <MESSAGE value="Tested TL!" />
     <MESSAGE value="Removed bugs, improved naming" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed bugs, improved naming" />
+    <MESSAGE value="Added RE test for C++" />
+    <MESSAGE value="Added ML to tests!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added ML to tests!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
