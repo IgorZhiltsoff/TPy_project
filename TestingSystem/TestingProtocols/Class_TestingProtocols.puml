@@ -12,7 +12,10 @@ enum VerdictMessage {
     WA
     CE
     RE
+    TL
+    ML
     SKIP
+    ABORT
 }
 
 class Verdict {
@@ -93,8 +96,11 @@ ScalaDataSet "1" <-- "+1..*" LanguageData
 
 
 class ExecutionAndConversionData {
-    -list conversion_opts_lst
-    -list command_line_opts_lst
+    +list conversion_opts_lst
+    +list command_line_opts_lst
+
+    +float time_limit
+    +float memory_limit_megabytes
 
     +void __init__(...)
 }
@@ -136,7 +142,7 @@ class InputCustomChecker {
 
     +void __init__(...)
     -bool verify(self, scope)
-    -bool passes_custom_checker(self, path_to_input_file, path_to_solution_output)
+    -int run_custom_checker(self, path_to_input_file, path_to_solution_output)
 }
 
 class RandomInputCustomChecker {
@@ -147,6 +153,7 @@ class RandomInputCustomChecker {
 
     +void __init__(...)
     -set generate_input(self, path_to_input_dir)
+    -int run_random_input_generator(self, infile)
 }
 
 class LimitedWorkSpace {
@@ -171,7 +178,7 @@ TestingProtocols <|--- LimitedWorkSpace
 TestingProtocols <|--- InputOutput
 
 
-' ============================ AUX ============================
+' ============================ HELPER ============================
 
 class ProblemData {
     +int problem_id
@@ -181,13 +188,5 @@ class ProblemData {
 }
 
 ProblemData "1" <-- "testing_protocols_set 1..*" TestingProtocols
-
-
-class ExtendedSubmission {
-    +void __init__(...)
-}
-
-ExtendedSubmission "*" *-- "+problem_data 1" ProblemData
-ExtendedSubmission "1" *---- "+user_submitted_ data 1" UserSubmittedData
 
 @enduml

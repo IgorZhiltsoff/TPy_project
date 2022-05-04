@@ -23,7 +23,10 @@ class VerdictMessage(Enum):
     WA = auto()
     CE = auto()
     RE = auto()
+    TL = auto()
+    ML = auto()
     SKIP = auto()
+    ABORT = auto()
 
 
 class Verdict:
@@ -181,15 +184,31 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
         self.input_paths_set = input_paths_set
         self.path_to_checker_exec = path_to_checker_exec
 
-    def passes_custom_checker(self, path_to_input_file, path_to_solution_output):
-        return int(subprocess.run([self.path_to_checker_exec, path_to_input_file, path_to_solution_output],
-                                  stdout=subprocess.PIPE).stdout.decode('utf-8')) == 1
+    def run_custom_checker(self, path_to_input_file, path_to_solution_output):
+        subprocess.run(['sudo', 'chmod', 'o+rwx', os.path.dirname(path_to_input_file)])
+        subprocess.run(['sudo', 'chown', 'nobody', path_to_solution_output])
+        subprocess.run(['sudo', 'chmod', 'o+rw', path_to_solution_output])
+        subprocess.run(['sudo', 'chown', 'nobody', path_to_input_file])
+        subprocess.run(['sudo', 'chmod', 'o+rw', path_to_input_file])
+        p = subprocess.run(['sudo', '-u', 'nobody',
+                                  self.path_to_checker_exec, path_to_input_file, path_to_solution_output],
+                                  stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+        subprocess.run(['sudo', 'chown', 'root', path_to_solution_output])
+        subprocess.run(['sudo', 'chown', 'root', path_to_input_file])
+
+
+
+        o = p.stdout.decode()
+        e = p.stderr.decode()
+        r = p.returncode
+        return int(o) == 1
 
     def verify(self, scope):
         path_to_input_file = scope['path_to_input_file']
         path_to_solution_output = scope['path_to_solution_output']
 
-        return self.passes_custom_checker(path_to_input_file, path_to_solution_output)
+        return self.run_custom_checker(path_to_input_file, path_to_solution_output)
 
     def check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data):
         return self.basic_check_with_chosen_language_data(
@@ -213,18 +232,27 @@ class RandomInputCustomChecker(TestingProtocol):
     def generate_input(self, path_to_input_dir):  # todo: timeout
         input_paths_set = set()
         for test in range(self.test_count):
-            infile_path = path_to_input_dir / f'{test}.in'  # no need to check collision as placed in fresh dir
-            infile_path.touch()
-            with open(infile_path, 'w') as infile:
+            path_to_storage = path_to_input_dir / f'{test}.in'  # no need to check collision as placed in fresh dir
+            path_to_storage.touch()
+            with open(path_to_storage, 'w') as storage:
                 return_code = -1
-                while return_code != 0:
-                    return_code = subprocess.run(self.path_to_input_generation_exec, stdout=infile).returncode
-            input_paths_set.add(infile_path)
+                tries_left = 20
+                while return_code != 0 and tries_left > 0:
+                    return_code = self.run_random_input_generator(storage=storage)
+                    tries_left -= 1
+                if tries_left == 0:
+                    return None
+            input_paths_set.add(path_to_storage)
         return input_paths_set
 
     def check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data):
         with tempfile.TemporaryDirectory() as path_to_input_dir:
             random_input_paths_set = self.generate_input(Path(path_to_input_dir))
+            if not random_input_paths_set:
+                return Verdict(
+                    msg=VerdictMessage.ABORT,
+                    test_number=-1
+                )
 
             deterministic_protocol = InputCustomChecker(
                 input_paths_set=random_input_paths_set,
@@ -233,6 +261,11 @@ class RandomInputCustomChecker(TestingProtocol):
             )
 
             return deterministic_protocol.check(user_submitted_data=user_submitted_data)
+
+    def run_random_input_generator(self, storage):
+        # nobody should be able to write in a file from /tmp
+        return subprocess.run(['sudo', '-u', 'nobody',
+                               self.path_to_input_generation_exec], stdout=storage).returncode
 
 
 class LimitedWorkSpace(TestingProtocol):
@@ -299,10 +332,3 @@ class ProblemData:
             if verdict.msg != VerdictMessage.AC:
                 return f'{verdict.msg}{protocol_number}.{verdict.test_number}'
         return VerdictMessage.AC
-
-
-class ExtendedSubmission:
-    """Full submission data: composed of UserSubmittedData and ProblemData"""
-    def __init__(self, user_submitted_data, problem_data):
-        self.user_submitted_data = user_submitted_data
-        self.problem_data = problem_data
