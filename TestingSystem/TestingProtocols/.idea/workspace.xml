@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Enforced resource consumption record!">
+    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Tested TL!">
+      <change beforePath="$PROJECT_DIR$/../../TaskManager.ods" beforeDir="false" afterPath="$PROJECT_DIR$/../../TaskManager.ods" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sample_tests/base_test_case.py" beforeDir="false" afterPath="$PROJECT_DIR$/sample_tests/base_test_case.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Class_TestingProtocols.puml" beforeDir="false" afterPath="$PROJECT_DIR$/Class_TestingProtocols.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/language_support/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/language_support/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sample_tests/test_cxx.py" beforeDir="false" afterPath="$PROJECT_DIR$/sample_tests/test_cxx.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sample_tests/test_python3.py" beforeDir="false" afterPath="$PROJECT_DIR$/sample_tests/test_python3.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testing_protocols/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_protocols/__init__.py" afterDir="false" />
     </list>
@@ -186,13 +189,6 @@
       <workItem from="1651615950600" duration="1913000" />
       <workItem from="1651618106043" duration="5879000" />
       <workItem from="1651627150189" duration="3000" />
-    </task>
-    <task id="LOCAL-00006" summary="Safely added labels">
-      <created>1651312013552</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1651312013552</updated>
     </task>
     <task id="LOCAL-00007" summary="Got cpp tests to run&#10;test 2 failed: SKIP != AC">
       <created>1651315006976</created>
@@ -530,7 +526,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651701667355</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="Tested TL!">
+      <created>1651702652552</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1651702652552</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -560,7 +563,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Passed PYTHON tests" />
     <MESSAGE value="Banished opts from TestingProtocol class to ExecutionAndConversionData" />
     <MESSAGE value="Added script for running tests" />
     <MESSAGE value="Rendered" />
@@ -585,6 +587,18 @@
     <MESSAGE value="Added files for testing" />
     <MESSAGE value="Intermediate commit&#10;Refactoring Verdict&#10;Refactoring run_code" />
     <MESSAGE value="Enforced resource consumption record!" />
-    <option name="LAST_COMMIT_MESSAGE" value="Enforced resource consumption record!" />
+    <MESSAGE value="Tested TL!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tested TL!" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/testing_protocols/__init__.py</url>
+          <line>214</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

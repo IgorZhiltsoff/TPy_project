@@ -19,7 +19,7 @@ enum VerdictMessage {
 }
 
 class ResourceConsumption {
-    +float time_elapsed
+    +float time_elapsed_milliseconds
     +float memory_consumption_kilobytes
 
     +void __init__(...)
@@ -114,7 +114,7 @@ class ExecutionAndConversionData {
     +list conversion_opts_lst
     +list command_line_opts_lst
 
-    +float time_limit
+    +float time_limit_seconds
     +float memory_limit_megabytes
 
     +void __init__(...)
@@ -126,7 +126,7 @@ TestingProtocols "*" <---- "-1..* execution_and_conversion_data_set" ExecutionAn
 ' ========================== PROTOCOLS =========================
 
 abstract class TestingProtocols {
-    #{static} float HELPER_TIME_LIMIT
+    #{static} float HELPER_TIME_LIMIT_SECONDS
     #{static} float HELPER_MEMORY_LIMIT_MEGABYTES
     #{static} Path path_to_timeout
 
@@ -139,7 +139,7 @@ abstract class TestingProtocols {
     -Verdict basic_check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data, attr_to_iterate_over)
     -{static} (int, ResourceConsumption) run_code(path_to_executable, path_to_input_file, path_to_output_file, command_line_opts))
     -{static} ResourceConsumption parse_timeout_stderr(stderr_encoded)
-    -{static} Verdict deduce_negative_verdict(resource_consumption, time_limit, memory_limit_megabytes, test_number, avg_time_elapsed, avg_memory_consumption_kilobytes)
+    -{static} Verdict deduce_negative_verdict(resource_consumption, time_limit_seconds, memory_limit_megabytes, test_number, avg_time_elapsed, avg_memory_consumption_kilobytes)
 }
 note left of TestingProtocols::executable_file
 context manager

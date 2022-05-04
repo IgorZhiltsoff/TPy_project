@@ -7,7 +7,7 @@ from language_support import cxx_data, ExecutionAndConversionData, LanguageLabel
 cxx_language_data_set = cxx_data.data_set
 warning_opts = ['-O2', '-Werror', '-Wpedantic']
 cxx_execution_and_conversion_data_set = {
-    ExecutionAndConversionData(language_data=language_data, conversion_opts=warning_opts, time_limit=1, memory_limit_megabytes=5)
+    ExecutionAndConversionData(language_data=language_data, conversion_opts=warning_opts, time_limit_seconds=1, memory_limit_megabytes=5)
     for language_data in cxx_language_data_set
 }
 
