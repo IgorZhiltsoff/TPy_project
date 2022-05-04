@@ -102,7 +102,9 @@ class TestingProtocol(ABC):
                         path_to_executable=path_to_executable,
                         path_to_input_file=path_to_input_file,
                         path_to_solution_output=path_to_solution_output,
-                        command_line_opts=execution_and_conversion_data.command_line_opts
+                        command_line_opts=execution_and_conversion_data.command_line_opts,
+                        time_limit=execution_and_conversion_data.time_limit,
+                        memory_limit_megabytes=execution_and_conversion_data.memory_limit_megabytes
                     )
                     if feedback != 0:
                         return Verdict(VerdictMessage.RE, test)
@@ -122,7 +124,9 @@ class TestingProtocol(ABC):
         return None
 
     @staticmethod
-    def run_code(path_to_executable, path_to_input_file, path_to_solution_output, command_line_opts):
+    def run_code(path_to_executable, path_to_input_file, path_to_solution_output,
+                 command_line_opts,
+                 time_limit, memory_limit_megabytes):
         command_line_opts = command_line_opts if command_line_opts else []
 
         with open(path_to_input_file, 'r') as input_file:
@@ -130,8 +134,10 @@ class TestingProtocol(ABC):
                 subprocess.run(['sudo', 'chmod', 'o+rx', path_to_executable])
 
                 feedback = subprocess.run(['sudo', '-u', 'nobody',
+                                           '../timeout/timeout', '-m', str(memory_limit_megabytes * 1024), '-t', str(time_limit),
                                            path_to_executable] + command_line_opts,
                                           stdin=input_file, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                x = feedback.stderr.decode()
                 if feedback.returncode != 0:
                     return feedback.returncode
                 output_file.write(feedback.stdout)
