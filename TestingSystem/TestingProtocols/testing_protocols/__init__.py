@@ -202,8 +202,8 @@ class TestingProtocol(ABC):
 
     @staticmethod
     def parse_timeout_stderr(stderr_encoded):
-        time_pattern = re.compile(r'<time name="ALL">(\d*)</time>')
-        memory_pattern = re.compile(r'MEM (\d*)')
+        time_pattern = re.compile(r'<time name="ALL">(\d+)</time>')
+        memory_pattern = re.compile(r'MEM (\d+)')
 
         stderr = stderr_encoded.decode()
 
@@ -212,7 +212,6 @@ class TestingProtocol(ABC):
         except AttributeError:
             # the process ran too fast for timeout to measure it, thus, it skipped the field, making search return None
             time_elapsed = 0
-
         memory_consumption_kilobytes = int(memory_pattern.search(stderr).group(1))
 
         return ResourceConsumption(

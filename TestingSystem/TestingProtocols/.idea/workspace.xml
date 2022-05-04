@@ -5,6 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Enforced resource consumption record!">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sample_tests/base_test_case.py" beforeDir="false" afterPath="$PROJECT_DIR$/sample_tests/base_test_case.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sample_tests/test_python3.py" beforeDir="false" afterPath="$PROJECT_DIR$/sample_tests/test_python3.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testing_protocols/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_protocols/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,7 +62,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Interface/CmdLineIF" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/testing_protocols/__init__.py" />
   </component>
@@ -69,7 +72,7 @@
       <recent name="$PROJECT_DIR$/" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Python tests for test_python3.Python3AnswerTest.test_rand_custom">
+  <component name="RunManager" selected="Python tests.Python tests for test_python3.Python3AnswerTest">
     <configuration name="Python tests for test_python3.Python3AnswerTest" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="TestingProtocols" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -147,11 +150,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.Python tests for test_python3.Python3AnswerTest" />
+        <item itemvalue="Python tests.Python tests for test_python3.Python3AnswerTest.test_in_out" />
         <item itemvalue="Python tests.Python tests for test_python3.Python3AnswerTest.test_rand_custom" />
         <item itemvalue="Python tests.Python tests for test_python3.Python3AnswerTest.test_limited_work_space" />
-        <item itemvalue="Python tests.Python tests for test_python3.Python3AnswerTest.test_in_out" />
         <item itemvalue="Python tests.Python tests for test_python3.Python3AnswerTest.test_in_custom" />
-        <item itemvalue="Python tests.Python tests for test_python3.Python3AnswerTest" />
       </list>
     </recent_temporary>
   </component>
@@ -183,20 +186,6 @@
       <workItem from="1651615950600" duration="1913000" />
       <workItem from="1651618106043" duration="5879000" />
       <workItem from="1651627150189" duration="3000" />
-    </task>
-    <task id="LOCAL-00004" summary="Improved naming in testing_protocols">
-      <created>1650650004159</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1650650004159</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Improved naming in testing_protocols">
-      <created>1650650375989</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1650650375989</updated>
     </task>
     <task id="LOCAL-00006" summary="Safely added labels">
       <created>1651312013552</created>
@@ -527,7 +516,21 @@
       <option name="project" value="LOCAL" />
       <updated>1651701540574</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="Enforced resource consumption record!">
+      <created>1651701631003</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1651701631003</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Enforced resource consumption record!">
+      <created>1651701667355</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1651701667355</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -583,21 +586,5 @@
     <MESSAGE value="Intermediate commit&#10;Refactoring Verdict&#10;Refactoring run_code" />
     <MESSAGE value="Enforced resource consumption record!" />
     <option name="LAST_COMMIT_MESSAGE" value="Enforced resource consumption record!" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/testing_protocols/__init__.py</url>
-          <line>266</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/testing_protocols/__init__.py</url>
-          <line>210</line>
-          <option name="timeStamp" value="26" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

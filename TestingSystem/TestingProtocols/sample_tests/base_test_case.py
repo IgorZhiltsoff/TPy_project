@@ -24,6 +24,7 @@ class BaseTestCase(unittest.TestCase):
                 VerdictMessage.WA: f'{prefix}wrong_answer',
                 VerdictMessage.CE: f'{prefix}compilation_error',
                 VerdictMessage.RE: f'{prefix}runtime_error',
+                VerdictMessage.TL: f'{prefix}time_limit',
                 VerdictMessage.SKIP: f'{prefix}skipped'
             }
 

@@ -13,10 +13,11 @@ python_execution_and_conversion_data_set = {
 accepted = UserSubmittedData('accepted.py', 1, LanguageLabel.PYTHON3)
 wrong_answer = UserSubmittedData('wrong_answer.py', 2, LanguageLabel.PYTHON3)
 runtime_error = UserSubmittedData('runtime_error.py', 3, LanguageLabel.PYTHON3)
+time_limit = UserSubmittedData('time_limit.py', 4, LanguageLabel.PYTHON3)
 
 user_submitted_data_to_expected_verdict_generator = \
     BaseTestCase.standard_user_submitted_data_to_expected_verdict_generator(
-        [VerdictMessage.AC, VerdictMessage.WA, VerdictMessage.RE]
+        [VerdictMessage.AC, VerdictMessage.WA, VerdictMessage.RE, VerdictMessage.TL]
     )
 
 
@@ -78,6 +79,7 @@ class Python3AnswerTest(BaseTestCase):
         limited_work_space_accepted = UserSubmittedData('limited_work_space/accepted.py', 1, LanguageLabel.PYTHON3)
         limited_work_space_wrong_answer = UserSubmittedData('limited_work_space/wrong_answer.py', 2, LanguageLabel.PYTHON3)
         limited_work_space_runtime_error = runtime_error
+        limited_work_space_time_limit = time_limit
 
         user_submitted_data_to_expected_verdict = \
             user_submitted_data_to_expected_verdict_generator('limited_work_space_').evaluate(locals())
