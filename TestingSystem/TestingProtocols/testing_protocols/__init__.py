@@ -138,28 +138,26 @@ class TestingProtocol(ABC):
                     avg_time_elapsed += resource_consumption.time_elapsed
                     avg_memory_consumption_kilobytes += resource_consumption.memory_consumption_kilobytes
 
-                    if returnee != 0:  # todo reduce copy&paste
-                        avg_time_elapsed /= test + 1
-                        avg_memory_consumption_kilobytes /= test + 1
-                        return TestingProtocol.deduce_negative_verdict(
-                            resource_consumption=resource_consumption,
-                            time_limit=execution_and_conversion_data.time_limit,
-                            memory_limit_megabytes=execution_and_conversion_data.memory_limit_megabytes,
-                            test_number=test,
-                            avg_time_elapsed=avg_time_elapsed,
-                            avg_memory_consumption_kilobytes=avg_memory_consumption_kilobytes
-                        )
-
                     # CHECK
-                    if not self.verify(locals()):
+                    if returnee != 0 or not self.verify(locals()):
                         avg_time_elapsed /= test + 1
                         avg_memory_consumption_kilobytes /= test + 1
-                        return Verdict(
-                            msg=VerdictMessage.WA,
-                            test_number=test,
-                            avg_time_elapsed=avg_time_elapsed,
-                            avg_memory_consumption_kilobytes=avg_memory_consumption_kilobytes
-                        )
+                        if returnee != 0:
+                            return TestingProtocol.deduce_negative_verdict(
+                                resource_consumption=resource_consumption,
+                                time_limit=execution_and_conversion_data.time_limit,
+                                memory_limit_megabytes=execution_and_conversion_data.memory_limit_megabytes,
+                                test_number=test,
+                                avg_time_elapsed=avg_time_elapsed,
+                                avg_memory_consumption_kilobytes=avg_memory_consumption_kilobytes
+                            )
+                        else:
+                            return Verdict(
+                                msg=VerdictMessage.WA,
+                                test_number=test,
+                                avg_time_elapsed=avg_time_elapsed,
+                                avg_memory_consumption_kilobytes=avg_memory_consumption_kilobytes
+                            )
 
                     test += 1
 

@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Intermediate commit&#10;Refactoring Verdict&#10;Refactoring run_code">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Class_TestingProtocols.puml" beforeDir="false" afterPath="$PROJECT_DIR$/Class_TestingProtocols.puml" afterDir="false" />
+    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Enforced resource consumption record!">
       <change beforePath="$PROJECT_DIR$/testing_protocols/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_protocols/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -185,13 +183,6 @@
       <workItem from="1651615950600" duration="1913000" />
       <workItem from="1651618106043" duration="5879000" />
       <workItem from="1651627150189" duration="3000" />
-    </task>
-    <task id="LOCAL-00003" summary="Added scripts for running tests: TestingSystem/TestingProtocols/run_*_tests.sh">
-      <created>1649201769608</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1649201769608</updated>
     </task>
     <task id="LOCAL-00004" summary="Improved naming in testing_protocols">
       <created>1650650004159</created>
@@ -529,7 +520,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651698763433</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="Enforced resource consumption record!">
+      <created>1651701540574</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1651701540574</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -559,7 +557,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Passed CXX tests" />
     <MESSAGE value="Passed PYTHON tests" />
     <MESSAGE value="Banished opts from TestingProtocol class to ExecutionAndConversionData" />
     <MESSAGE value="Added script for running tests" />
@@ -584,19 +581,20 @@
     <MESSAGE value="Enforced timeout in rest of the places" />
     <MESSAGE value="Added files for testing" />
     <MESSAGE value="Intermediate commit&#10;Refactoring Verdict&#10;Refactoring run_code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Intermediate commit&#10;Refactoring Verdict&#10;Refactoring run_code" />
+    <MESSAGE value="Enforced resource consumption record!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Enforced resource consumption record!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/testing_protocols/__init__.py</url>
-          <line>263</line>
+          <line>266</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/testing_protocols/__init__.py</url>
-          <line>211</line>
+          <line>210</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
       </breakpoints>
