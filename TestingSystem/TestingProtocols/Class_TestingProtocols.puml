@@ -111,6 +111,9 @@ TestingProtocols "*" <---- "-1..* execution_and_conversion_data_set" ExecutionAn
 ' ========================== PROTOCOLS =========================
 
 abstract class TestingProtocols {
+    #{static} float HELPER_TIME_LIMIT
+    #{static} float HELPER_MEMORY_LIMIT_MEGABYTES
+
     +void __init__(...)
     +Verdict check(self, user_submitted_data)
     -ExecutionAndConversionData cho/home/zhilts/PycharmProjects/TPy_project/Interface/ServerIFose_language_data(self, user_submitted_data)

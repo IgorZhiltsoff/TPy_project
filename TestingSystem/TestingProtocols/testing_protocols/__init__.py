@@ -134,7 +134,11 @@ class TestingProtocol(ABC):
                 subprocess.run(['sudo', 'chmod', 'o+rx', path_to_executable])
 
                 feedback = subprocess.run(['sudo', '-u', 'nobody',
-                                           '../timeout/timeout', '-m', str(memory_limit_megabytes * 1024), '-t', str(time_limit),
+
+                                           '../timeout/timeout',
+                                           '-m', str(memory_limit_megabytes * 1024),
+                                           '-t', str(time_limit),
+
                                            path_to_executable] + command_line_opts,
                                           stdin=input_file, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 x = feedback.stderr.decode()
@@ -142,6 +146,9 @@ class TestingProtocol(ABC):
                     return feedback.returncode
                 output_file.write(feedback.stdout)
                 return 0
+
+    HELPER_TIME_LIMIT = 8
+    HELPER_MEMORY_LIMIT_MEGABYTES = 1024
 
 
 class InputOutput(TestingProtocol):
@@ -191,6 +198,11 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
         subprocess.run(['sudo', 'chmod', 'o+x', os.path.dirname(path_to_input_file)])
         subprocess.run(['sudo', 'chmod', 'o+rw', path_to_solution_output])
         return subprocess.run(['sudo', '-u', 'nobody',
+
+                               '../timeout/timeout',
+                               '-m', str(TestingProtocol.HELPER_MEMORY_LIMIT_MEGABYTES * 1024),
+                               '-t', str(TestingProtocol.HELPER_TIME_LIMIT),
+
                                self.path_to_checker_exec, path_to_input_file, path_to_solution_output],
                               stdout=subprocess.PIPE).stdout.decode() == "1"
 
@@ -255,6 +267,11 @@ class RandomInputCustomChecker(TestingProtocol):
     def run_random_input_generator(self, storage):
         # nobody should be able to write in a file from /tmp
         return subprocess.run(['sudo', '-u', 'nobody',
+
+                               '../timeout/timeout',
+                               '-m', str(TestingProtocol.HELPER_MEMORY_LIMIT_MEGABYTES * 1024),
+                               '-t', str(TestingProtocol.HELPER_TIME_LIMIT),
+
                                self.path_to_input_generation_exec], stdout=storage).returncode
 
 
