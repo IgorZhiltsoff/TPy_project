@@ -28,9 +28,13 @@ class ResourceConsumption {
 class Verdict {
     +str msg
     +int test_number
+    +float avg_time_elapsed
+    +float avg_memory_consumption_kilobytes
+    +float avg_memory_consumption_megabytes
 
     +void __init__(...)
 }
+
 note left of Verdict::__init__
 Here and further,
 _ _init_ _'s signature
@@ -39,8 +43,10 @@ as it simply
 initializes non-static
 attributes
 end note
-
-ResourceConsumption <|-- Verdict
+note left of Verdict::avg_memory_consumption_megabytes
+calculated dynamically from
+avg_memory_consumption_kilobytes
+end note
 
 Verdict "*" <-- "1 msg" VerdictMessage
 
@@ -131,16 +137,12 @@ abstract class TestingProtocols {
     -bool verify(self, scope)
     -{static} ... executable_file()
     -Verdict basic_check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data, attr_to_iterate_over)
-    -{static} ResourceConsumption run_code(path_to_executable, path_to_input_file, path_to_output_file, command_line_opts))
+    -{static} (int, ResourceConsumption) run_code(path_to_executable, path_to_input_file, path_to_output_file, command_line_opts))
     -{static} ResourceConsumption parse_timeout_stderr(stderr_encoded)
-    -{static} Verdict analyze_resource_consumption(ResourceConsumption, time_limit, memory_limit_megabytes)
+    -{static} Verdict deduce_negative_verdict(resource_consumption, time_limit, memory_limit_megabytes, test_number, avg_time_elapsed, avg_memory_consumption_kilobytes)
 }
 note left of TestingProtocols::executable_file
 context manager
-end note
-
-note left of TestingProtocols::analyze_resource_consumption
-returns negative verdict or None
 end note
 
 class InputOutput {

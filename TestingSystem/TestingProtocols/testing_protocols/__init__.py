@@ -31,14 +31,24 @@ class VerdictMessage(Enum):
     ABORT = auto()  # indicating failure "on problem's side" - trouble with random input generator or custom checker
 
 
+class ResourceConsumption:
+    def __init__(self, time_elapsed, memory_consumption_kilobytes):
+        self.time_elapsed = time_elapsed
+        self.memory_consumption_kilobytes = memory_consumption_kilobytes
+
+
 class Verdict:
     """An object of this type is to be returned upon testing is finished"""
 
-    def __init__(self, msg, test_number): #time_elapsed, memory_consumption_megabytes):
+    def __init__(self, msg, test_number, avg_time_elapsed, avg_memory_consumption_kilobytes):
         self.msg = msg
         self.test_number = test_number
-        # self.time_elapsed = time_elapsed
-        # self.memory_consumption_megabytes = memory_consumption_megabytes
+        self.avg_time_elapsed = avg_time_elapsed
+        self.avg_memory_consumption_kilobytes = avg_memory_consumption_kilobytes
+
+    def __getattr__(self, item):
+        if item == 'memory_consumption_megabytes':
+            return self.memory_consumption_kilobytes / 1000
 
 
 class TestingProtocol(ABC):
@@ -66,8 +76,8 @@ class TestingProtocol(ABC):
             return Verdict(
                 msg=VerdictMessage.SKIP,
                 test_number=-1,
-                # time_elapsed=0,
-                # memory_consumption_megabytes=0
+                avg_time_elapsed=0,
+                avg_memory_consumption_kilobytes=0
             )
 
     @abstractmethod
@@ -103,17 +113,20 @@ class TestingProtocol(ABC):
                 return Verdict(
                     msg=VerdictMessage.CE,
                     test_number=-1,
-                    # time_elapsed=0,
-                    # memory_consumption_megabytes=0
+                    avg_time_elapsed=0,
+                    avg_memory_consumption_kilobytes=0
                 )
 
             with tempfile.NamedTemporaryFile() as solution_output:
                 path_to_solution_output = solution_output.name
 
+                avg_time_elapsed = 0
+                avg_memory_consumption_kilobytes = 0
+
                 # ITERATE OVER TESTS
                 for test, path_to_input_file in enumerate(attr_to_iterate_over):
                     # RUN
-                    feedback = TestingProtocol.run_code(
+                    returnee, resource_consumption = TestingProtocol.run_code(
                         path_to_executable=path_to_executable,
                         path_to_input_file=path_to_input_file,
                         path_to_solution_output=path_to_solution_output,
@@ -121,16 +134,43 @@ class TestingProtocol(ABC):
                         time_limit=execution_and_conversion_data.time_limit,
                         memory_limit_megabytes=execution_and_conversion_data.memory_limit_megabytes
                     )
-                    if feedback != 0:
-                        return Verdict(VerdictMessage.RE, test)
+
+                    avg_time_elapsed += resource_consumption.time_elapsed
+                    avg_memory_consumption_kilobytes += resource_consumption.memory_consumption_kilobytes
+
+                    if returnee != 0:  # todo reduce copy&paste
+                        avg_time_elapsed /= test + 1
+                        avg_memory_consumption_kilobytes /= test + 1
+                        return TestingProtocol.deduce_negative_verdict(
+                            resource_consumption=resource_consumption,
+                            time_limit=execution_and_conversion_data.time_limit,
+                            memory_limit_megabytes=execution_and_conversion_data.memory_limit_megabytes,
+                            test_number=test,
+                            avg_time_elapsed=avg_time_elapsed,
+                            avg_memory_consumption_kilobytes=avg_memory_consumption_kilobytes
+                        )
 
                     # CHECK
                     if not self.verify(locals()):
-                        return Verdict(VerdictMessage.WA, test)
+                        avg_time_elapsed /= test + 1
+                        avg_memory_consumption_kilobytes /= test + 1
+                        return Verdict(
+                            msg=VerdictMessage.WA,
+                            test_number=test,
+                            avg_time_elapsed=avg_time_elapsed,
+                            avg_memory_consumption_kilobytes=avg_memory_consumption_kilobytes
+                        )
 
                     test += 1
 
-        return Verdict(VerdictMessage.AC, -1)
+        avg_time_elapsed /= test
+        avg_memory_consumption_kilobytes /= test
+        return Verdict(
+            msg=VerdictMessage.AC,
+            test_number=-1,
+            avg_time_elapsed=avg_time_elapsed,
+            avg_memory_consumption_kilobytes=avg_memory_consumption_kilobytes
+        )
 
     def choose_language_data(self, user_submitted_data):
         for execution_and_conversion_data in self.execution_and_conversion_data_set:
@@ -151,30 +191,54 @@ class TestingProtocol(ABC):
                 process = subprocess.run(['sudo', '-u', 'nobody',
 
                                           TestingProtocol.path_to_timeout,
-                                          '-m', str(memory_limit_megabytes * 1000),
                                           '-t', str(time_limit),
+                                          '-m', str(memory_limit_megabytes * 1000),
                                           '--confess',
 
                                           path_to_executable] + command_line_opts,
                                          stdin=input_file, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                if process.returncode != 0:
-                    return process.returncode
-                    # TestingProtocol.analyze_stderr(stderr_encoded=process.stderr)
-                output_file.write(process.stdout)
-                return 0
+                if process.returncode == 0:
+                    output_file.write(process.stdout)
+                resource_consumption = TestingProtocol.parse_timeout_stderr(stderr_encoded=process.stderr)
+                return process.returncode, resource_consumption
 
     @staticmethod
-    def analyze_stderr(stderr_encoded, time_limit, memory_limit_megabytes):
-        memory_pattern = re.compile(r'MEM (\d*)')
+    def parse_timeout_stderr(stderr_encoded):
         time_pattern = re.compile(r'<time name="ALL">(\d*)</time>')
+        memory_pattern = re.compile(r'MEM (\d*)')
 
         stderr = stderr_encoded.decode()
 
-        memory_consumption_kilobytes = int(memory_pattern.search(stderr).group(1))
-        time_elapsed = int(time_pattern.search(stderr).group(1))
+        try:
+            time_elapsed = int(time_pattern.search(stderr).group(1))
+        except AttributeError:
+            # the process ran too fast for timeout to measure it, thus, it skipped the field, making search return None
+            time_elapsed = 0
 
-        if time_elapsed >= time_limit:
-            return
+        memory_consumption_kilobytes = int(memory_pattern.search(stderr).group(1))
+
+        return ResourceConsumption(
+            time_elapsed=time_elapsed,
+            memory_consumption_kilobytes=memory_consumption_kilobytes
+        )
+
+    @staticmethod
+    def deduce_negative_verdict(resource_consumption,
+                                time_limit, memory_limit_megabytes,
+                                test_number, avg_time_elapsed, avg_memory_consumption_kilobytes):
+        if resource_consumption.time_elapsed >= time_limit:
+            msg = VerdictMessage.TL
+        elif resource_consumption.memory_consumption_kilobytes > memory_limit_megabytes * 1000:
+            msg = VerdictMessage.ML
+        else:
+            msg = VerdictMessage.RE
+
+        return Verdict(
+            msg=msg,
+            test_number=test_number,
+            avg_time_elapsed=avg_time_elapsed,
+            avg_memory_consumption_kilobytes=avg_memory_consumption_kilobytes
+        )
 
     HELPER_TIME_LIMIT = 8
     HELPER_MEMORY_LIMIT_MEGABYTES = 1024
@@ -230,8 +294,8 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
         return subprocess.run(['sudo', '-u', 'nobody',
 
                                TestingProtocol.path_to_timeout,
-                               '-m', str(TestingProtocol.HELPER_MEMORY_LIMIT_MEGABYTES * 1024),
                                '-t', str(TestingProtocol.HELPER_TIME_LIMIT),
+                               '-m', str(TestingProtocol.HELPER_MEMORY_LIMIT_MEGABYTES * 1024),
                                '--confess',
 
                                self.path_to_checker_exec, path_to_input_file, path_to_solution_output],
@@ -284,7 +348,9 @@ class RandomInputCustomChecker(TestingProtocol):
             if not random_input_paths_set:
                 return Verdict(
                     msg=VerdictMessage.ABORT,
-                    test_number=-1
+                    test_number=-1,
+                    avg_time_elapsed=0,
+                    avg_memory_consumption_kilobytes=0
                 )
 
             deterministic_protocol = InputCustomChecker(
@@ -299,8 +365,8 @@ class RandomInputCustomChecker(TestingProtocol):
         return subprocess.run(['sudo', '-u', 'nobody',
 
                                TestingProtocol.path_to_timeout,
-                               '-m', str(TestingProtocol.HELPER_MEMORY_LIMIT_MEGABYTES * 1024),
                                '-t', str(TestingProtocol.HELPER_TIME_LIMIT),
+                               '-m', str(TestingProtocol.HELPER_MEMORY_LIMIT_MEGABYTES * 1024),
                                '--confess',
 
                                self.path_to_input_generation_exec], stdout=storage).returncode
