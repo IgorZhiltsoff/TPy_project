@@ -127,12 +127,11 @@ class TestingProtocol(ABC):
 
         with open(path_to_input_file, 'r') as input_file:
             with open(path_to_solution_output, 'w+b') as output_file:
-                subprocess.run(['sudo', 'chown', 'nobody', path_to_executable])
+                subprocess.run(['sudo', 'chmod', 'o+rx', path_to_executable])
 
                 feedback = subprocess.run(['sudo', '-u', 'nobody',
                                            path_to_executable] + command_line_opts,
                                           stdin=input_file, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                x = feedback.stderr.decode()
                 if feedback.returncode != 0:
                     return TestingProtocol.return_code_to_error_msg[feedback.returncode]
                 output_file.write(feedback.stdout)
@@ -185,24 +184,11 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
         self.path_to_checker_exec = path_to_checker_exec
 
     def run_custom_checker(self, path_to_input_file, path_to_solution_output):
-        subprocess.run(['sudo', 'chmod', 'o+rwx', os.path.dirname(path_to_input_file)])
-        subprocess.run(['sudo', 'chown', 'nobody', path_to_solution_output])
+        subprocess.run(['sudo', 'chmod', 'o+x', os.path.dirname(path_to_input_file)])
         subprocess.run(['sudo', 'chmod', 'o+rw', path_to_solution_output])
-        subprocess.run(['sudo', 'chown', 'nobody', path_to_input_file])
-        subprocess.run(['sudo', 'chmod', 'o+rw', path_to_input_file])
-        p = subprocess.run(['sudo', '-u', 'nobody',
-                                  self.path_to_checker_exec, path_to_input_file, path_to_solution_output],
-                                  stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
-        subprocess.run(['sudo', 'chown', 'root', path_to_solution_output])
-        subprocess.run(['sudo', 'chown', 'root', path_to_input_file])
-
-
-
-        o = p.stdout.decode()
-        e = p.stderr.decode()
-        r = p.returncode
-        return int(o) == 1
+        return subprocess.run(['sudo', '-u', 'nobody',
+                               self.path_to_checker_exec, path_to_input_file, path_to_solution_output],
+                              stdout=subprocess.PIPE).stdout.decode() == "1"
 
     def verify(self, scope):
         path_to_input_file = scope['path_to_input_file']
