@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Getting ready to refactor run_code to measure resources">
-      <change afterPath="$PROJECT_DIR$/sample_tests/memory_leak.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sample_tests/memory_limit.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sample_tests/time_limit.py" afterDir="false" />
+    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Added files for testing">
+      <change beforePath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadProblemAsTeacher/upload_wizard/problem_data_upload/protocol_upload_wizard/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../Interface/CmdLineIF/UploadProblemAsTeacher/upload_wizard/problem_data_upload/protocol_upload_wizard/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TaskManager.ods" beforeDir="false" afterPath="$PROJECT_DIR$/../../TaskManager.ods" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Class_TestingProtocols.puml" beforeDir="false" afterPath="$PROJECT_DIR$/Class_TestingProtocols.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testing_protocols/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_protocols/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +63,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="/tmp/file" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Interface/CmdLineIF" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/testing_protocols/__init__.py" />
   </component>
@@ -186,13 +187,6 @@
       <workItem from="1651615950600" duration="1913000" />
       <workItem from="1651618106043" duration="5879000" />
       <workItem from="1651627150189" duration="3000" />
-    </task>
-    <task id="LOCAL-00001" summary="Enforced enumerate">
-      <created>1649197810547</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1649197810547</updated>
     </task>
     <task id="LOCAL-00002" summary="Added scripts for running tests: TestingSystem/TestingProtocols/run_*_tests.sh">
       <created>1649200620007</created>
@@ -530,7 +524,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651628424002</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Added files for testing">
+      <created>1651692197768</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1651692197768</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -560,7 +561,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fixed rand test" />
     <MESSAGE value="Passed Python tests" />
     <MESSAGE value="Passed CXX tests" />
     <MESSAGE value="Passed PYTHON tests" />
@@ -585,19 +585,20 @@
     <MESSAGE value="Merge pull request #20 from edwwlui/patch-1&#10;&#10;fixing typo in the memory limiting example" />
     <MESSAGE value="First timeout enforcement" />
     <MESSAGE value="Enforced timeout in rest of the places" />
-    <option name="LAST_COMMIT_MESSAGE" value="Enforced timeout in rest of the places" />
+    <MESSAGE value="Added files for testing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added files for testing" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/testing_protocols/__init__.py</url>
-          <line>174</line>
+          <line>206</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/testing_protocols/__init__.py</url>
-          <line>143</line>
+          <line>160</line>
           <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>

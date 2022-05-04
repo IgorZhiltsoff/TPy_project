@@ -3,15 +3,17 @@ from abc import ABC, abstractmethod
 import subprocess
 from pathlib import Path
 import tempfile
-from language_support import LanguageLabelHolder
 from enum import Enum, auto
 from contextlib import contextmanager
+import re
+from language_support import LanguageLabelHolder
 
 
 class UserSubmittedData(LanguageLabelHolder):
     """Submission specific data: source (its location), submission_id
        Full submission data is stored in Submission class,
        which is composed out of UserSubmittedData and ProblemData"""
+
     def __init__(self, path_to_src, submission_id, label):
         super().__init__(label)
         self.path_to_src = path_to_src
@@ -25,15 +27,18 @@ class VerdictMessage(Enum):
     RE = auto()
     TL = auto()
     ML = auto()
-    SKIP = auto()
-    ABORT = auto()
+    SKIP = auto()  # indicating attempt to run submission on incompatible protocol (wrong language)
+    ABORT = auto()  # indicating failure "on problem's side" - trouble with random input generator or custom checker
 
 
 class Verdict:
     """An object of this type is to be returned upon testing is finished"""
-    def __init__(self, msg, test_number):
+
+    def __init__(self, msg, test_number): #time_elapsed, memory_consumption_megabytes):
         self.msg = msg
         self.test_number = test_number
+        # self.time_elapsed = time_elapsed
+        # self.memory_consumption_megabytes = memory_consumption_megabytes
 
 
 class TestingProtocol(ABC):
@@ -58,7 +63,12 @@ class TestingProtocol(ABC):
         if language_data is not None:
             return self.check_with_chosen_language_data(user_submitted_data, language_data)
         else:
-            return Verdict(VerdictMessage.SKIP, -1)
+            return Verdict(
+                msg=VerdictMessage.SKIP,
+                test_number=-1,
+                # time_elapsed=0,
+                # memory_consumption_megabytes=0
+            )
 
     @abstractmethod
     def check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data):
@@ -84,13 +94,18 @@ class TestingProtocol(ABC):
             path_to_executable = executable.name
 
             conversion_return_code = execution_and_conversion_data.convert_to_executable(
-                                        user_submitted_data.path_to_src,
-                                        path_to_executable,
-                                        execution_and_conversion_data.conversion_opts
+                user_submitted_data.path_to_src,
+                path_to_executable,
+                execution_and_conversion_data.conversion_opts
             )
 
             if conversion_return_code != 0:
-                return Verdict(VerdictMessage.CE, -1)
+                return Verdict(
+                    msg=VerdictMessage.CE,
+                    test_number=-1,
+                    # time_elapsed=0,
+                    # memory_consumption_megabytes=0
+                )
 
             with tempfile.NamedTemporaryFile() as solution_output:
                 path_to_solution_output = solution_output.name
@@ -133,22 +148,37 @@ class TestingProtocol(ABC):
             with open(path_to_solution_output, 'w+b') as output_file:
                 subprocess.run(['sudo', 'chmod', 'o+rx', path_to_executable])
 
-                feedback = subprocess.run(['sudo', '-u', 'nobody',
+                process = subprocess.run(['sudo', '-u', 'nobody',
 
-                                           '../timeout/timeout',
-                                           '-m', str(memory_limit_megabytes * 1024),
-                                           '-t', str(time_limit),
+                                          TestingProtocol.path_to_timeout,
+                                          '-m', str(memory_limit_megabytes * 1000),
+                                          '-t', str(time_limit),
+                                          '--confess',
 
-                                           path_to_executable] + command_line_opts,
-                                          stdin=input_file, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                x = feedback.stderr.decode()
-                if feedback.returncode != 0:
-                    return feedback.returncode
-                output_file.write(feedback.stdout)
+                                          path_to_executable] + command_line_opts,
+                                         stdin=input_file, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                if process.returncode != 0:
+                    return process.returncode
+                    # TestingProtocol.analyze_stderr(stderr_encoded=process.stderr)
+                output_file.write(process.stdout)
                 return 0
+
+    @staticmethod
+    def analyze_stderr(stderr_encoded, time_limit, memory_limit_megabytes):
+        memory_pattern = re.compile(r'MEM (\d*)')
+        time_pattern = re.compile(r'<time name="ALL">(\d*)</time>')
+
+        stderr = stderr_encoded.decode()
+
+        memory_consumption_kilobytes = int(memory_pattern.search(stderr).group(1))
+        time_elapsed = int(time_pattern.search(stderr).group(1))
+
+        if time_elapsed >= time_limit:
+            return
 
     HELPER_TIME_LIMIT = 8
     HELPER_MEMORY_LIMIT_MEGABYTES = 1024
+    path_to_timeout = os.path.relpath(Path(os.path.dirname(__file__)) / '../timeout/timeout')
 
 
 class InputOutput(TestingProtocol):
@@ -199,9 +229,10 @@ class InputCustomChecker(TestingProtocol):  # todo: checker safety
         subprocess.run(['sudo', 'chmod', 'o+rw', path_to_solution_output])
         return subprocess.run(['sudo', '-u', 'nobody',
 
-                               '../timeout/timeout',
+                               TestingProtocol.path_to_timeout,
                                '-m', str(TestingProtocol.HELPER_MEMORY_LIMIT_MEGABYTES * 1024),
                                '-t', str(TestingProtocol.HELPER_TIME_LIMIT),
+                               '--confess',
 
                                self.path_to_checker_exec, path_to_input_file, path_to_solution_output],
                               stdout=subprocess.PIPE).stdout.decode() == "1"
@@ -231,7 +262,7 @@ class RandomInputCustomChecker(TestingProtocol):
         self.path_to_input_generation_exec = path_to_input_generation_exec
         self.path_to_checker_exec = path_to_checker_exec
 
-    def generate_input(self, path_to_input_dir):  # todo: timeout
+    def generate_input(self, path_to_input_dir):
         input_paths_set = set()
         for test in range(self.test_count):
             path_to_storage = path_to_input_dir / f'{test}.in'  # no need to check collision as placed in fresh dir
@@ -265,12 +296,12 @@ class RandomInputCustomChecker(TestingProtocol):
             return deterministic_protocol.check(user_submitted_data=user_submitted_data)
 
     def run_random_input_generator(self, storage):
-        # nobody should be able to write in a file from /tmp
         return subprocess.run(['sudo', '-u', 'nobody',
 
-                               '../timeout/timeout',
+                               TestingProtocol.path_to_timeout,
                                '-m', str(TestingProtocol.HELPER_MEMORY_LIMIT_MEGABYTES * 1024),
                                '-t', str(TestingProtocol.HELPER_TIME_LIMIT),
+                               '--confess',
 
                                self.path_to_input_generation_exec], stdout=storage).returncode
 
@@ -329,6 +360,7 @@ class LimitedWorkSpace(TestingProtocol):
 
 class ProblemData:
     """Problem-specific data: problem_data_upload id and testing protocols"""
+
     def __init__(self, problem_id, testing_protocols_set):
         self.problem_id = problem_id
         self.testing_protocols_set = testing_protocols_set

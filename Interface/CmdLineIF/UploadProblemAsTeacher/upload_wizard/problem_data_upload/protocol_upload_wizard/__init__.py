@@ -89,6 +89,6 @@ def upload_opts(key_seq_to_current_dict, custodian):
 
 
 def upload_limits(key_seq_to_current_dict, custodian):
-    for limit_type, unit in [('time limit', 'seconds'), ('memory limit', '2^20 bytes (MB)')]:
+    for limit_type, unit in [('time limit', 'seconds'), ('memory limit', '10^6 bytes (MB)')]:
         limit = float(input(f'Input {limit_type} (unit: {unit}): '))
         custodian.nested_fill_in(key_seq_to_current_dict + (limit_type, ), limit)

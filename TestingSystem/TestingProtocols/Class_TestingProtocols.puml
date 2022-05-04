@@ -18,6 +18,13 @@ enum VerdictMessage {
     ABORT
 }
 
+class ResourceConsumption {
+    +float time_elapsed
+    +float memory_consumption_kilobytes
+
+    +void __init__(...)
+}
+
 class Verdict {
     +str msg
     +int test_number
@@ -32,6 +39,8 @@ as it simply
 initializes non-static
 attributes
 end note
+
+ResourceConsumption <|-- Verdict
 
 Verdict "*" <-- "1 msg" VerdictMessage
 
@@ -113,21 +122,25 @@ TestingProtocols "*" <---- "-1..* execution_and_conversion_data_set" ExecutionAn
 abstract class TestingProtocols {
     #{static} float HELPER_TIME_LIMIT
     #{static} float HELPER_MEMORY_LIMIT_MEGABYTES
+    #{static} Path path_to_timeout
 
     +void __init__(...)
     +Verdict check(self, user_submitted_data)
-    -ExecutionAndConversionData cho/home/zhilts/PycharmProjects/TPy_project/Interface/ServerIFose_language_data(self, user_submitted_data)
+    -ExecutionAndConversionData choose_language_data(self, user_submitted_data)
     -{abstract} Verdict check_with_chosen_language_data(self, user_submitted_data)
     -bool verify(self, scope)
     -{static} ... executable_file()
     -Verdict basic_check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data, attr_to_iterate_over)
-    -{static} Verdict run_code(path_to_executable, path_to_input_file, path_to_output_file, command_line_opts))
+    -{static} ResourceConsumption run_code(path_to_executable, path_to_input_file, path_to_output_file, command_line_opts))
+    -{static} ResourceConsumption parse_timeout_stderr(stderr_encoded)
+    -{static} Verdict analyze_resource_consumption(ResourceConsumption, time_limit, memory_limit_megabytes)
 }
 note left of TestingProtocols::executable_file
 context manager
 end note
-note left of TestingProtocols::run_code
-returns a negative verdict or None
+
+note left of TestingProtocols::analyze_resource_consumption
+returns negative verdict or None
 end note
 
 class InputOutput {
