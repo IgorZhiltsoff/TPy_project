@@ -126,7 +126,7 @@ TestingProtocols "*" <---- "-1..* execution_and_conversion_data_set" ExecutionAn
 ' ========================== PROTOCOLS =========================
 
 abstract class TestingProtocols {
-    #{static} float HELPER_TIME_LIMIT_SECONDS
+    #{static} float HELPER_TIME_LIMIT_SECOABORTNDS
     #{static} float HELPER_MEMORY_LIMIT_MEGABYTES
     #{static} int HELPER_ATTEMPTS_LIMIT
     #{static} Path path_to_timeout
@@ -135,7 +135,7 @@ abstract class TestingProtocols {
     +Verdict check(self, user_submitted_data)
     -ExecutionAndConversionData choose_language_data(self, user_submitted_data)
     -{abstract} Verdict check_with_chosen_language_data(self, user_submitted_data)
-    -bool verify(self, scope)
+    -(int, bool) verify(self, scope)
     -{static} auto executable_file()
     -Verdict basic_check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data, attr_to_iterate_over)
     -{static} (int, ResourceConsumption) run_code(path_to_executable, path_to_input_file, path_to_output_file, command_line_opts))

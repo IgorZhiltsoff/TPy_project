@@ -84,7 +84,7 @@ class TestingProtocol(ABC):
     def check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data):
         pass
 
-    def verify(self, scope):
+    def verify(self, scope) -> (int, bool):
         pass
 
     @staticmethod
@@ -138,26 +138,41 @@ class TestingProtocol(ABC):
                     avg_time_elapsed += resource_consumption.time_elapsed_milliseconds
                     avg_memory_consumption_kilobytes += resource_consumption.memory_consumption_kilobytes
 
+                    cur_avg_time_elapsed = avg_time_elapsed / (test + 1)
+                    cur_avg_memory_consumption_kilobytes = avg_memory_consumption_kilobytes / (test + 1)
+                    if returnee != 0:
+                        return TestingProtocol.deduce_negative_verdict(
+                            resource_consumption=resource_consumption,
+                            time_limit_seconds=execution_and_conversion_data.time_limit_seconds,
+                            memory_limit_megabytes=execution_and_conversion_data.memory_limit_megabytes,
+                            test_number=test,
+                            avg_time_elapsed=cur_avg_time_elapsed,
+                            avg_memory_consumption_kilobytes=cur_avg_memory_consumption_kilobytes
+                        )
+
                     # CHECK
-                    if returnee != 0 or not self.verify(locals()):
-                        avg_time_elapsed /= test + 1
-                        avg_memory_consumption_kilobytes /= test + 1
-                        if returnee != 0:
-                            return TestingProtocol.deduce_negative_verdict(
-                                resource_consumption=resource_consumption,
-                                time_limit_seconds=execution_and_conversion_data.time_limit_seconds,
-                                memory_limit_megabytes=execution_and_conversion_data.memory_limit_megabytes,
-                                test_number=test,
-                                avg_time_elapsed=avg_time_elapsed,
-                                avg_memory_consumption_kilobytes=avg_memory_consumption_kilobytes
-                            )
-                        else:
-                            return Verdict(
-                                msg=VerdictMessage.WA,
-                                test_number=test,
-                                avg_time_elapsed=avg_time_elapsed,
-                                avg_memory_consumption_kilobytes=avg_memory_consumption_kilobytes
-                            )
+                    attempts_left = TestingProtocol.HELPER_ATTEMPTS_LIMIT
+                    while attempts_left > 0:
+                        verification_returnee, verification_successful = self.verify(locals())
+                        if verification_returnee == 0:
+                            break
+                        attempts_left -= 1
+
+                    if attempts_left == 0:
+                        return Verdict(
+                                    msg=VerdictMessage.ABORT,
+                                    test_number=-1,
+                                    avg_time_elapsed=0,
+                                    avg_memory_consumption_kilobytes=0
+                                )
+
+                    if not verification_successful:
+                        return Verdict(
+                            msg=VerdictMessage.WA,
+                            test_number=test,
+                            avg_time_elapsed=cur_avg_time_elapsed,
+                            avg_memory_consumption_kilobytes=cur_avg_memory_consumption_kilobytes
+                        )
 
                     test += 1
 
@@ -263,10 +278,10 @@ class InputOutput(TestingProtocol):
                 correct_output = InputOutput.nonempty_lines_without_trailing_whitespaces(correct_output_raw)
                 return solution_output == correct_output
 
-    def verify(self, scope):
+    def verify(self, scope) -> (int, bool):
         path_to_solution_output = scope['path_to_solution_output']
         path_to_input_file = scope['path_to_input_file']
-        return InputOutput.compare_output(path_to_solution_output, self.input_output_paths_dict[path_to_input_file])
+        return 0, InputOutput.compare_output(path_to_solution_output, self.input_output_paths_dict[path_to_input_file])
 
     def check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data):
         return self.basic_check_with_chosen_language_data(
@@ -289,17 +304,18 @@ class InputCustomChecker(TestingProtocol):
     def run_custom_checker(self, path_to_input_file, path_to_solution_output):
         subprocess.run(['sudo', 'chmod', 'o+x', os.path.dirname(path_to_input_file)])
         subprocess.run(['sudo', 'chmod', 'o+rw', path_to_solution_output])
-        return subprocess.run(['sudo', '-u', 'nobody',
+        process = subprocess.run(['sudo', '-u', 'nobody',
 
-                               TestingProtocol.path_to_timeout,
-                               '-t', str(TestingProtocol.HELPER_TIME_LIMIT_SECONDS),
-                               '-m', str(TestingProtocol.HELPER_MEMORY_LIMIT_MEGABYTES * 1024),
-                               '--confess',
+                                  TestingProtocol.path_to_timeout,
+                                  '-t', str(TestingProtocol.HELPER_TIME_LIMIT_SECONDS),
+                                  '-m', str(TestingProtocol.HELPER_MEMORY_LIMIT_MEGABYTES * 1024),
+                                  '--confess',
 
-                               self.path_to_checker_exec, path_to_input_file, path_to_solution_output],
-                              stdout=subprocess.PIPE).stdout.decode() == "1"
+                                  self.path_to_checker_exec, path_to_input_file, path_to_solution_output],
+                                 stdout=subprocess.PIPE)
+        return process.returncode, process.stdout.decode() == "1"
 
-    def verify(self, scope):
+    def verify(self, scope) -> (int, bool):
         path_to_input_file = scope['path_to_input_file']
         path_to_solution_output = scope['path_to_solution_output']
 
@@ -332,8 +348,10 @@ class RandomInputCustomChecker(TestingProtocol):
             with open(path_to_storage, 'w') as storage:
                 return_code = -1
                 attempts_left = TestingProtocol.HELPER_ATTEMPTS_LIMIT
-                while return_code != 0 and attempts_left > 0:
+                while attempts_left > 0:
                     return_code = self.run_random_input_generator(storage=storage)
+                    if return_code == 0:
+                        break
                     attempts_left -= 1
                 if attempts_left == 0:
                     return None

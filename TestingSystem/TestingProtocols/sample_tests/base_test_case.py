@@ -1,5 +1,6 @@
 import unittest
-from testing_protocols import VerdictMessage
+from contextlib import contextmanager
+from testing_protocols import TestingProtocol, VerdictMessage
 
 
 class BaseTestCase(unittest.TestCase):
@@ -36,3 +37,22 @@ class BaseTestCase(unittest.TestCase):
 
             return ToEval(f'{{ {", ".join(keys_to_vals)} }}')
         return gen
+
+    @staticmethod
+    @contextmanager
+    def mock_testing_protocol(helper_time_limit_seconds=TestingProtocol.HELPER_TIME_LIMIT_SECONDS,
+                              helper_memory_limit_megabytes=TestingProtocol.HELPER_MEMORY_LIMIT_MEGABYTES,
+                              helper_attempts_limit=TestingProtocol.HELPER_ATTEMPTS_LIMIT):
+        initial_time_limit = TestingProtocol.HELPER_TIME_LIMIT_SECONDS
+        initial_memory_limit_megabytes = TestingProtocol.HELPER_MEMORY_LIMIT_MEGABYTES
+        initial_attempt_limit = TestingProtocol.HELPER_ATTEMPTS_LIMIT
+
+        TestingProtocol.HELPER_TIME_LIMIT_SECONDS = helper_time_limit_seconds
+        TestingProtocol.HELPER_MEMORY_LIMIT_MEGABYTES = helper_memory_limit_megabytes
+        TestingProtocol.HELPER_ATTEMPTS_LIMIT = helper_attempts_limit
+
+        yield None
+
+        TestingProtocol.HELPER_TIME_LIMIT_SECONDS = initial_time_limit
+        TestingProtocol.HELPER_MEMORY_LIMIT_MEGABYTES = initial_memory_limit_megabytes
+        TestingProtocol.HELPER_ATTEMPTS_LIMIT = initial_attempt_limit

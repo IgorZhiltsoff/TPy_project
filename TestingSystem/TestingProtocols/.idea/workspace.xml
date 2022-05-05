@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Added TL test to C++">
-      <change afterPath="$PROJECT_DIR$/sample_tests/in_custom_tests/memory_leak_checker.out" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sample_tests/rand_custom_tests/time_limit_generator.out" afterDir="false" />
+    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Added ABORT test for timelimit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Class_TestingProtocols.puml" beforeDir="false" afterPath="$PROJECT_DIR$/Class_TestingProtocols.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sample_tests/base_test_case.py" beforeDir="false" afterPath="$PROJECT_DIR$/sample_tests/base_test_case.py" afterDir="false" />
@@ -78,21 +76,7 @@
       <recent name="$PROJECT_DIR$/" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Python tests for test_python3.Python3Test.test_abort_rand_custom">
-    <configuration name="Python tests for sample_tests.test_cxx.CXXTest.test_limited_work_space" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
-      <module name="TestingProtocols" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/sample_tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;sample_tests.test_cxx.CXXTest.test_limited_work_space&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python tests.Python tests for test_python3.Python3Test.test_in_custom">
     <configuration name="Python tests for sample_tests.test_python3.Python3Test" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="TestingProtocols" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -105,21 +89,6 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
       <option name="_new_target" value="&quot;sample_tests.test_python3.Python3Test&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Python tests for sample_tests.test_python3.Python3Test.test_in_out" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
-      <module name="TestingProtocols" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/sample_tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;sample_tests.test_python3.Python3Test.test_in_out&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
@@ -151,13 +120,41 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
+    <configuration name="Python tests for test_python3.Python3Test.test_in_custom" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="TestingProtocols" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/sample_tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_python3.Python3Test.test_in_custom&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for test_python3.Python3Test.test_rand_custom" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="TestingProtocols" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/sample_tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_python3.Python3Test.test_rand_custom&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.Python tests for test_python3.Python3Test.test_abort_rand_custom" />
+        <item itemvalue="Python tests.Python tests for test_python3.Python3Test.test_in_custom" />
+        <item itemvalue="Python tests.Python tests for test_python3.Python3Test.test_rand_custom" />
         <item itemvalue="Python tests.Python tests for test_python3.Python3Test.test_abort_in_custom" />
+        <item itemvalue="Python tests.Python tests for test_python3.Python3Test.test_abort_rand_custom" />
         <item itemvalue="Python tests.Python tests for sample_tests.test_python3.Python3Test" />
-        <item itemvalue="Python tests.Python tests for sample_tests.test_python3.Python3Test.test_in_out" />
-        <item itemvalue="Python tests.Python tests for sample_tests.test_cxx.CXXTest.test_limited_work_space" />
       </list>
     </recent_temporary>
   </component>
@@ -189,13 +186,6 @@
       <workItem from="1651615950600" duration="1913000" />
       <workItem from="1651618106043" duration="5879000" />
       <workItem from="1651627150189" duration="3000" />
-    </task>
-    <task id="LOCAL-00014" summary="Banished opts from TestingProtocol class to ExecutionAndConversionData">
-      <created>1651337054055</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1651337054055</updated>
     </task>
     <task id="LOCAL-00015" summary="Added script for running tests">
       <created>1651337287509</created>
@@ -533,7 +523,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651710396995</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="Added ABORT test for timelimit">
+      <created>1651714546824</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1651714546824</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -563,7 +560,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Got rid of inout-cust copy&amp;paste (check_with_chosen_language_data)" />
     <MESSAGE value="Used tempfile in randcust" />
     <MESSAGE value="Enforcing tempfile in lws" />
     <MESSAGE value="Enforced tempfile in lws" />
@@ -588,14 +584,15 @@
     <MESSAGE value="Added ML and SKIP to tests!" />
     <MESSAGE value="Improved naming" />
     <MESSAGE value="Added TL test to C++" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added TL test to C++" />
+    <MESSAGE value="Added ABORT test for timelimit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added ABORT test for timelimit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/testing_protocols/__init__.py</url>
-          <line>214</line>
+          <line>229</line>
           <option name="timeStamp" value="30" />
         </line-breakpoint>
       </breakpoints>

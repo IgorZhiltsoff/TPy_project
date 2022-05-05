@@ -116,10 +116,12 @@ class Python3Test(BaseTestCase):
 
         user_submitted_data_to_expected_verdict = \
             user_submitted_data_to_expected_verdict_generator_for_faulty_protocols().evaluate(locals())
-        self.run_tests(
-            faulty_in_custom,
-            user_submitted_data_to_expected_verdict=user_submitted_data_to_expected_verdict
-        )
+
+        with BaseTestCase.mock_testing_protocol(helper_memory_limit_megabytes=16, helper_attempts_limit=2):
+            self.run_tests(
+                faulty_in_custom,
+                user_submitted_data_to_expected_verdict=user_submitted_data_to_expected_verdict
+            )
 
     def test_abort_rand_custom(self):
         faulty_rand_custom = RandomInputCustomChecker(
@@ -134,17 +136,11 @@ class Python3Test(BaseTestCase):
         user_submitted_data_to_expected_verdict = \
             user_submitted_data_to_expected_verdict_generator_for_faulty_protocols().evaluate(locals())
 
-        # a bit of mockery
-        initial_time_limit = TestingProtocol.HELPER_TIME_LIMIT_SECONDS
-        initial_attempt_limit = TestingProtocol.HELPER_ATTEMPTS_LIMIT
-        TestingProtocol.HELPER_TIME_LIMIT_SECONDS = 0.1
-        TestingProtocol.HELPER_ATTEMPTS_LIMIT = 2
-        self.run_tests(
-            faulty_rand_custom,
-            user_submitted_data_to_expected_verdict=user_submitted_data_to_expected_verdict
-        )
-        TestingProtocol.HELPER_TIME_LIMIT_SECONDS = initial_time_limit
-        TestingProtocol.HELPER_ATTEMPTS_LIMIT = initial_attempt_limit
+        with BaseTestCase.mock_testing_protocol(helper_time_limit_seconds=0.1, helper_attempts_limit=2):
+            self.run_tests(
+                faulty_rand_custom,
+                user_submitted_data_to_expected_verdict=user_submitted_data_to_expected_verdict
+            )
 
 
 if __name__ == '__main__':
