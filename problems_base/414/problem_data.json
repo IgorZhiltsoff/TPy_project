@@ -15,7 +15,9 @@
                     ],
                     "command line options": [
                         "b"
-                    ]
+                    ],
+		    "time limit": 1,
+		    "memory limit": 64
                 }
             },
             "infiles": [
