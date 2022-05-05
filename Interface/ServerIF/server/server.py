@@ -51,22 +51,7 @@ def submit():
 
 @app.route('/upload_problem', methods=['GET', 'POST'])
 def upload_problem():
-    if not flask.request.form.get('mode'):
-        return flask.render_template(
-                'upload_problem_templates/upload_problem_metadata.html',
-                back_link_html_string=get_back_to_main_page_html_string()
-            )
-    elif flask.request.form.get('mode') == 'Initiate Problem Upload':
-        protocols_cnt = int(flask.request.form.get('protocols_cnt'))
-        return flask.render_template(
-            'upload_problem_templates/forms/protocol_metadatas_form.html',
-            protocol_metadata_upload_html_list=protocol_metadata_upload_html_list_generator(protocols_cnt)
-        )
-    elif flask.request.form.get('mode') == 'Specify Protocol Metadatas':
-        return flask.render_template(
-            'upload_problem_templates/forms/protocols_form.html',
-            html_list=
-        )
+    return 'Not working'
 
 
 if __name__ == '__main__':
