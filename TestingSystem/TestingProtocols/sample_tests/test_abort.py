@@ -19,7 +19,7 @@ user_submitted_data_to_expected_verdict_generator_for_faulty_protocols = \
 
 
 class AbortTest(BaseTestCase):
-    def test_abort_in_custom_memory_limit(self):
+    def test_abort_in_custom_memory_limit_checker(self):
         faulty_in_custom = InputCustomChecker(
             input_paths_set={"in_custom_tests/1.in",
                              "in_custom_tests/2.in",
@@ -39,7 +39,7 @@ class AbortTest(BaseTestCase):
                 user_submitted_data_to_expected_verdict=user_submitted_data_to_expected_verdict
             )
 
-    def test_abort_rand_custom_time_limit(self):
+    def test_abort_rand_custom_time_limit_generator(self):
         faulty_rand_custom = RandomInputCustomChecker(
             test_count=3,
             path_to_input_generation_exec='rand_custom_tests/time_limit_generator.out',
@@ -53,6 +53,25 @@ class AbortTest(BaseTestCase):
             user_submitted_data_to_expected_verdict_generator_for_faulty_protocols().evaluate(locals())
 
         with BaseTestCase.mock_testing_protocol(helper_time_limit_seconds=0.1, helper_attempts_limit=2):
+            self.run_tests(
+                faulty_rand_custom,
+                user_submitted_data_to_expected_verdict=user_submitted_data_to_expected_verdict
+            )
+
+    def test_abort_rand_custom_runtime_error_checker(self):
+        faulty_rand_custom = RandomInputCustomChecker(
+            test_count=3,
+            path_to_input_generation_exec='rand_custom_tests/random_generator.out',
+            path_to_checker_exec='rand_custom_tests/runtime_error_checker.out',
+            execution_and_conversion_data_set=python_execution_and_conversion_data_set
+        )
+
+        aborted = UserSubmittedData('accepted.py', 1, LanguageLabel.PYTHON3)
+
+        user_submitted_data_to_expected_verdict = \
+            user_submitted_data_to_expected_verdict_generator_for_faulty_protocols().evaluate(locals())
+
+        with BaseTestCase.mock_testing_protocol(helper_attempts_limit=2):
             self.run_tests(
                 faulty_rand_custom,
                 user_submitted_data_to_expected_verdict=user_submitted_data_to_expected_verdict

@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Added missed ABORT test for checker, added ML ABORT test">
-      <change afterPath="$PROJECT_DIR$/run_abort_tests.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sample_tests/test_abort.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sample_tests/test_python3.py" beforeDir="false" afterPath="$PROJECT_DIR$/sample_tests/test_python3.py" afterDir="false" />
+    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Banished Abort tests to separate suite&#10;Improved naming">
+      <change afterPath="$PROJECT_DIR$/sample_tests/rand_custom_tests/runtime_error_checker.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sample_tests/test_abort.py" beforeDir="false" afterPath="$PROJECT_DIR$/sample_tests/test_abort.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +74,7 @@
       <recent name="$PROJECT_DIR$/" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Python tests for test_abort.AbortTest">
+  <component name="RunManager" selected="Python tests.Python tests for test_abort.AbortTest.test_abort_rand_custom_runtime_error_checker">
     <configuration name="Python tests for test_abort.AbortTest" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="TestingProtocols" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -91,6 +89,20 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
+    <configuration name="Python tests for test_abort.AbortTest.test_abort_rand_custom_runtime_error_checker" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="TestingProtocols" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/sample_tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_abort.AbortTest.test_abort_rand_custom_runtime_error_checker&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
     <configuration name="Python tests for test_python3.Python3Test.test_abort_in_custom" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="TestingProtocols" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -102,20 +114,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
       <option name="_new_target" value="&quot;test_python3.Python3Test.test_abort_in_custom&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Python tests for test_python3.Python3Test.test_abort_rand_custom" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
-      <module name="TestingProtocols" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/sample_tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_python3.Python3Test.test_abort_rand_custom&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
@@ -149,11 +147,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.Python tests for test_abort.AbortTest.test_abort_rand_custom_runtime_error_checker" />
         <item itemvalue="Python tests.Python tests for test_abort.AbortTest" />
         <item itemvalue="Python tests.Python tests for test_python3.Python3Test.test_in_custom" />
         <item itemvalue="Python tests.Python tests for test_python3.Python3Test.test_rand_custom" />
         <item itemvalue="Python tests.Python tests for test_python3.Python3Test.test_abort_in_custom" />
-        <item itemvalue="Python tests.Python tests for test_python3.Python3Test.test_abort_rand_custom" />
       </list>
     </recent_temporary>
   </component>
@@ -185,13 +183,6 @@
       <workItem from="1651615950600" duration="1913000" />
       <workItem from="1651618106043" duration="5879000" />
       <workItem from="1651627150189" duration="3000" />
-    </task>
-    <task id="LOCAL-00016" summary="Added script for running tests">
-      <created>1651337333402</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1651337333402</updated>
     </task>
     <task id="LOCAL-00017" summary="Added script for running tests">
       <created>1651337445719</created>
@@ -529,7 +520,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651716478779</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="Banished Abort tests to separate suite&#10;Improved naming">
+      <created>1651716904526</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1651716904526</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -559,7 +557,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Enforcing tempfile in lws" />
     <MESSAGE value="Enforced tempfile in lws" />
     <MESSAGE value="Got rid of subprocess where possible in testing_protocols" />
     <MESSAGE value="Prettified context manager use" />
@@ -584,7 +581,8 @@
     <MESSAGE value="Added TL test to C++" />
     <MESSAGE value="Added ABORT test for timelimit" />
     <MESSAGE value="Added missed ABORT test for checker, added ML ABORT test" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added missed ABORT test for checker, added ML ABORT test" />
+    <MESSAGE value="Banished Abort tests to separate suite&#10;Improved naming" />
+    <option name="LAST_COMMIT_MESSAGE" value="Banished Abort tests to separate suite&#10;Improved naming" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
