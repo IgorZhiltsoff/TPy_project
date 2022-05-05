@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Banished Abort tests to separate suite&#10;Improved naming">
-      <change afterPath="$PROJECT_DIR$/sample_tests/rand_custom_tests/runtime_error_checker.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sample_tests/test_abort.py" beforeDir="false" afterPath="$PROJECT_DIR$/sample_tests/test_abort.py" afterDir="false" />
+    <list default="true" id="8a68de62-92a9-4f2d-8817-34f791d236ad" name="Changes" comment="Added Abort RE test&#10;Brushed up file system">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -183,13 +182,6 @@
       <workItem from="1651615950600" duration="1913000" />
       <workItem from="1651618106043" duration="5879000" />
       <workItem from="1651627150189" duration="3000" />
-    </task>
-    <task id="LOCAL-00017" summary="Added script for running tests">
-      <created>1651337445719</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1651337445719</updated>
     </task>
     <task id="LOCAL-00018" summary="Added script for running tests">
       <created>1651337506485</created>
@@ -527,7 +519,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651716904526</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="Added Abort RE test&#10;Brushed up file system">
+      <created>1651717442684</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1651717442684</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -557,7 +556,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Enforced tempfile in lws" />
     <MESSAGE value="Got rid of subprocess where possible in testing_protocols" />
     <MESSAGE value="Prettified context manager use" />
     <MESSAGE value="Can input TL and ML floats via CMDLine!" />
@@ -582,7 +580,8 @@
     <MESSAGE value="Added ABORT test for timelimit" />
     <MESSAGE value="Added missed ABORT test for checker, added ML ABORT test" />
     <MESSAGE value="Banished Abort tests to separate suite&#10;Improved naming" />
-    <option name="LAST_COMMIT_MESSAGE" value="Banished Abort tests to separate suite&#10;Improved naming" />
+    <MESSAGE value="Added Abort RE test&#10;Brushed up file system" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Abort RE test&#10;Brushed up file system" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
