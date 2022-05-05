@@ -4,7 +4,6 @@ from helper_display_problem import get_back_to_main_page_html_string
 from helper_display_problem_info import display_problem_info, md_file_to_html_string
 from helper_display_problem_list import display_problem_list
 from helper_submit import process_submission
-from helper_upload_problem import protocol_metadata_upload_html_list_generator
 
 
 app = flask.Flask(__name__)

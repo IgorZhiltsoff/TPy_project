@@ -26,7 +26,7 @@ def get_execution_and_conversion_data_set(protocol_data):
             ExecutionAndConversionData(
                 language_data=programming_language_data,
 
-                time_limit=time_limit,
+                time_limit_seconds=time_limit,
                 memory_limit_megabytes=memory_limit_megabytes,
 
                 conversion_opts=conversion_opts,
