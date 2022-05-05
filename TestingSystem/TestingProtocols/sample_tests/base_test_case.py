@@ -26,7 +26,8 @@ class BaseTestCase(unittest.TestCase):
                 VerdictMessage.RE: f'{prefix}runtime_error',
                 VerdictMessage.TL: f'{prefix}time_limit',
                 VerdictMessage.ML: f'{prefix}memory_limit',
-                VerdictMessage.SKIP: f'{prefix}skipped'
+                VerdictMessage.SKIP: f'{prefix}skipped',
+                VerdictMessage.ABORT: f'{prefix}aborted'
             }
 
             keys_to_vals = map(

@@ -239,6 +239,7 @@ class TestingProtocol(ABC):
 
     HELPER_TIME_LIMIT_SECONDS = 8
     HELPER_MEMORY_LIMIT_MEGABYTES = 1024
+    HELPER_ATTEMPTS_LIMIT = 20
     path_to_timeout = os.path.relpath(Path(os.path.dirname(__file__)) / '../timeout/timeout')
 
 
@@ -330,11 +331,11 @@ class RandomInputCustomChecker(TestingProtocol):
             path_to_storage.touch()
             with open(path_to_storage, 'w') as storage:
                 return_code = -1
-                tries_left = 20
-                while return_code != 0 and tries_left > 0:
+                attempts_left = TestingProtocol.HELPER_ATTEMPTS_LIMIT
+                while return_code != 0 and attempts_left > 0:
                     return_code = self.run_random_input_generator(storage=storage)
-                    tries_left -= 1
-                if tries_left == 0:
+                    attempts_left -= 1
+                if attempts_left == 0:
                     return None
             input_paths_set.add(path_to_storage)
         return input_paths_set

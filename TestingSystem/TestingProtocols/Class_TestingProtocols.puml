@@ -128,6 +128,7 @@ TestingProtocols "*" <---- "-1..* execution_and_conversion_data_set" ExecutionAn
 abstract class TestingProtocols {
     #{static} float HELPER_TIME_LIMIT_SECONDS
     #{static} float HELPER_MEMORY_LIMIT_MEGABYTES
+    #{static} int HELPER_ATTEMPTS_LIMIT
     #{static} Path path_to_timeout
 
     +void __init__(...)
