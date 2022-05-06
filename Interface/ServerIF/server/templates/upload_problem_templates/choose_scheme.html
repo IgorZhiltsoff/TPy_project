@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Specify Protocol Metadata</title>
+</head>
+<body>
+  <h2>Choose Protocol Scheme</h2>
+  <form action="upload_problem" method="POST">
+      <h4>Specify protocol scheme:</h4>
+      <p>
+          <input type="radio" id="InputOutput" name="protocol_scheme" value="InputOutput">
+          <label for="InputOutput">InputOutput</label>
+      </p><p>
+          <input type="radio" id="InputCustomChecker" name="protocol_scheme" value="InputCustomChecker">
+          <label for="InputCustomChecker">InputCustomChecker</label>
+      </p><p>
+          <input type="radio" id="RandomInputCustomChecker" name="protocol_scheme" value="RandomInputCustomChecker">
+          <label for="RandomInputCustomChecker">RandomInputCustomChecker</label>
+      </p><p>
+          <input type="radio" id="LimitedWorkSpace" name="protocol_scheme" value="LimitedWorkSpace">
+          <label for="LimitedWorkSpace">LimitedWorkSpace</label>
+      </p>
+      <p>
+          <input type="submit" name="mode" value="Initialize Problem Upload!">
+      </p>
+  </form>
+</body>
+</html>
