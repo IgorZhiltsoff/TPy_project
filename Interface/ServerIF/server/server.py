@@ -59,13 +59,13 @@ def upload_problem():
     elif flask.request.form.get('mode') == 'Initialize Problem Upload!':
         return upload_inout()
     elif flask.request.form.get('mode') == 'Upload Problem!':
-        return 'hohohohoho'
+        return flask.request.form.get('scheme')
 
 
 if __name__ == '__main__':
-    # address = sys.argv[1]
-    # port = int(sys.argv[2])
-    # app.run(address, port, debug=True)
-    address = 'localhost'
-    port = 5000
+    address = sys.argv[1]
+    port = int(sys.argv[2])
     app.run(address, port, debug=True)
+    # address = 'localhost'
+    # port = 5000
+    # app.run(address, port, debug=True)

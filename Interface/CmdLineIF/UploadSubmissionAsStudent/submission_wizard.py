@@ -5,7 +5,7 @@ from language_support import LanguageLabel
 from random import randint
 
 
-submission_wizard_lang_code_to_label = {
+submission_wizard_lang_code_to_label = {  # todo export from general data json
     "1.1": LanguageLabel.CXX11,
     "1.2": LanguageLabel.CXX14,
     "1.3": LanguageLabel.CXX17,

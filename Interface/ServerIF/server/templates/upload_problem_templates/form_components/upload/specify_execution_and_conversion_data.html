@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Upload execution and conversion data set</title>
+    <!-- Jinja arguments: max_time_limit, max_memory_limit_megabytes -->
 </head>
 <body>
     <h2>Specify Execution & Conversion Data</h2>
@@ -27,10 +28,10 @@
             Command line options: <input placeholder="CMD LINE OPTS" name="command_line_opts"/>
         </label></p>
         <p><label>
-            Time limit: <input type="number" min=0 step=0.5 placeholder="1.5" name="time_limit"/> seconds
+            Time limit (upto {{max_time_limit}} seconds): <input type="number" min=0 max={{max_time_limit}} step=0.5 placeholder="1.5" name="time_limit"/> seconds
         </label></p>
         <p><label>
-            Memory limit: <input type="number" min=0 step=0.5 placeholder="256" name="memory_limit_megabytes"/> * 10<sup>6</sup> bytes (megabytes)
+            Memory limit (upto {{max_memory_limit_megabytes}} MB): <input type="number" min=0 max={{max_memory_limit_megabytes}} step=0.5 placeholder="256" name="memory_limit_megabytes"/> * 10<sup>6</sup> bytes (megabytes)
         </label></p>
 </body>
 </html>
