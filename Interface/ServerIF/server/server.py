@@ -1,6 +1,6 @@
 import sys
 import flask
-from helper_display_problem import get_back_to_main_page_html_string
+from helper import get_back_to_main_page_html_string_standard_text
 from helper_display_problem_info import display_problem_info, md_file_to_html_string
 from helper_display_problem_list import display_problem_list
 from helper_submit import process_submission
@@ -20,7 +20,7 @@ def display_readme():
     return flask.render_template(
         'display_readme.html',
         readme_html_string=md_file_to_html_string('../../../README.md'),
-        back_link_html_string=get_back_to_main_page_html_string()
+        back_link_html_string=get_back_to_main_page_html_string_standard_text()
     )
 
 
@@ -39,7 +39,7 @@ def submit():
     if flask.request.form.get('mode') != 'Submit':
         return flask.render_template(
             'submit.html',
-            back_link_html_string=get_back_to_main_page_html_string()
+            back_link_html_string=get_back_to_main_page_html_string_standard_text()
         )
     else:
         return process_submission(
@@ -53,11 +53,13 @@ def submit():
 def upload_problem():
     if not flask.request.form.get('mode'):
         return flask.render_template(
-            'upload_problem_templates/choose_scheme.html'
+            'upload_problem_templates/choose_scheme.html',
+            back_link_html_string=get_back_to_main_page_html_string_standard_text()
         )
     elif flask.request.form.get('mode') == 'Initialize Problem Upload!':
         return upload_inout()
-
+    elif flask.request.form.get('mode') == 'Upload Problem!':
+        return 'hohohohoho'
 
 
 if __name__ == '__main__':

@@ -1,6 +1,7 @@
 import os
 import flask
-from helper_display_problem import get_path_to_problem_base, get_problem_full_name, get_back_to_main_page_html_string
+from helper_display_problem import get_path_to_problem_base, get_problem_full_name
+from helper import get_back_to_main_page_html_string_standard_text
 
 
 def display_problem_list():
@@ -10,5 +11,5 @@ def display_problem_list():
     return flask.render_template(
         'display_problems_templates/display_problem_list.html',
         problems_info=problems_info,
-        back_link_html_string=get_back_to_main_page_html_string()
+        back_link_html_string=get_back_to_main_page_html_string_standard_text()
     )

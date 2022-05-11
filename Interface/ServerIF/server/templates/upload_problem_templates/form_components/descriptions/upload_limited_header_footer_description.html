@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{semantics}}</title>
+    <title>Title</title>
 </head>
 <body>
 <h2>Upload {{semantics}}</h2>
     It's <b>HIGHLY</b> recommended to meet the following requirements:
     <ul>
-        <li>When running, the merged should not take up more than:
+        <li>When running, the merged file should not take up more than:
             <ul>
                 <li>{{time_limit}} seconds</li>
                 <li>{{memory_limit_megabytes}} * 2<sup>20</sup> bytes (megabytes) </li>
@@ -19,13 +19,5 @@
     Since resource consumption by your and student's code are indistinguishable, you should carry out all "costly" operations in {{semantics}} wisely.
     Otherwise, the student will get an ML or TL
 </p>
-
-<h3>Ok, now let us take a closer look at that {{semantics}}...</h3>
-<form action="upload_problem" method="POST" enctype="multipart/form-data">
-    <input type="file" name="{{semantics}}">
-    <p>
-        <input type="submit" name="mode" value="Upload {{semantics}}"/>
-    </p>
-</form>
 </body>
 </html>

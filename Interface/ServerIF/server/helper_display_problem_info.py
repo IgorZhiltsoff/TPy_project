@@ -3,7 +3,8 @@ import fitz
 import flask
 import markdown
 from helper_display_problem import \
-    get_problem_data_dict, get_path_to_problem_dir, get_problem_full_name, get_back_link_html_string
+    get_problem_data_dict, get_path_to_problem_dir, get_problem_full_name
+from helper import get_back_link_html_string
 
 
 def display_problem_info(problem_id):

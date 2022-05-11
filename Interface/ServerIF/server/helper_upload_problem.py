@@ -1,7 +1,17 @@
 import flask
 import tempfile
+from helper import get_back_to_main_page_html_string
 
-# ==================================================== PROCESSOR =======================================================
+# ===================================================== MASTER =========================================================
+
+
+def assemble_form(html_strings, scheme):
+    return flask.render_template(
+        'upload_problem_templates/form_components/form_skeleton.html',
+        html_strings=html_strings,
+        scheme=scheme,
+        back_link_html_string=get_back_to_main_page_html_string('I changed my mind!')
+    )
 
 
 def pass_input_to_wizard():
@@ -11,7 +21,14 @@ def pass_input_to_wizard():
 
 
 def upload_inout():
-    return upload_inoutfiles_template('in') + upload_inoutfiles_template('out')
+    return assemble_form(
+        html_strings=[
+            upload_inoutfiles_descr(),
+            upload_inoutfiles('in'),
+            upload_inoutfiles('out')
+        ],
+        scheme='inout'
+    )
 
 
 def upload_incust():
@@ -25,19 +42,53 @@ def upload_randcust():
 def upload_limited_work_space():
     pass
 
-# ==================================================== SUBPARTS ========================================================
+# ===================================================== UPLOAD =========================================================
 
 
-def upload_inoutfiles_template(semantics):
+def upload_files(semantics, multiple):
     return flask.render_template(
-        'upload_problem_templates/upload_specific_protocol_templates/upload_inoutfiles_template.html',
-        semantics=semantics
+        'upload_problem_templates/form_components/upload/upload_files_button.html',
+        semantics=semantics,
+        multiple_attr_if_necessary=('multiple' if multiple else '')
     )
 
 
-def upload_randin_custchecker_template(semantics):
+def upload_inoutfiles(semantics):
+    return upload_files(
+        semantics=semantics,
+        multiple=True
+    )
+
+
+def upload_randin_custchecker(semantics):
+    return upload_files(
+        semantics=semantics,
+        multiple=False
+    )
+
+
+def upload_header():
+    return upload_files(semantics='head', multiple=False) + upload_files(semantics='foot', multiple=False)
+
+# ================================================== DESCRIPTIONS ======================================================
+
+
+def upload_inoutfiles_descr():
     pass
 
 
-def upload_header_footer_template(semantics):
+def upload_limited_header_footer_description():
     pass
+
+
+def upload_randin_custchecker_descr():
+    pass
+
+
+for name in ['upload_inoutfiles_descr',
+             'upload_limited_header_footer_description',
+             'upload_randin_custchecker_descr']:
+    exec(
+        f'def {name}():'
+        f"    return flask.render_template('upload_problem_templates/form_components/descriptions/{name}.html')"
+    )
