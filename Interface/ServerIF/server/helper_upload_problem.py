@@ -16,6 +16,15 @@ def assemble_form_enabling_execution_and_conversion_data(html_strings, scheme):
     )
 
 
+def decide_on_form(scheme):  # todo export full names from general data (this includes choose_scheme.html)
+    return {
+        'InputOutput': upload_inout(),
+        'InputCustomChecker': upload_incust(),
+        'RandomInputCustomChecker': upload_randcust(),
+        'LimitedWorkSpace': upload_limited_work_space()
+    }[scheme]
+
+
 def pass_input_to_wizard():
     pass
 

@@ -4,7 +4,7 @@ from helper import get_back_to_main_page_html_string_standard_text
 from helper_display_problem_info import display_problem_info, md_file_to_html_string
 from helper_display_problem_list import display_problem_list
 from helper_submit import process_submission
-from helper_upload_problem import upload_inout, upload_incust, upload_randcust, upload_limited_work_space
+from helper_upload_problem import decide_on_form
 
 
 app = flask.Flask(__name__)
@@ -57,7 +57,7 @@ def upload_problem():
             back_link_html_string=get_back_to_main_page_html_string_standard_text()
         )
     elif flask.request.form.get('mode') == 'Initialize Problem Upload!':
-        return upload_inout()
+        return decide_on_form(flask.request.form.get('scheme'))
     elif flask.request.form.get('mode') == 'Upload Problem!':
         return flask.request.form.get('scheme')
 
