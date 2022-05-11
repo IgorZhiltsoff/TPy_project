@@ -5,10 +5,10 @@ from helper import get_back_to_main_page_html_string
 # ===================================================== MASTER =========================================================
 
 
-def assemble_form(html_strings, scheme):
+def assemble_form_enabling_execution_and_conversion_data(html_strings, scheme):
     return flask.render_template(
         'upload_problem_templates/form_components/form_skeleton.html',
-        html_strings=html_strings,
+        html_strings=[specify_execution_and_conversion_data()] + html_strings,
         scheme=scheme,
         back_link_html_string=get_back_to_main_page_html_string('I changed my mind!')
     )
@@ -21,7 +21,7 @@ def pass_input_to_wizard():
 
 
 def upload_inout():
-    return assemble_form(
+    return assemble_form_enabling_execution_and_conversion_data(
         html_strings=[
             upload_inoutfiles_descr(),
             upload_inoutfiles('in'),
@@ -50,6 +50,12 @@ def upload_files(semantics, multiple):
         'upload_problem_templates/form_components/upload/upload_files_button.html',
         semantics=semantics,
         multiple_attr_if_necessary=('multiple' if multiple else '')
+    )
+
+
+def specify_execution_and_conversion_data():
+    return flask.render_template(
+        'upload_problem_templates/form_components/upload/specify_execution_and_conversion_data.html'
     )
 
 
