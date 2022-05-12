@@ -4,7 +4,7 @@ from helper import get_back_to_main_page_html_string_standard_text
 from helper_display_problem_info import display_problem_info, md_file_to_html_string
 from helper_display_problem_list import display_problem_list
 from helper_submit import process_submission
-from helper_upload_problem import decide_on_form, pass_input_to_wizard
+from helper_upload_problem_display import decide_on_form, pass_input_to_wizard
 
 
 app = flask.Flask(__name__)

@@ -1,5 +1,4 @@
 import flask
-import tempfile
 import os
 from helper import get_back_to_main_page_html_string
 from testing_protocols import TestingProtocol
@@ -29,13 +28,7 @@ def decide_on_form(scheme):  # todo export full names from general data (this in
     }[scheme]
 
 
-def pass_input_to_wizard(form, files):
-    with tempfile.TemporaryDirectory() as tmp_dir:
-        with tempfile.NamedTemporaryFile() as wizard_input:
-            wizard_input.write(form['name'])
-
-
-# ==================================================== SPECIFIC ========================================================
+# =================================================== DISPLAYERS =======================================================
 
 # todo standard short aliases for protocols: to general data json
 
