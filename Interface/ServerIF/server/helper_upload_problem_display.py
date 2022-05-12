@@ -19,7 +19,7 @@ def assemble_form_adding_meta_and_execution_and_conversion_data(html_strings, sc
     )
 
 
-def decide_on_form(scheme):  # todo export full names from general data (this includes choose_scheme.html)
+def display_correspondent_form(scheme):  # todo export full names from general data (this includes choose_scheme.html)
     return {
         'InputOutput': upload_inout(),
         'InputCustomChecker': upload_incust(),

@@ -4,6 +4,7 @@ import tempfile
 import subprocess
 from submission_wizard import label_to_submission_wizard_lang_code
 from language_support import LanguageLabel
+from helper import pass_input_to_wizard_general
 
 
 def process_submission(submission_file_storage, problem_id, lang):
@@ -13,14 +14,16 @@ def process_submission(submission_file_storage, problem_id, lang):
         with generate_submission_wizard_input(
                 path_to_submission_file=path_to_submission_file,
                 problem_id=problem_id,
-                lang_label=lang_label) as wizard_input:
-            return pass_input_to_wizard(wizard_input)
+                lang_label=lang_label) as to_pass:
+            return pass_input_to_submission_wizard(to_pass)
 
 
-def pass_input_to_wizard(wizard_input):
-    return subprocess.run(['../../CmdLineIF/UploadSubmissionAsStudent/run.sh', '1'],
-                          stdin=wizard_input,
-                          stdout=subprocess.PIPE).stdout.decode()
+def pass_input_to_submission_wizard(to_pass):
+    return pass_input_to_wizard_general(
+        path_to_wizard='../../CmdLineIF/UploadSubmissionAsStudent/run.sh',
+        file_obj_to_pass=to_pass,
+        args=['1']
+    )
 
 
 @contextlib.contextmanager
