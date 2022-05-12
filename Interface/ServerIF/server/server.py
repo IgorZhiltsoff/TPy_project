@@ -4,7 +4,7 @@ from helper import get_back_to_main_page_html_string_standard_text
 from helper_display_problem_info import display_problem_info, md_file_to_html_string
 from helper_display_problem_list import display_problem_list
 from helper_submit import process_submission
-from helper_upload_problem import decide_on_form
+from helper_upload_problem import decide_on_form, pass_input_to_wizard
 
 
 app = flask.Flask(__name__)
@@ -59,7 +59,10 @@ def upload_problem():
     elif flask.request.form.get('mode') == 'Initialize Problem Upload!':
         return decide_on_form(flask.request.form.get('scheme'))
     elif flask.request.form.get('mode') == 'Upload Problem!':
-        return flask.request.form.get('scheme')
+        return pass_input_to_wizard(
+            form=flask.request.form,
+            files=flask.request.files
+        )
 
 
 if __name__ == '__main__':
