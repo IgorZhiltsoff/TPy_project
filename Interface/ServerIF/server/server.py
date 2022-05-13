@@ -59,7 +59,8 @@ def upload_problem():
         )
     elif flask.request.form.get('mode') == 'Initialize Problem Upload!':
         return display_correspondent_form(flask.request.form.get('scheme'))
-    elif flask.request.form.get('mode') == 'Upload Problem!':
+    else:
+    #elif flask.request.form.get('mode') == 'Upload Problem!':
         return process_problem(
             form=flask.request.form,
             files=flask.request.files
@@ -67,9 +68,9 @@ def upload_problem():
 
 
 if __name__ == '__main__':
-    address = sys.argv[1]
-    port = int(sys.argv[2])
-    app.run(address, port, debug=True)
-    # address = 'localhost'
-    # port = 5000
+    # address = sys.argv[1]
+    # port = int(sys.argv[2])
     # app.run(address, port, debug=True)
+    address = 'localhost'
+    port = 5000
+    app.run(address, port, debug=True)

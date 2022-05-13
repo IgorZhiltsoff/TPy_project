@@ -1,8 +1,8 @@
 {
     "uploaded_by_wizard_version": "1.0.0",
-    "name": "hehe",
-    "statement file extension": ".txt",
-    "path to statement": "TPy_project/problems_base/523/statement.txt",
+    "name": "111",
+    "statement file extension": ".pdf",
+    "path to statement": "TPy_project/problems_base/974/statement.pdf",
     "protocols": {
         "0": {
             "test_count": 1,
@@ -11,20 +11,20 @@
                 "0": {
                     "programming_language_data": "python_data.python3_data",
                     "conversion options": [
-                        "a"
+                        "111"
                     ],
                     "command line options": [
-                        "b"
+                        "111"
                     ],
-                    "time limit": 1.5,
-                    "memory limit": 128.0
+                    "time limit": 10.0,
+                    "memory limit": 11.0
                 }
             },
             "infiles": [
-                "TPy_project/problems_base/523/prot0/1.in"
+                "TPy_project/problems_base/974/prot0/1.in"
             ],
             "outfiles": [
-                "TPy_project/problems_base/523/prot0/1.out"
+                "TPy_project/problems_base/974/prot0/1.out"
             ]
         }
     }

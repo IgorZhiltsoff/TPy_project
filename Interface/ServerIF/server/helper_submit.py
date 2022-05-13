@@ -11,7 +11,7 @@ def process_submission(submission_file_storage, problem_id, lang):
     lang_label = eval(lang)
     with tempfile.TemporaryDirectory() as tmp_dir:
         path_to_submission_file = save_submission_file(submission_file_storage, lang_label, tmp_dir)
-        with generate_submission_wizard_input(
+        with generate_file_to_pass_to_submission_wizard(
                 path_to_submission_file=path_to_submission_file,
                 problem_id=problem_id,
                 lang_label=lang_label) as to_pass:
@@ -27,14 +27,14 @@ def pass_input_to_submission_wizard(to_pass):
 
 
 @contextlib.contextmanager
-def generate_submission_wizard_input(path_to_submission_file, problem_id, lang_label):
-    with tempfile.NamedTemporaryFile('w') as wizard_input:
-        wizard_input.write(f'{problem_id}\n')
-        wizard_input.write(f'{label_to_submission_wizard_lang_code[lang_label]}\n')
-        wizard_input.write(f'{path_to_submission_file}\n')
-        wizard_input.flush()
-        wizard_input.seek(0)
-        yield wizard_input
+def generate_file_to_pass_to_submission_wizard(path_to_submission_file, problem_id, lang_label):
+    with tempfile.NamedTemporaryFile('w') as to_pass:
+        to_pass.write(f'{problem_id}\n')
+        to_pass.write(f'{label_to_submission_wizard_lang_code[lang_label]}\n')
+        to_pass.write(f'{path_to_submission_file}\n')
+        to_pass.flush()
+        to_pass.seek(0)
+        yield to_pass
 
 
 def save_submission_file(submission_file_storage, lang_label, dest_dir):
