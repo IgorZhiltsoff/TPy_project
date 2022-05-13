@@ -42,7 +42,7 @@ def upload_statement_and_name(custodian, path_to_dir):
     path_to_statement = input("""Upload a statement. 
 Specify a path to .md, .pdf or .txt file (leave blank to skip): """)
     filename, extension = os.path.splitext(path_to_statement)
-    if extension not in supported_extensions:
+    if filename and (extension not in supported_extensions):
         code = input('''Supported extension not detected. Please specify format manually
 Type 1 for .txt, 2 for .pdf and 3 for .md''')
         extension = {1: '.txt', 2: '.pdf', 3: '.md'}[int(code)]

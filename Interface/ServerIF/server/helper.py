@@ -22,8 +22,9 @@ def pass_input_to_wizard_general(path_to_wizard, file_obj_to_pass, args):
     # todo switch to calling "make run"
     file_obj_to_pass.flush()
     file_obj_to_pass.seek(0)
-    p= subprocess.run([path_to_wizard, *args],
-                          stdin=file_obj_to_pass,
-                          stdout=subprocess.PIPE,
-                          stderr=subprocess.PIPE)
-    return p.stdout.decode()
+    wizard_invokation = subprocess.run(
+        [path_to_wizard, *args],
+        stdin=file_obj_to_pass,
+        stdout=subprocess.PIPE,
+    )
+    return wizard_invokation
