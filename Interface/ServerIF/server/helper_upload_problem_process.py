@@ -20,7 +20,6 @@ def fill_in_file_to_pass(form, to_pass, files, tmp_dir):
     specify_general_protocol_data(form, to_pass)
     call_correspondent_passer(form['scheme'], to_pass, files, tmp_dir)
     to_pass.write('n')  # indicator that it was the last protocol to be uploaded
-    to_pass.flush()  # todo rmv
 
 
 def call_correspondent_passer(scheme, to_pass, files, tmp_dir):
@@ -53,9 +52,9 @@ def pass_problem_metadata(form, to_pass, files, tmp_dir):
 
 
 def specify_general_protocol_data(form, to_pass):
-    test_cnt = "1"
+    test_cnt = form['test_cnt']
     scheme = {'inout': '1', 'incust': '2', 'randcust': '3', 'lws': '4'}[form['scheme']]  # todo scheme codes from general data
-    supported_languages_cnt = "1"
+    supported_languages_cnt = form['supported_languages_cnt']
     to_pass.writeln(test_cnt)
     to_pass.writeln(scheme)
     to_pass.writeln(supported_languages_cnt)

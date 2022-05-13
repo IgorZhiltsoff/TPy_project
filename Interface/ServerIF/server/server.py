@@ -57,7 +57,7 @@ def upload_problem():
             'upload_problem_templates/choose_scheme.html',
             back_link_html_string=get_back_to_main_page_html_string_standard_text()
         )
-    elif flask.request.form.get('mode') == 'Initialize Problem Upload!':
+    elif flask.request.form.get('mode') == 'Initiate Problem Upload!':
         return display_correspondent_form(flask.request.form.get('scheme'))
     else:
     #elif flask.request.form.get('mode') == 'Upload Problem!':

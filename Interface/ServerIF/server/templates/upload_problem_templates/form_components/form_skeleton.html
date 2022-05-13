@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Form skeleton</title>
+    <!-- No Jinja arguments -->
 </head>
 <body>
 <form action="upload_problem" method="POST"  enctype="multipart/form-data">
-    <input type="hidden" name="scheme" value="{{scheme}}" />
     {% for html_string in html_strings %}
         {{html_string|safe}}
         <hr/>

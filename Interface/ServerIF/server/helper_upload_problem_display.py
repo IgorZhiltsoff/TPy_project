@@ -11,10 +11,10 @@ def assemble_form_adding_meta_and_execution_and_conversion_data(html_strings, sc
         'upload_problem_templates/form_components/form_skeleton.html',
         html_strings=[
             upload_problem_metadata(),
+            specify_general_protocol_data(scheme),
             specify_execution_and_conversion_data(),
             *html_strings
         ],
-        scheme=scheme,
         back_link_html_string=get_back_to_main_page_html_string('I changed my mind!')
     )
 
@@ -99,6 +99,13 @@ def specify_execution_and_conversion_data():
         'upload_problem_templates/form_components/upload/specify_execution_and_conversion_data.html',
         max_time_limit=20,  # todo export from general data json
         max_memory_limit_megabytes=1000
+    )
+
+
+def specify_general_protocol_data(scheme):
+    return flask.render_template(
+        'upload_problem_templates/form_components/upload/specify_general_protocol_data.html',
+        scheme=scheme
     )
 
 
