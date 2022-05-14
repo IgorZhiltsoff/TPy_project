@@ -5,7 +5,7 @@
     "path to statement": "TPy_project/problems_base/917/statement.txt",
     "protocols": {
         "0": {
-            "test_count": 1,
+            "test_count": 1000000,
             "scheme": "limited_work_space",
             "execution_and_conversion_data_set": {
                 "0": {

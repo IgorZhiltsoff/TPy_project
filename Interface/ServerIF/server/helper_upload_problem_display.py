@@ -6,12 +6,12 @@ from testing_protocols import TestingProtocol
 # ===================================================== MASTER =========================================================
 
 
-def assemble_form_adding_meta_and_execution_and_conversion_data(html_strings, scheme):
+def assemble_form_adding_meta_and_execution_and_conversion_data(html_strings, scheme, test_cnt=None):
     return flask.render_template(
         'upload_problem_templates/form_components/form_skeleton.html',
         html_strings=[
             upload_problem_metadata(),
-            specify_general_protocol_data(scheme),
+            specify_general_protocol_data(scheme, test_cnt),
             specify_execution_and_conversion_data(),
             *html_strings
         ],
@@ -73,7 +73,8 @@ def upload_limited_work_space():
             upload_limited_header_footer_description(),
             upload_header_and_footer()
         ],
-        scheme='lws'
+        scheme='lws',
+        test_cnt=1
     )
 
 # ===================================================== UPLOAD =========================================================
@@ -102,10 +103,11 @@ def specify_execution_and_conversion_data():
     )
 
 
-def specify_general_protocol_data(scheme):
+def specify_general_protocol_data(scheme, test_cnt):
     return flask.render_template(
         'upload_problem_templates/form_components/upload/specify_general_protocol_data.html',
-        scheme=scheme
+        scheme=scheme,
+        test_cnt=(str(test_cnt) if test_cnt else '')
     )
 
 

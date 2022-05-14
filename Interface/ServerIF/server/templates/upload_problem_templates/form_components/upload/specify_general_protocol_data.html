@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Specify general protocol data</title>
-    <!-- Jinja arguments: scheme -->
+    <!-- Jinja arguments: scheme, test_cnt -->
 </head>
 <body>
     <input type="hidden" name="scheme" value="{{scheme}}"/>
     <input type="hidden" name="supported_languages_cnt" value="1"/>
-    <label>
-        Test count: <input type="number" name="test_cnt"/>
-    </label>
+    {% if test_cnt %}
+        <input type="hidden" name="test_cnt" value="{{test_cnt}}"/>
+    {% else %}
+        <label>
+            Test count: <input type="number" name="test_cnt"/>
+        </label>
+    {% endif %}
 </body>
 </html>
