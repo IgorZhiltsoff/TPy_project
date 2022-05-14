@@ -298,11 +298,12 @@ class InputCustomChecker(TestingProtocol):
     def __init__(self, input_paths_set, path_to_checker_exec, **kwargs):
         super().__init__(**kwargs)
 
-        self.input_paths_set = input_paths_set
+        self.input_paths_set = set(map(os.path.relpath, input_paths_set))
         self.path_to_checker_exec_rel = os.path.relpath(path_to_checker_exec)
 
     def run_custom_checker(self, path_to_input_file, path_to_solution_output):
         subprocess.run(['sudo', 'chmod', '777', os.path.dirname(path_to_input_file)])
+        subprocess.run(['sudo', 'chmod', '777', path_to_input_file])
         subprocess.run(['sudo', 'chmod', '777', path_to_solution_output])
         subprocess.run(['sudo', 'chmod', '777', self.path_to_checker_exec_rel])
 
@@ -314,7 +315,8 @@ class InputCustomChecker(TestingProtocol):
                                   '--confess',
 
                                   self.path_to_checker_exec_rel, path_to_input_file, path_to_solution_output],
-                                 stdout=subprocess.PIPE)
+                                 stdout=subprocess.PIPE,
+                                 stderr=subprocess.PIPE)
         return process.returncode, process.stdout.decode() == "1"
 
     def verify(self, scope) -> (int, bool):

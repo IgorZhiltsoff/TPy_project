@@ -1,7 +1,6 @@
 import contextlib
 import os
 import tempfile
-import subprocess
 from submission_wizard import label_to_submission_wizard_lang_code
 from language_support import LanguageLabel
 from helper import pass_input_to_wizard_general

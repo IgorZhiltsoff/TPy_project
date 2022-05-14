@@ -1,6 +1,6 @@
 {
     "uploaded_by_wizard_version": "1.0.0",
-    "name": "sample_inout",
+    "name": "sample_inout_py",
     "statement file extension": ".pdf",
     "path to statement": "TPy_project/problems_base/875/statement.pdf",
     "protocols": {
