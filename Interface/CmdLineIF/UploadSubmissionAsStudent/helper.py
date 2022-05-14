@@ -1,6 +1,8 @@
 import os.path
 from language_support import *
 
+# TODO protocol data keys general data
+
 
 def get_full_path(mount_point):
     return lambda suffix: f'{mount_point}/{suffix}'
@@ -70,11 +72,11 @@ def get_outfiles(protocol_data, mount_point):
 
 
 def get_rand_gen(protocol_data, mount_point):
-    return get_full_path(mount_point)(protocol_data["rand"])
+    return get_full_path(mount_point)(protocol_data["random input generator executable"])
 
 
 def get_custom_checker(protocol_data, mount_point):
-    return get_full_path(mount_point)(protocol_data["cust"])
+    return get_full_path(mount_point)(protocol_data["custom checker executable"])
 
 
 def get_header(protocol_data, mount_point):

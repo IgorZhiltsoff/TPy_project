@@ -199,7 +199,7 @@ class TestingProtocol(ABC):
 
         with open(path_to_input_file, 'r') as input_file:
             with open(path_to_solution_output, 'w+b') as output_file:
-                subprocess.run(['sudo', 'chmod', 'o+rx', path_to_executable])
+                subprocess.run(['sudo', 'chmod', '777', path_to_executable])
 
                 process = subprocess.run(['sudo', '-u', 'nobody',
 
@@ -300,11 +300,12 @@ class InputCustomChecker(TestingProtocol):
 
         self.input_paths_set = input_paths_set
         self.path_to_checker_exec = path_to_checker_exec
-        subprocess.run(['sudo', 'chmod', 'o+rx', path_to_checker_exec])
 
     def run_custom_checker(self, path_to_input_file, path_to_solution_output):
-        subprocess.run(['sudo', 'chmod', 'o+x', os.path.dirname(path_to_input_file)])
-        subprocess.run(['sudo', 'chmod', 'o+r', path_to_solution_output])
+        subprocess.run(['sudo', 'chmod', '777', os.path.dirname(path_to_input_file)])
+        subprocess.run(['sudo', 'chmod', '777', path_to_solution_output])
+        subprocess.run(['sudo', 'chmod', '777', self.path_to_checker_exec])
+
         process = subprocess.run(['sudo', '-u', 'nobody',
 
                                   TestingProtocol.path_to_timeout,
@@ -340,8 +341,8 @@ class RandomInputCustomChecker(TestingProtocol):
         self.test_count = test_count
         self.path_to_input_generation_exec = path_to_input_generation_exec
         self.path_to_checker_exec = path_to_checker_exec
-        subprocess.run(['sudo', 'chmod', 'o+rx', path_to_checker_exec])
-        subprocess.run(['sudo', 'chmod', 'o+rx', path_to_input_generation_exec])
+        subprocess.run(['sudo', 'chmod', '777', path_to_checker_exec])
+        subprocess.run(['sudo', 'chmod', '777', path_to_input_generation_exec])
 
     def generate_input(self, path_to_input_dir):
         input_paths_set = set()
