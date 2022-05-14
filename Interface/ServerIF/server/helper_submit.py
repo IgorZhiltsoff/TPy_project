@@ -23,7 +23,7 @@ def pass_input_to_submission_wizard(to_pass):
         path_to_wizard='../../CmdLineIF/UploadSubmissionAsStudent/run.sh',
         file_obj_to_pass=to_pass,
         args=['1']
-    )
+    ).stdout.decode()
 
 
 @contextlib.contextmanager

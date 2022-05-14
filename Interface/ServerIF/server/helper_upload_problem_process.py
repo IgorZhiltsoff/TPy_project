@@ -1,6 +1,7 @@
 import os.path
 import tempfile
 import werkzeug.datastructures
+import contextlib
 from helper import pass_input_to_wizard_general
 
 # ===================================================== MASTER =========================================================
@@ -9,10 +10,16 @@ from helper import pass_input_to_wizard_general
 def process_problem(form: werkzeug.datastructures.MultiDict,
                     files: werkzeug.datastructures.MultiDict):
     with tempfile.TemporaryDirectory() as tmp_dir:
-        with tempfile.NamedTemporaryFile('w') as to_pass:
-            to_pass.writeln = lambda data: to_pass.write(data + '\n')
-            fill_in_file_to_pass(form, to_pass, files, tmp_dir)
+        with file_to_pass(form, files, tmp_dir) as to_pass:
             pass_input_to_problem_upload_wizard(to_pass)
+
+
+@contextlib.contextmanager
+def file_to_pass(form, files, tmp_dir):
+    with tempfile.NamedTemporaryFile('w') as to_pass:
+        to_pass.writeln = lambda data: to_pass.write(data + '\n')
+        fill_in_file_to_pass(form, to_pass, files, tmp_dir)
+        yield to_pass
 
 
 def fill_in_file_to_pass(form, to_pass, files, tmp_dir):
@@ -62,7 +69,12 @@ def specify_general_protocol_data(form, to_pass):
 
 
 def pass_execution_and_conversion_data(form, to_pass):
-    to_pass.writeln("2")  # todo lang code
+    def lang_to_representation(lang):
+        if 'C++' in lang:
+            return f"1\n{''.join(filter(lambda x: x.isdigit(), lang))}"
+        elif lang == 'Python3.10':
+            return "2"
+    to_pass.writeln(form['lang_repr'])
     to_pass.writeln(form['conversion_opts'])
     to_pass.writeln(form['command_line_opts'])
     to_pass.writeln(form['time_limit'])
@@ -74,28 +86,31 @@ def pass_execution_and_conversion_data(form, to_pass):
 def pass_inout_data(to_pass: tempfile.NamedTemporaryFile,
                     files: werkzeug.datastructures.MultiDict,
                     tmp_dir: str):
-    pass_inoutfiles(to_pass, files, tmp_dir, 'in')
-    pass_inoutfiles(to_pass, files, tmp_dir, 'out')
+    pass_multiple_files(to_pass, files, tmp_dir, 'in')
+    pass_multiple_files(to_pass, files, tmp_dir, 'out')
 
 
 def pass_incust_data(to_pass, files, tmp_dir):
-    pass
+    pass_multiple_files(to_pass, files, tmp_dir, 'in')
+    pass_single_file(to_pass, files, tmp_dir, 'custom checker')
 
 
 def pass_randcust_data(to_pass, files, tmp_dir):
-    pass
+    pass_single_file(to_pass, files, tmp_dir, 'random input generator')
+    pass_single_file(to_pass, files, tmp_dir, 'custom checker')
 
 
 def pass_lws_data(to_pass, files, tmp_dir):
-    pass
+    pass_single_file(to_pass, files, tmp_dir, 'header')
+    pass_single_file(to_pass, files, tmp_dir, 'footer')
 
 # ======================================= SUBPARTS FOR SPECIFIC ========================================================
 
 
-def pass_inoutfiles(to_pass: tempfile.NamedTemporaryFile,
-                    files: werkzeug.datastructures.MultiDict,
-                    tmp_dir: str,
-                    semantics: str):
+def pass_multiple_files(to_pass: tempfile.NamedTemporaryFile,
+                        files: werkzeug.datastructures.MultiDict,
+                        tmp_dir: str,
+                        semantics: str):
     storages = files.getlist(semantics)
     storages.sort(key=lambda storage: storage.filename)  # to be able to write paths to to_pass as we save files
     for storage in storages:
@@ -104,8 +119,11 @@ def pass_inoutfiles(to_pass: tempfile.NamedTemporaryFile,
         to_pass.writeln(path_to_file)
 
 
-def pass_randgen_custchecker(to_pass: tempfile.NamedTemporaryFile,
-                             files: werkzeug.datastructures.MultiDict,
-                             tmp_dir: str,
-                             semantics: str):
-    pass
+def pass_single_file(to_pass: tempfile.NamedTemporaryFile,
+                     files: werkzeug.datastructures.MultiDict,
+                     tmp_dir: str,
+                     semantics: str):
+    storage = files[semantics]
+    path_to_file = os.path.join(tmp_dir, storage.filename)
+    storage.save(path_to_file)
+    to_pass.writeln(path_to_file)

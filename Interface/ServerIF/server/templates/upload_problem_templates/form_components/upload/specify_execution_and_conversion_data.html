@@ -4,21 +4,22 @@
     <meta charset="UTF-8">
     <title>Specify execution and conversion data</title>
     <!-- Jinja arguments: max_time_limit, max_memory_limit_megabytes -->
+    <!-- todo lang representation from general data! -->
 </head>
 <body>
     <h2>Specify Execution & Conversion Data</h2>
         <label for="lang">
             Programming language:
-            <select name="lang" id="lang">
+            <select name="lang_repr" id="lang">
                 <option value="" disabled selected>PROGRAMMING LANG</option>
-                <option value="LanguageLabel.PYTHON3">Python3.10</option>
-                <option value="LanguageLabel.CXX11">C++11</option>
-                <option value="LanguageLabel.CXX14">C++14</option>
-                <option value="LanguageLabel.CXX17">C++17</option>
-                <option value="LanguageLabel.CXX20">C++20</option>
-                <option value="LanguageLabel.HASKELL2010">Haskell GHC</option>
-                <option value="LanguageLabel.JAVA">Java</option>
-                <option value="LanguageLabel.SCALA">Scala</option>
+                <option value="2">Python3.10</option>
+                <option value="1\n11">C++11</option>
+                <option value="1\n14">C++14</option>
+                <option value="1\n17">C++17</option>
+                <option value="1\n20">C++20</option>
+                <option value="...">Haskell GHC</option>
+                <option value="...">Java</option>
+                <option value="...">Scala</option>
             </select>
         </label>
         <p><label>

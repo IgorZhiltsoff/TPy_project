@@ -67,8 +67,8 @@ def upload_execution_and_conversion_data(key_seq_to_current_dict, custodian):
         upload_limits(key_seq_to_current_execution_and_conversion_data, custodian)
 
 
-def upload_programming_language_data(key_seq_to_current_dict, custodian):
-    language_code = input("""Choose one of 2 supported languages:
+def upload_programming_language_data(key_seq_to_current_dict, custodian):  # todo lang codes from general data
+    language_code = input("""Choose one of 2 supported languages: 
     Type 1 for C++
     Type 2 for Python3
     """)
