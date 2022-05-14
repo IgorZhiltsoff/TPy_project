@@ -5,11 +5,11 @@ from language_support import *
 
 
 def get_full_path(mount_point):
-    return lambda suffix: f'{mount_point}/{suffix}'
+    return lambda suffix: os.path.join(mount_point, suffix)
 
 
 def find_dir(problem_id, path_to_problems_dir):
-    return f'{path_to_problems_dir}/{problem_id}'
+    return os.path.join(path_to_problems_dir, problem_id)
 
 
 def get_execution_and_conversion_data_set(protocol_data):

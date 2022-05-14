@@ -64,7 +64,10 @@ def upload_execution_and_conversion_data(key_seq_to_current_dict, custodian):
             = key_seq_to_current_dict + ("execution_and_conversion_data_set", str(language_idx))
         upload_programming_language_data(key_seq_to_current_execution_and_conversion_data, custodian)
         upload_opts(key_seq_to_current_execution_and_conversion_data, custodian)
-        upload_limits(key_seq_to_current_execution_and_conversion_data, custodian)
+        upload_limits(
+            key_seq_to_current_dict=key_seq_to_current_execution_and_conversion_data,
+            custodian=custodian,
+        )
 
 
 def upload_programming_language_data(key_seq_to_current_dict, custodian):  # todo lang codes from general data
@@ -96,6 +99,6 @@ def upload_opts(key_seq_to_current_dict, custodian):
 
 
 def upload_limits(key_seq_to_current_dict, custodian):
-    for limit_type, unit in [('time limit', 'seconds'), ('memory limit', '10^6 bytes (MB)')]:
-        limit = float(input(f'Input {limit_type} (unit: {unit}): '))
+    for limit_type, unit, max_val in [('time limit', 'seconds', 20.0), ('memory limit', '10^6 bytes (MB)', 1000.0)]:
+        limit = max(max_val, float(input(f'Input {limit_type} (unit: {unit}) (upto {max_val} {unit}): ')))
         custodian.nested_fill_in(key_seq_to_current_dict + (limit_type, ), limit)
