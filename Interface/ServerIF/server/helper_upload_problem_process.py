@@ -133,7 +133,7 @@ def pass_single_file(to_pass: tempfile.NamedTemporaryFile,
 
 
 def pass_extension(to_pass, lang_repr):
-    lang_family_repr = lang_repr.split('\n')[0]
+    lang_family_repr = lang_repr.split('.')[0]
     to_pass.writeln({  # todo general data
         "1": ".cpp",
         "2": ".py"

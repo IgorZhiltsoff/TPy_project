@@ -72,7 +72,8 @@ def cxx_arbitrary_std_convert_to_executable(cxx_standard):
 
         conversion = subprocess.run(['g++', '-o', non_colliding_exec_name, f'-std=c++{cxx_standard}']
                                     + conversion_opts
-                                    + [path_to_src])
+                                    + [path_to_src],
+                                    stderr=subprocess.PIPE)
         return conversion.returncode
 
     return cxx_fixed_std_convert_to_executable

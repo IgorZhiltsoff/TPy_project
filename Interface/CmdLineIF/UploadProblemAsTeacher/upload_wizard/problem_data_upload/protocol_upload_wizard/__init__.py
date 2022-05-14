@@ -69,15 +69,22 @@ def upload_execution_and_conversion_data(key_seq_to_current_dict, custodian):
 
 def upload_programming_language_data(key_seq_to_current_dict, custodian):  # todo lang codes from general data
     language_code = input("""Choose one of 2 supported languages: 
-    Type 1 for C++
+    Type 1.1 for C++11
+    Type 1.2 for C++14
+    Type 1.3 for C++17
+    Type 1.4 for C++20
     Type 2 for Python3
     """)
 
-    if language_code == '1':
-        std = input("Specify C++ standard (available: 11, 14, 17, 20): ")
-        programming_language_data = f'cxx_data.cxx{std}_data'
-    else:
-        programming_language_data = 'python_data.python3_data'
+    language_code_to_programming_language_data = {  # todo general data
+        '1.1': 'cxx_data.cxx11_data',
+        '1.2': 'cxx_data.cxx14_data',
+        '1.3': 'cxx_data.cxx17_data',
+        '1.4': 'cxx_data.cxx20_data',
+        '2': 'python_data.python3_data'
+    }
+
+    programming_language_data = language_code_to_programming_language_data[language_code]
 
     custodian.nested_fill_in(key_seq_to_current_dict + ('programming_language_data', ), programming_language_data)
 
