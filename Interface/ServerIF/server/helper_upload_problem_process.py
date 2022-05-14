@@ -2,7 +2,6 @@ import os.path
 import tempfile
 import werkzeug.datastructures
 import contextlib
-import re
 from helper import pass_input_to_wizard_general
 
 # ===================================================== MASTER =========================================================
@@ -26,17 +25,21 @@ def file_to_pass(form, files, tmp_dir):
 def fill_in_file_to_pass(form, to_pass, files, tmp_dir):
     pass_problem_metadata(form, to_pass, files, tmp_dir)
     specify_general_protocol_data(form, to_pass)
-    call_correspondent_passer(form['scheme'], to_pass, files, tmp_dir)
+    call_correspondent_passer(form, to_pass, files, tmp_dir)
     to_pass.write('n')  # indicator that it was the last protocol to be uploaded
 
 
-def call_correspondent_passer(scheme, to_pass, files, tmp_dir):
+def call_correspondent_passer(form, to_pass, files, tmp_dir):
     # todo export full names from general data (this includes choose_scheme.html)
+    scheme = form['scheme']
+    lang_repr = form['lang_repr']
+
     return {
         'inout': pass_inout_data,
         'incust': pass_incust_data,
         'randcust': pass_randcust_data,
-        'lws': pass_lws_data
+        'lws': lambda _to_pass, _files, _tmp_dir:
+            pass_lws_data(_to_pass, _files, _tmp_dir, lang_repr)
     }[scheme](to_pass, files, tmp_dir)
 
 
@@ -99,9 +102,10 @@ def pass_randcust_data(to_pass, files, tmp_dir):
     pass_single_file(to_pass, files, tmp_dir, 'custom checker')
 
 
-def pass_lws_data(to_pass, files, tmp_dir):
+def pass_lws_data(to_pass, files, tmp_dir, lang_repr):
     pass_single_file(to_pass, files, tmp_dir, 'head')
     pass_single_file(to_pass, files, tmp_dir, 'foot')
+    pass_extension(to_pass, lang_repr)
 
 # ======================================= SUBPARTS FOR SPECIFIC ========================================================
 
@@ -126,3 +130,11 @@ def pass_single_file(to_pass: tempfile.NamedTemporaryFile,
     path_to_file = os.path.join(tmp_dir, storage.filename)
     storage.save(path_to_file)
     to_pass.writeln(path_to_file)
+
+
+def pass_extension(to_pass, lang_repr):
+    lang_family_repr = lang_repr.split('\n')[0]
+    to_pass.writeln({  # todo general data
+        "1": ".cpp",
+        "2": ".py"
+    }[lang_family_repr])

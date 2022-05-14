@@ -39,9 +39,8 @@ note left of Verdict::__init__
 Here and further,
 _ _init_ _'s signature
 will be omitted
-as it simply
-initializes non-static
-attributes
+as it matches
+non-static attributes
 end note
 note left of Verdict::avg_memory_consumption_megabytes
 calculated dynamically from

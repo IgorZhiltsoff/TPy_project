@@ -26,6 +26,6 @@ def pass_input_to_wizard_general(path_to_wizard, file_obj_to_pass, args):
         [path_to_wizard, *args],
         stdin=file_obj_to_pass,
         stdout=subprocess.PIPE,
-        # stderr=subprocess.PIPE
+        stderr=subprocess.PIPE  # for debugging
     )
     return wizard_invocation

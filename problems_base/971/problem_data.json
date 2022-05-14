@@ -1,0 +1,32 @@
+{
+    "uploaded_by_wizard_version": "1.0.0",
+    "name": "sample_lws",
+    "statement file extension": ".txt",
+    "path to statement": "TPy_project/problems_base/971/statement.txt",
+    "protocols": {
+        "0": {
+            "test_count": 1,
+            "scheme": "limited_work_space",
+            "execution_and_conversion_data_set": {
+                "0": {
+                    "programming_language_data": "python_data.python3_data",
+                    "conversion options": [
+                        "aaa"
+                    ],
+                    "command line options": [
+                        "bbb"
+                    ],
+                    "time limit": 2.0,
+                    "memory limit": 128.0
+                }
+            },
+            "headerfiles": [
+                "TPy_project/problems_base/971/prot0/head"
+            ],
+            "footerfiles": [
+                "TPy_project/problems_base/971/prot0/foot"
+            ],
+            "ext": ".py"
+        }
+    }
+}
