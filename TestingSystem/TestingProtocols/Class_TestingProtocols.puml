@@ -156,7 +156,7 @@ class InputOutput {
 
 class InputCustomChecker {
     -set input_paths_set
-    -Path path_to_checker_exec
+    -Path path_to_checker_exec_rel
 
     +void __init__(...)
     -bool verify(self, scope)
@@ -165,8 +165,8 @@ class InputCustomChecker {
 
 class RandomInputCustomChecker {
     -int test_count
-    -Path path_to_input_generation_exec
-    -Path path_to_checker_exec
+    -Path path_to_input_generation_exec_rel
+    -Path path_to_checker_exec_rel
 
 
     +void __init__(...)

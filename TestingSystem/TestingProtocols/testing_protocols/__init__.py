@@ -299,12 +299,12 @@ class InputCustomChecker(TestingProtocol):
         super().__init__(**kwargs)
 
         self.input_paths_set = input_paths_set
-        self.path_to_checker_exec = path_to_checker_exec
+        self.path_to_checker_exec_rel = os.path.relpath(path_to_checker_exec)
 
     def run_custom_checker(self, path_to_input_file, path_to_solution_output):
         subprocess.run(['sudo', 'chmod', '777', os.path.dirname(path_to_input_file)])
         subprocess.run(['sudo', 'chmod', '777', path_to_solution_output])
-        subprocess.run(['sudo', 'chmod', '777', self.path_to_checker_exec])
+        subprocess.run(['sudo', 'chmod', '777', self.path_to_checker_exec_rel])
 
         process = subprocess.run(['sudo', '-u', 'nobody',
 
@@ -313,7 +313,7 @@ class InputCustomChecker(TestingProtocol):
                                   '-m', str(TestingProtocol.HELPER_MEMORY_LIMIT_MEGABYTES * 1024),
                                   '--confess',
 
-                                  self.path_to_checker_exec, path_to_input_file, path_to_solution_output],
+                                  self.path_to_checker_exec_rel, path_to_input_file, path_to_solution_output],
                                  stdout=subprocess.PIPE)
         return process.returncode, process.stdout.decode() == "1"
 
@@ -339,8 +339,8 @@ class RandomInputCustomChecker(TestingProtocol):
         super().__init__(**kwargs)
 
         self.test_count = test_count
-        self.path_to_input_generation_exec = path_to_input_generation_exec
-        self.path_to_checker_exec = path_to_checker_exec
+        self.path_to_input_generation_exec_rel = os.path.relpath(path_to_input_generation_exec)
+        self.path_to_checker_exec_rel = os.path.relpath(path_to_checker_exec)
         subprocess.run(['sudo', 'chmod', '777', path_to_checker_exec])
         subprocess.run(['sudo', 'chmod', '777', path_to_input_generation_exec])
 
@@ -375,7 +375,7 @@ class RandomInputCustomChecker(TestingProtocol):
 
             deterministic_protocol = InputCustomChecker(
                 input_paths_set=random_input_paths_set,
-                path_to_checker_exec=self.path_to_checker_exec,
+                path_to_checker_exec=self.path_to_checker_exec_rel,
                 execution_and_conversion_data_set={execution_and_conversion_data},
             )
 
@@ -389,7 +389,7 @@ class RandomInputCustomChecker(TestingProtocol):
                                '-m', str(TestingProtocol.HELPER_MEMORY_LIMIT_MEGABYTES * 1024),
                                '--confess',
 
-                               self.path_to_input_generation_exec], stdout=storage).returncode
+                               self.path_to_input_generation_exec_rel], stdout=storage).returncode
 
 
 class LimitedWorkSpace(TestingProtocol):
