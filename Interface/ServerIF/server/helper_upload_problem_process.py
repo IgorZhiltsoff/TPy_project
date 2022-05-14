@@ -2,6 +2,7 @@ import os.path
 import tempfile
 import werkzeug.datastructures
 import contextlib
+import re
 from helper import pass_input_to_wizard_general
 
 # ===================================================== MASTER =========================================================
@@ -11,7 +12,7 @@ def process_problem(form: werkzeug.datastructures.MultiDict,
                     files: werkzeug.datastructures.MultiDict):
     with tempfile.TemporaryDirectory() as tmp_dir:
         with file_to_pass(form, files, tmp_dir) as to_pass:
-            pass_input_to_problem_upload_wizard(to_pass)
+            return pass_input_to_problem_upload_wizard(to_pass)
 
 
 @contextlib.contextmanager
@@ -40,11 +41,14 @@ def call_correspondent_passer(scheme, to_pass, files, tmp_dir):
 
 
 def pass_input_to_problem_upload_wizard(to_pass):
-    return pass_input_to_wizard_general(
+    out = pass_input_to_wizard_general(
         path_to_wizard='../../CmdLineIF/UploadProblemAsTeacher/run.sh',
         file_obj_to_pass=to_pass,
         args=[]
-    )
+    ).stdout.decode().split('\n')
+    wizard_version = out[0]
+    problem_id = out[1][5:-3]  # todo smarter trimming
+    return f'<html><p>{wizard_version}</p><p>Problem received id: {problem_id}</p></html>'
 
 # ==================================================== SUBPARTS ========================================================
 
@@ -69,11 +73,6 @@ def specify_general_protocol_data(form, to_pass):
 
 
 def pass_execution_and_conversion_data(form, to_pass):
-    def lang_to_representation(lang):
-        if 'C++' in lang:
-            return f"1\n{''.join(filter(lambda x: x.isdigit(), lang))}"
-        elif lang == 'Python3.10':
-            return "2"
     to_pass.writeln(form['lang_repr'])
     to_pass.writeln(form['conversion_opts'])
     to_pass.writeln(form['command_line_opts'])
@@ -101,8 +100,8 @@ def pass_randcust_data(to_pass, files, tmp_dir):
 
 
 def pass_lws_data(to_pass, files, tmp_dir):
-    pass_single_file(to_pass, files, tmp_dir, 'header')
-    pass_single_file(to_pass, files, tmp_dir, 'footer')
+    pass_single_file(to_pass, files, tmp_dir, 'head')
+    pass_single_file(to_pass, files, tmp_dir, 'foot')
 
 # ======================================= SUBPARTS FOR SPECIFIC ========================================================
 
