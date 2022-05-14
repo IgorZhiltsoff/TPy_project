@@ -295,10 +295,10 @@ class InputCustomChecker(TestingProtocol):
     """Testing protocol which passes given input to submission and then validates the output running custom code
        Might come in handy in problems with multiple answer"""
 
-    def __init__(self, input_paths_set, path_to_checker_exec, **kwargs):
+    def __init__(self, input_paths_set, path_to_checker_exec, make_paths_relative=True, **kwargs):
         super().__init__(**kwargs)
 
-        self.input_paths_set = set(map(os.path.relpath, input_paths_set))
+        self.input_paths_set = set(map(os.path.relpath, input_paths_set)) if make_paths_relative else input_paths_set
         self.path_to_checker_exec_rel = os.path.relpath(path_to_checker_exec)
 
     def run_custom_checker(self, path_to_input_file, path_to_solution_output):
@@ -343,8 +343,8 @@ class RandomInputCustomChecker(TestingProtocol):
         self.test_count = test_count
         self.path_to_input_generation_exec_rel = os.path.relpath(path_to_input_generation_exec)
         self.path_to_checker_exec_rel = os.path.relpath(path_to_checker_exec)
-        subprocess.run(['sudo', 'chmod', '777', path_to_checker_exec])
         subprocess.run(['sudo', 'chmod', '777', path_to_input_generation_exec])
+        subprocess.run(['sudo', 'chmod', '777', path_to_checker_exec])
 
     def generate_input(self, path_to_input_dir):
         input_paths_set = set()
@@ -352,7 +352,6 @@ class RandomInputCustomChecker(TestingProtocol):
             path_to_storage = path_to_input_dir / f'{test}.in'  # no need to check collision as placed in fresh dir
             path_to_storage.touch()
             with open(path_to_storage, 'w') as storage:
-                return_code = -1
                 attempts_left = TestingProtocol.HELPER_ATTEMPTS_LIMIT
                 while attempts_left > 0:
                     return_code = self.run_random_input_generator(storage=storage)
@@ -379,6 +378,7 @@ class RandomInputCustomChecker(TestingProtocol):
                 input_paths_set=random_input_paths_set,
                 path_to_checker_exec=self.path_to_checker_exec_rel,
                 execution_and_conversion_data_set={execution_and_conversion_data},
+                make_paths_relative=False
             )
 
             return deterministic_protocol.check(user_submitted_data=user_submitted_data)

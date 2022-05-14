@@ -158,7 +158,7 @@ class InputCustomChecker {
     -set input_paths_set
     -Path path_to_checker_exec_rel
 
-    +void __init__(...)
+    +void __init__(self, input_paths_set, path_to_checker_exec, make_paths_relative=True, **kwargs)
     -bool verify(self, scope)
     -int run_custom_checker(self, path_to_input_file, path_to_solution_output)
 }
