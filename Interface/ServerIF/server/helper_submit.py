@@ -1,9 +1,10 @@
+import flask
 import contextlib
 import os
 import tempfile
 from submission_wizard import label_to_submission_wizard_lang_code
 from language_support import LanguageLabel
-from helper import pass_input_to_wizard_general
+from helper import pass_input_to_wizard_general, get_back_to_main_page_html_string_standard_text
 
 
 def process_submission(submission_file_storage, problem_id, lang):
@@ -14,7 +15,11 @@ def process_submission(submission_file_storage, problem_id, lang):
                 path_to_submission_file=path_to_submission_file,
                 problem_id=problem_id,
                 lang_label=lang_label) as to_pass:
-            return pass_input_to_submission_wizard(to_pass)
+            return flask.render_template(
+                'upload_problem_templates/form_components/wizard_output/submission_wizard.html',
+                verdict=pass_input_to_submission_wizard(to_pass),
+                back_link_html_string=get_back_to_main_page_html_string_standard_text()
+            )
 
 
 def pass_input_to_submission_wizard(to_pass):

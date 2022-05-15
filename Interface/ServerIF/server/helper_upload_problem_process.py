@@ -1,8 +1,9 @@
+import flask
 import os.path
 import tempfile
 import werkzeug.datastructures
 import contextlib
-from helper import pass_input_to_wizard_general
+from helper import pass_input_to_wizard_general, get_back_to_main_page_html_string_standard_text
 
 # ===================================================== MASTER =========================================================
 
@@ -49,9 +50,14 @@ def pass_input_to_problem_upload_wizard(to_pass):
         file_obj_to_pass=to_pass,
         args=[]
     ).stdout.decode().split('\n')
-    wizard_version = out[0]
+    you_are_running_wizard_version = out[0]
     problem_id = out[1][5:-3]  # todo smarter trimming
-    return f'<html><p>{wizard_version}</p><p>Problem received id: {problem_id}</p></html>'
+    return flask.render_template(
+        'upload_problem_templates/form_components/wizard_output/problem_upload_wizard.html',
+        you_are_running_wizard_version=you_are_running_wizard_version,
+        problem_id=problem_id,
+        back_link_html_string=get_back_to_main_page_html_string_standard_text()
+    )
 
 # ==================================================== SUBPARTS ========================================================
 
