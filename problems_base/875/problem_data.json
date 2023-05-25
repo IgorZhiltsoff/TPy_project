@@ -1,0 +1,35 @@
+{
+    "uploaded_by_wizard_version": "1.0.0",
+    "name": "sample_inout_py",
+    "statement file extension": ".pdf",
+    "path to statement": "TPy_project/problems_base/875/statement.pdf",
+    "protocols": {
+        "0": {
+            "test_count": 3,
+            "scheme": "inout",
+            "execution_and_conversion_data_set": {
+                "0": {
+                    "programming_language_data": "python_data.python3_data",
+                    "conversion options": [
+                        "aaa"
+                    ],
+                    "command line options": [
+                        "bbb"
+                    ],
+                    "time limit": 2.0,
+                    "memory limit": 128.0
+                }
+            },
+            "infiles": [
+                "TPy_project/problems_base/875/prot0/0.in",
+                "TPy_project/problems_base/875/prot0/1.in",
+                "TPy_project/problems_base/875/prot0/2.in"
+            ],
+            "outfiles": [
+                "TPy_project/problems_base/875/prot0/0.out",
+                "TPy_project/problems_base/875/prot0/1.out",
+                "TPy_project/problems_base/875/prot0/2.out"
+            ]
+        }
+    }
+}

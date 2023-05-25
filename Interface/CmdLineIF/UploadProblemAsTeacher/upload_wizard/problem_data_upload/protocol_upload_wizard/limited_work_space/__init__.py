@@ -9,11 +9,11 @@ def upload_specific_protocol(path_to_protocol_dir, key_seq_to_current_dict, cust
 
 
 def upload_header(path_to_protocol_dir, key_seq_to_current_dict, custodian):
-    upload_single_file('header', path_to_protocol_dir, key_seq_to_current_dict, custodian)
+    upload_single_file('head', path_to_protocol_dir, key_seq_to_current_dict, custodian)
 
 
 def upload_footer(path_to_protocol_dir, key_seq_to_current_dict, custodian):
-    upload_single_file('footer', path_to_protocol_dir, key_seq_to_current_dict, custodian)
+    upload_single_file('foot', path_to_protocol_dir, key_seq_to_current_dict, custodian)
 
 
 def upload_extension(key_seq_to_current_dict, custodian):

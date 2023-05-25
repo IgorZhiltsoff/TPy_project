@@ -1,4 +1,4 @@
 setup:
 
 run:
-	./run.sh
+	./run.sh 0

@@ -2,7 +2,7 @@ import UploadProblemAsTeacher.upload_wizard.problem_data_upload.protocol_upload_
 import UploadProblemAsTeacher.upload_wizard.problem_data_upload.protocol_upload_wizard.in_custom
 import UploadProblemAsTeacher.upload_wizard.problem_data_upload.protocol_upload_wizard.rand_custom
 import UploadProblemAsTeacher.upload_wizard.problem_data_upload.protocol_upload_wizard.limited_work_space
-from UploadProblemAsTeacher.upload_wizard.aux import create_dir
+from UploadProblemAsTeacher.upload_wizard.helper import create_dir
 
 
 def upload_protocol(path_to_dir, protocol_number, custodian, verbose):
@@ -11,28 +11,11 @@ def upload_protocol(path_to_dir, protocol_number, custodian, verbose):
     path_to_protocol_dir = create_dir(f'{path_to_dir}/prot{protocol_number}')
 
     # INTERACT
-    upload_programming_language_data(key_seq_to_current_dict, custodian)
     scheme = choose_protocol_scheme(key_seq_to_current_dict, custodian, verbose)
-    for opts_type in ['conversion options', 'command line options']:
-        upload_opts(opts_type, key_seq_to_current_dict, custodian)
+    upload_execution_and_conversion_data(key_seq_to_current_dict, custodian)
 
     # HAND OVER CONTROL
     eval(f'{scheme}.upload_specific_protocol')(path_to_protocol_dir, key_seq_to_current_dict, custodian)
-
-
-def upload_programming_language_data(key_seq_to_current_dict, custodian):
-    language_code = input("""Choose one of 2 supported languages:
-    Type 1 for C++
-    Type 2 for Python3
-    """)
-
-    if language_code == '1':
-        std = input("Specify C++ standard (available: 11, 14, 17, 20): ")
-        programming_language_data = f'cxx_data.cxx{std}_data'
-    else:
-        programming_language_data = 'python_data.python3_data'
-
-    custodian.nested_fill_in(key_seq_to_current_dict + ('programming_language_data', ), programming_language_data)
 
 
 def choose_protocol_scheme(key_seq_to_current_dict, custodian, verbose):
@@ -72,6 +55,50 @@ Input 1 for InputOutput,
     return scheme
 
 
-def upload_opts(opts_type, key_seq_to_current_dict, custodian):
-    opts = input(f"Input {opts_type} (leave blank to skip): ").split()
-    custodian.nested_fill_in(key_seq_to_current_dict + (opts_type, ), opts)
+def upload_execution_and_conversion_data(key_seq_to_current_dict, custodian):
+    supported_languages_count = int(input("Each protocol can support multiple programming languages."
+                                          "Specify the number of languages supported by this protocol: "))
+
+    for language_idx in range(supported_languages_count):
+        key_seq_to_current_execution_and_conversion_data \
+            = key_seq_to_current_dict + ("execution_and_conversion_data_set", str(language_idx))
+        upload_programming_language_data(key_seq_to_current_execution_and_conversion_data, custodian)
+        upload_opts(key_seq_to_current_execution_and_conversion_data, custodian)
+        upload_limits(
+            key_seq_to_current_dict=key_seq_to_current_execution_and_conversion_data,
+            custodian=custodian,
+        )
+
+
+def upload_programming_language_data(key_seq_to_current_dict, custodian):  # todo lang codes from general data
+    language_code = input("""Choose one of 2 supported languages: 
+    Type 1.1 for C++11
+    Type 1.2 for C++14
+    Type 1.3 for C++17
+    Type 1.4 for C++20
+    Type 2 for Python3
+    """)
+
+    language_code_to_programming_language_data = {  # todo general data
+        '1.1': 'cxx_data.cxx11_data',
+        '1.2': 'cxx_data.cxx14_data',
+        '1.3': 'cxx_data.cxx17_data',
+        '1.4': 'cxx_data.cxx20_data',
+        '2': 'python_data.python3_data'
+    }
+
+    programming_language_data = language_code_to_programming_language_data[language_code]
+
+    custodian.nested_fill_in(key_seq_to_current_dict + ('programming_language_data', ), programming_language_data)
+
+
+def upload_opts(key_seq_to_current_dict, custodian):
+    for opts_type in ['conversion options', 'command line options']:
+        opts = input(f"Input {opts_type} (leave blank to skip): ").split()
+        custodian.nested_fill_in(key_seq_to_current_dict + (opts_type, ), opts)
+
+
+def upload_limits(key_seq_to_current_dict, custodian):
+    for limit_type, unit, max_val in [('time limit', 'seconds', 20.0), ('memory limit', '10^6 bytes (MB)', 1000.0)]:
+        limit = max(max_val, float(input(f'Input {limit_type} (unit: {unit}) (upto {max_val} {unit}): ')))
+        custodian.nested_fill_in(key_seq_to_current_dict + (limit_type, ), limit)

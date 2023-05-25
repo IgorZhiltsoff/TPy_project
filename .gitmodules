@@ -1,0 +1,3 @@
+[submodule "TestingSystem/TestingProtocols/TestingSystem/TestingProtocols/timeout"]
+	path = TestingSystem/TestingProtocols/TestingSystem/TestingProtocols/timeout
+	url = https://github.com/pshved/timeout

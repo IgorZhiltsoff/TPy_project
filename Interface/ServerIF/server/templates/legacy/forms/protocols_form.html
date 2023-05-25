@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Protocols Form</title>
+</head>
+<body>
+{{% for protocol_upload_html, execution_and_conversion_data_upload_html in html_list %}}
+    {{protocol_upload_html|safe}}
+    {{execution_and_conversion_data_upload_html|safe}}
+{{% endfor %}}
+<p><input type="submit" value="Upload Protocols" name="mode"/></p>
+</body>
+</html>

@@ -1,0 +1,210 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+skinparam enum {
+    BackGroundColor Aqua
+}
+
+' ============================ AUX ============================
+
+enum VerdictMessage {
+    AC
+    WA
+    CE
+    RE
+    TL
+    ML
+    SKIP
+    ABORT
+}
+
+class ResourceConsumption {
+    +float time_elapsed_milliseconds
+    +float memory_consumption_kilobytes
+
+    +void __init__(...)
+}
+
+class Verdict {
+    +str msg
+    +int test_number
+    +float avg_time_elapsed
+    +float avg_memory_consumption_kilobytes
+    +float avg_memory_consumption_megabytes
+
+    +void __init__(...)
+}
+
+note left of Verdict::__init__
+Here and further,
+_ _init_ _'s signature
+will be omitted
+as it matches
+non-static attributes
+end note
+note left of Verdict::avg_memory_consumption_megabytes
+calculated dynamically from
+avg_memory_consumption_kilobytes
+end note
+
+Verdict "*" <-- "1 msg" VerdictMessage
+
+class UserSubmittedData {
+    +Path path_to_src
+    +int submission_id
+
+    +void __init__(...)
+}
+
+
+enum LanguageLabel {
+    CXX
+    CXX11
+    CXX14
+    CXX17
+    CXX20
+
+    PYTHON3
+
+    HASKELL2010
+
+    JAVA
+    SCALA
+}
+
+class LanguageLabelHolder {
+    +bool is_super_label_of(LanguageLabelHolder)
+}
+
+LanguageLabelHolder "*" <-- "1 label" LanguageLabel
+LanguageLabelHolder <|-- UserSubmittedData
+
+
+
+class LanguageData {
+    +void __init__(...)
+    +int convert_to_executable(path_to_src, non_colliding_exec_name, conversion_opts)
+    +bool is_compatible_with(user_submitted_data)
+}
+LanguageLabelHolder <|--- LanguageData
+
+class CXXDataSet
+
+CXXDataSet "1" <-- "+1..*" LanguageData
+
+class HaskellDataSet
+
+HaskellDataSet "1" <-- "+1..*" LanguageData
+
+class PythonDataSet
+
+PythonDataSet "1" <-- "+1..*" LanguageData
+
+class JavaDataSet
+
+JavaDataSet "1" <-- "+1..*" LanguageData
+
+class ScalaDataSet
+
+ScalaDataSet "1" <-- "+1..*" LanguageData
+
+
+class ExecutionAndConversionData {
+    +list conversion_opts_lst
+    +list command_line_opts_lst
+
+    +float time_limit_seconds
+    +float memory_limit_megabytes
+
+    +void __init__(...)
+}
+
+ExecutionAndConversionData "*" <--- "1 language_data" LanguageData
+TestingProtocols "*" <---- "-1..* execution_and_conversion_data_set" ExecutionAndConversionData
+
+' ========================== PROTOCOLS =========================
+
+abstract class TestingProtocols {
+    #{static} float HELPER_TIME_LIMIT_SECOABORTNDS
+    #{static} float HELPER_MEMORY_LIMIT_MEGABYTES
+    #{static} int HELPER_ATTEMPTS_LIMIT
+    #{static} Path path_to_timeout
+
+    +void __init__(...)
+    +Verdict check(self, user_submitted_data)
+    -ExecutionAndConversionData choose_language_data(self, user_submitted_data)
+    -{abstract} Verdict check_with_chosen_language_data(self, user_submitted_data)
+    -(int, bool) verify(self, scope)
+    -{static} auto executable_file()
+    -Verdict basic_check_with_chosen_language_data(self, user_submitted_data, execution_and_conversion_data, attr_to_iterate_over)
+    -{static} (int, ResourceConsumption) run_code(path_to_executable, path_to_input_file, path_to_output_file, command_line_opts))
+    -{static} ResourceConsumption parse_timeout_stderr(stderr_encoded)
+    -{static} Verdict deduce_negative_verdict(resource_consumption, time_limit_seconds, memory_limit_megabytes, test_number, avg_time_elapsed, avg_memory_consumption_kilobytes)
+}
+note left of TestingProtocols::executable_file
+context manager
+end note
+
+class InputOutput {
+    -dict input_output_paths_dict
+
+    +void __init__(...)
+    -bool verify(self, scope)
+    -{static} bool equal_files(path_to_solution_output, path_to_correct_output)
+    -{static} void truncate_terminating_newline_if_necessary(path_to_file)
+}
+
+class InputCustomChecker {
+    -set input_paths_set
+    -Path path_to_checker_exec_rel
+
+    +void __init__(self, input_paths_set, path_to_checker_exec, make_paths_relative=True, **kwargs)
+    -bool verify(self, scope)
+    -int run_custom_checker(self, path_to_input_file, path_to_solution_output)
+}
+
+class RandomInputCustomChecker {
+    -int test_count
+    -Path path_to_input_generation_exec_rel
+    -Path path_to_checker_exec_rel
+
+
+    +void __init__(...)
+    -set generate_input(self, path_to_input_dir)
+    -int run_random_input_generator(self, infile)
+}
+
+class LimitedWorkSpace {
+    -Path path_to_header
+    -Path path_to_footer
+    -str extension
+
+    +void __init__(...)
+    -{static} ... unit_file()
+    -... merged_file(self, user_submitted_data)
+}
+note left of LimitedWorkSpace::unit_file
+context manager
+end note
+note left of LimitedWorkSpace::merged_file
+context manager
+end note
+
+TestingProtocols <|--- InputCustomChecker
+TestingProtocols <|--- RandomInputCustomChecker
+TestingProtocols <|--- LimitedWorkSpace
+TestingProtocols <|--- InputOutput
+
+
+' ============================ HELPER ============================
+
+class ProblemData {
+    +int problem_id
+    +set testing_protocols_set
+
+    +void __init__(...)
+}
+
+ProblemData "1" <-- "testing_protocols_set 1..*" TestingProtocols
+
+@enduml

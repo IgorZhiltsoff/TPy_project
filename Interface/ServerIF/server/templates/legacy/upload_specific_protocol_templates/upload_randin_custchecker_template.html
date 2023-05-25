@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{semantics}}</title>
+</head>
+<body>
+<h2>Upload {{semantics}} <b>executable</b></h2>
+    It's <b>HIGHLY</b> recommended to meet the following requirements:
+    <ul>
+        <li>The {{semantics}} should be an <b>executable!</b>
+            If it is written in, say, Python3, it should have a shebang at its top.
+            The interpreters are guaranteed to be stored in <b>/bin</b>, thus all the shebangs should match <b>#!/bin/interpreter</b>.
+            Supported interpreters include:
+            <ul>
+                <li>python3</li>
+                <li>sh, bash, zsh</li>
+                <li>perl</li>
+            </ul>
+            If you want to use some exotic interpreted language not listed above
+            which just does not support compilation, you may still TRY to submit it and hope that an according
+            interpreter is present among the <b>{{bin_dir_file_count}}</b> files in our <b>/bin</b> directory
+        </li>
+        <li>When running, {{semantics}} should not take up more than:
+            <ul>
+                <li>{{time_limit}} seconds</li>
+                <li>{{memory_limit_megabytes}} * 2<sup>20</sup> bytes (megabytes) </li>
+            </ul>
+        </li>
+    </ul>
+<p>
+    Upon violation of the points above, the system will terminate testing and return a special type of verdict
+</p>
+
+<h3>Ok, now let us take a closer look at that {{semantics}}...</h3>
+<form action="upload_problem" method="POST" enctype="multipart/form-data">
+    <input type="file" name="{{semantics}}">
+    <p>
+        <input type="submit" name="mode" value="Upload {{semantics}}"/>
+    </p>
+</form>
+</body>
+</html>

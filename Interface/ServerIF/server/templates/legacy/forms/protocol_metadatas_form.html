@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Protocol Metadatas Form</title>
+</head>
+<body>
+{% for protocol_metadata_upload_html in protocol_metadata_upload_html_list %}
+    {{protocol_metadata_upload_html|safe}}
+{% endfor %}
+<p><input type="submit" value="Specify Protocol Metadatas" name="mode"/></p>
+</body>
+</html>

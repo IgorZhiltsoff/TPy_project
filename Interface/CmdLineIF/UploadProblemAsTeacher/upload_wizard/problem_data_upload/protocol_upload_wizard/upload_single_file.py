@@ -1,4 +1,4 @@
-from UploadProblemAsTeacher.upload_wizard.aux import copy_file, get_path_suffix
+from UploadProblemAsTeacher.upload_wizard.helper import copy_file, get_path_suffix
 
 
 def upload_single_file(semantics, path_to_protocol_dir, key_seq_to_current_dict, custodian):
@@ -8,4 +8,4 @@ def upload_single_file(semantics, path_to_protocol_dir, key_seq_to_current_dict,
     copy_file(file_src, file_dest)
 
     suffix = get_path_suffix(file_dest)
-    custodian.nested_append(key_seq_to_current_dict + (f'{semantics}files',), suffix)
+    custodian.nested_fill_in(key_seq_to_current_dict + (f'{semantics}',), suffix)
