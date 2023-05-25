@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{semantics}}files</title>
+</head>
+<body>
+<h2>Upload files with {{semantics}}put</h2>
+<p>
+    It's <b>HIGHLY</b> recommended to meet the following requirements:
+</p>
+    <ul>
+        <li>Files should be named <b>#.{{semantics}}</b> where <b>#</b> is an <b>integer</b> denoting a test index</li>
+        <li><span>&#8704;</span> <b>A < B < C</b>: <b>A.{{semantics}}</b> and <b>C.{{semantics}}</b> were submitted <span>&#8594;</span> <b>B.{{semantics}}</b> was submitted</li>
+        <li><span>&#8704;</span> <b>A <span>&#8804;</span> 0</b>: <b>A.{{semantics}}</b> was submitted <span>&#8594;</span> <b>A = 0</b></li>
+        <li><b>0.{{semantics}}</b> was submitted</li>
+    </ul>
+<p>
+    If those requirements are not met, <b>the behaviour is undefined!</b>
+</p>
+
+<h3>All right, now submit these {{semantics}}files, will you!</h3>
+<form action="upload_problem" method="POST" enctype="multipart/form-data">
+    <input type="file" name="{{semantics}}files" multiple>
+    <p>
+        <input type="submit" name="mode" value="Upload {{semantics}}files"/>
+    </p>
+</form>
+</body>
+</html>
+
+
+
+

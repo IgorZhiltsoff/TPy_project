@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Problem Metadata</title>
+    <!-- No Jinja arguments -->
+    <!-- todo export supported extension from general data -->
+</head>
+<body>
+<h1>Let's See What You've Got: Upload Problem</h1>
+    <p>
+        <label>
+            Give your problem a clear and concise name: <input placeholder="NAME" name="name"/>
+        </label>
+    </p><p>
+        <label>
+            Upload file with statement (supported formats: .txt, .md, .pdf): <input type="file" name="statement"/>
+        </label>
+    </p><p>
+        <label>
+            Specify extension (with a dot): <input placeholder="STATEMENT FILE EXTENSION, MATCHING REGEX \.(md|txt|pdf)" name="ext" size="50"/>
+        </label>
+    </p>
+</body>
+</html>

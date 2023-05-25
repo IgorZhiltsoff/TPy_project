@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{semantics}}</title>
+    <! –– Jinja arguments: semantics, bin_dir_file_count, time_limit, memory_limit_megabytes ––>
+</head>
+<body>
+<h2>Upload {{semantics}} <b>executable</b></h2>
+    It's <b>HIGHLY</b> recommended to meet the following requirements:
+    <ul>
+        {% if "custom checker" in semantics %}
+        <li>The custom checker will be invoked as <b><code>cust PATH_TO_INPUT_FILE PATH_TO_FILE_WITH_SOLUTION_OUTPUT</code></b> and will be given <b>NO STANDARD INPUT!</b>
+            <br/>It should print <b><code>1</code></b> to standard output if the solution output correct data and <b><code>0</code></b> otherwise</li>
+        {% endif %}
+        {% if "random input generator in semantics" %}
+        <li>The random input generator will be invoked as <b><code>rand</code></b> and will be given <b>NO STANDARD INPUT!</b>
+            <br/>It should print random input to standard output
+            <br/><b>MIND DETERMINISTIC RANDOM BIT GENERATORS LIKE <code>rand</code> FROM <code>C's</code> <code>stdlib.h</code>. THEY ARE NOT GOING TO BE GIVEN NEW SEEDS AND THUS WILL GENERATE SAME INPUT OVER AND OVER AGAIN</b></li>
+        {% endif %}
+        <li>The {{semantics}} should be an <b>executable!</b>
+            If it is written in, say, Python3, it should have a shebang at its top.
+            The interpreters are guaranteed to be stored in <b>/bin</b>, thus all the shebangs should match <b>#!/bin/interpreter</b>.
+            Supported interpreters include:
+            <ul>
+                <li>python3</li>
+                <li>sh, bash, zsh</li>
+                <li>perl</li>
+            </ul>
+            If you want to use some exotic interpreted language not listed above
+            which just does not support compilation, you may still TRY to submit it and hope that an according
+            interpreter is present among the <b>{{bin_dir_file_count}}</b> files in our <b>/bin</b> directory
+        </li>
+        <li>When running, {{semantics}} should not take up more than:
+            <ul>
+                <li>{{time_limit}} seconds</li>
+                <li>{{memory_limit_megabytes}} * 10<sup>6</sup> bytes (megabytes) </li>
+            </ul>
+        </li>
+    </ul>
+<p>
+    Upon violation of the points above, the system will terminate testing and return a special type of verdict
+</p>
+</body>
+</html>

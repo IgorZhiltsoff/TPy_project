@@ -1,0 +1,24 @@
+{
+    "name": "heheproblem",
+    "statement file extension": ".pdf",
+    "path to statement": "TPy_project/problems_base/559/statement.pdf",
+    "protocols": {
+        "0": {
+            "programming_language_data": "python_data.python3_data",
+            "test_count": 1,
+            "scheme": "inout",
+            "conversion options": [
+                "a"
+            ],
+            "command line options": [
+                "b"
+            ],
+            "infiles": [
+                "TPy_project/problems_base/559/prot0/1.in"
+            ],
+            "outfiles": [
+                "TPy_project/problems_base/559/prot0/1.out"
+            ]
+        }
+    }
+}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Problem Metadata</title>
+</head>
+<body>
+<h1>Let's See What You've Got: Upload Problem</h1>
+<form action="upload_problem" method="POST" enctype="multipart/form-data">
+    <p>
+        <label>
+            <input placeholder="NAME" name="name"/>
+        </label>
+    </p><p>
+        <label>
+            <input type="file" name="statement"/>
+            <input placeholder="STATEMENT FILE EXTENSION, MATCHING REGEX \.(md|txt|pdf)" name="ext" size="50"/>
+        </label>
+    </p><p>
+        <label>
+            <input type="number" placeholder="PROTOCOLS COUNT" name="protocols_cnt"/>
+        </label>
+    </p>
+    <input type="submit" value="Initiate Problem Upload" name="mode"/>
+</form>
+{{back_link_html_string|safe}}
+</body>
+</html>

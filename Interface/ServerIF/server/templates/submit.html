@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Submit</title>
+</head>
+<body>
+<h1>Submit!</h1>
+<form action="submit" method="POST" enctype="multipart/form-data">
+    <p>
+        <label>
+            <input placeholder="PROBLEM ID" name="problem_id"/>
+        </label>
+        <label for="lang"></label><select name="lang" id="lang">
+            <option value="" disabled selected>PROGRAMMING LANG</option>
+            <option value="LanguageLabel.PYTHON3">Python3.10</option>
+            <option value="LanguageLabel.CXX11">C++11</option>
+            <option value="LanguageLabel.CXX14">C++14</option>
+            <option value="LanguageLabel.CXX17">C++17</option>
+            <option value="LanguageLabel.CXX20">C++20</option>
+            <option value="LanguageLabel.HASKELL2010">Haskell GHC</option>
+            <option value="LanguageLabel.JAVA">Java</option>
+            <option value="LanguageLabel.SCALA">Scala</option>
+        </select>
+        <input type="file" name="submission"/>
+    </p>
+    <input type="submit" name="mode"/>
+</form>
+{{back_link_html_string|safe}}
+</body>
+</html>

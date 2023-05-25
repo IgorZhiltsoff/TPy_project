@@ -1,0 +1,48 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+
+'GENERAL
+skinparam actorstyle hollow
+Teacher --> (Upload problem)
+
+'PROTOCOLS
+(Choose protocol scheme) as (Prot)
+(Upload problem) ..> (Assemble ProblemData)
+(Upload problem) ..> (Upload statement)
+(Assemble ProblemData) ..> (Prot)
+
+(InputOutput chosen) as (IO)
+    (IO) ..> (Upload input files)
+    (IO) ..> (Upload correct output files)
+
+
+(InputCustomChecker chosen) as (ICC)
+    (ICC) ..> (Upload input files)
+    (ICC) ..>(Upload custom checker)
+
+
+(RandomInputCustomChecker chosen) as (RICC)
+    (RICC) ..> (Upload input generator)
+    (RICC) ..> (Upload custom checker)
+
+
+(LimitedWorkSpace chosen) as (LWS)
+    (LWS) ..> (Upload header)
+    (LWS) ..> (Upload footer)
+
+
+(Prot) ..> (IO)
+(Prot) ..> (ICC)
+(Prot) ..> (RICC)
+(Prot) ..> (LWS)
+
+'LANGUAGE
+(Specify programming language) as (Lang)
+(Assemble ProblemData) ..> (Lang)
+
+(Lang) ..> (Specify command line options) : <<extend>>
+(Lang) ..> (Specify source conversion to an executable options) : <<extend>>
+
+
+@enduml

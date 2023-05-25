@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Specify execution and conversion data</title>
+    <!-- Jinja arguments: max_time_limit, max_memory_limit_megabytes -->
+    <!-- todo lang representation from general data! -->
+</head>
+<body>
+    <h2>Specify Execution & Conversion Data</h2>
+        <label for="lang">
+            Programming language:
+            <select name="lang_repr" id="lang">
+                <option value="" disabled selected>PROGRAMMING LANG</option>
+                <option value="1.1">C++11</option>
+                <option value="1.2">C++14</option>
+                <option value="1.3">C++17</option>
+                <option value="1.4">C++20</option>
+                <option value="2">Python3.10</option>
+                <option value="...">Haskell GHC</option>
+                <option value="...">Java</option>
+                <option value="...">Scala</option>
+            </select>
+        </label>
+        <p><label>
+            Conversion options (use whitespace as separator, mind single and double dashes): <input placeholder="CONVERSION OPTS" name="conversion_opts"/>
+        </label></p>
+        <p><label>
+            Command line options ("): <input placeholder="CMD LINE OPTS" name="command_line_opts"/>
+        </label></p>
+        <p><label>
+            Time limit (upto {{max_time_limit}} seconds): <input type="number" min=0 max={{max_time_limit}} step=0.5 placeholder="1.5" name="time_limit"/> seconds
+        </label></p>
+        <p><label>
+            Memory limit (upto {{max_memory_limit_megabytes}} * 10<sup>6</sup> bytes): <input type="number" min=0 max={{max_memory_limit_megabytes}} step=0.5 placeholder="256" name="memory_limit_megabytes"/> * 10<sup>6</sup> bytes (megabytes)
+        </label></p>
+</body>
+</html>

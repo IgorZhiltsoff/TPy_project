@@ -1,0 +1,33 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class DataCustodian {
+    +void __init__(self, path_to_dump_dir, entity_name)
+    +{abstract} nested_get_item(self, key_sequence)
+    +{abstract} void nested_fill_in(self, key_sequence, val)
+    +{abstract} void nested_append(self, key_sequence, val)
+    +{abstract} void dump_data(self)
+
+    +void fill_in(self, key, val)
+    +void append(self, key, val)
+    +void get_item(self, key, val)
+
+    -void create_path_to_dump(self)
+}
+
+note left of DataCustodian
+Exists to prevent
+the necessity
+to implement
+adapters in case
+data interchange formats
+other than Json
+end note
+
+class JsonDataCustodian {
+    -dict gathered_data
+}
+
+DataCustodian <|-- JsonDataCustodian
+
+@enduml

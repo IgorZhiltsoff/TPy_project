@@ -1,0 +1,23 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:Initiate problem upload;
+:Upload statement;
+repeat
+:Choose programming language;
+:Choose protocol scheme;
+if (Wish to specify command line options?) then (yes)
+    :Specify command line options;
+else (no)
+endif
+if (Wish to pecify source conversion to an executable options?) then (yes)
+    :Specify command line options;
+else (no)
+endif
+:Upload protocol-specific data;
+repeat while (Add another protocol?) is (yes)
+->no;
+stop
+
+@enduml
