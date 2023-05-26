@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="663px" preserveAspectRatio="none" style="width:1884px;height:663px;background:#FFFFFF;" version="1.1" viewBox="0 0 1884 663" width="1884px" zoomAndPan="magnify"><defs><filter height="300%" id="fhz81qlxpva75" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[e64da02f5594507ded6bc1fdafafe102]
+entity Teacher--><ellipse cx="1177" cy="10.5" fill="#FEFECE" filter="url(#fhz81qlxpva75)" rx="4.5" ry="4.5" style="stroke:#A80036;stroke-width:1.5;"/><path d="M1164.5,17 L1164.5,22 L1174,22 L1174,24.2574 L1164.5,33.7574 L1168.7426,38 L1177,29.7426 L1185.2574,38 L1189.5,33.7574 L1180,24.2574 L1180,22 L1189.5,22 L1189.5,17 L1164.5,17 " fill="#FEFECE" filter="url(#fhz81qlxpva75)" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="54" x="1150" y="57.4659">Teacher</text><ellipse cx="1177.001" cy="141.3002" fill="#FEFECE" filter="url(#fhz81qlxpva75)" rx="82.001" ry="18.8002" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="109" x="1119.501" y="146.0332">Upload problem</text><ellipse cx="790.7963" cy="355.1593" fill="#FEFECE" filter="url(#fhz81qlxpva75)" rx="103.7963" ry="23.1593" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="164" x="705.7963" y="359.8922">Choose protocol scheme</text><ellipse cx="1065.9469" cy="243.9894" fill="#FEFECE" filter="url(#fhz81qlxpva75)" rx="100.4469" ry="22.4894" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="156" x="984.9469" y="248.7224">Assemble ProblemData</text><ellipse cx="1288.0897" cy="244.1179" fill="#FEFECE" filter="url(#fhz81qlxpva75)" rx="86.0897" ry="19.6179" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="120" x="1225.0897" y="248.8509">Upload statement</text><ellipse cx="253.2059" cy="501.4412" fill="#FEFECE" filter="url(#fhz81qlxpva75)" rx="92.7059" ry="20.9412" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="137" x="181.7059" y="506.1742">InputOutput chosen</text><ellipse cx="92.0897" cy="627.1179" fill="#FEFECE" filter="url(#fhz81qlxpva75)" rx="86.0897" ry="19.6179" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="120" x="29.0897" y="631.8509">Upload input files</text><ellipse cx="324.1285" cy="627.0257" fill="#FEFECE" filter="url(#fhz81qlxpva75)" rx="110.6285" ry="24.5257" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="180" x="231.1285" y="631.7587">Upload correct output files</text><ellipse cx="497.2317" cy="501.7463" fill="#FEFECE" filter="url(#fhz81qlxpva75)" rx="116.7317" ry="25.7463" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="194" x="397.2317" y="506.4793">InputCustomChecker chosen</text><ellipse cx="570.8629" cy="627.0726" fill="#FEFECE" filter="url(#fhz81qlxpva75)" rx="100.8629" ry="22.5726" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="157" x="489.3629" y="631.8056">Upload custom checker</text><ellipse cx="790.9038" cy="501.3808" fill="#FEFECE" filter="url(#fhz81qlxpva75)" rx="142.4038" ry="30.8808" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="250" x="665.9038" y="504.8127">RandomInputCustomChecker chosen</text><ellipse cx="809.1973" cy="627.2395" fill="#FEFECE" filter="url(#fhz81qlxpva75)" rx="101.6973" ry="22.7395" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="159" x="726.6973" y="631.9724">Upload input generator</text><ellipse cx="1077.9052" cy="501.681" fill="#FEFECE" filter="url(#fhz81qlxpva75)" rx="108.9052" ry="24.181" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="176" x="986.9052" y="506.414">LimitedWorkSpace chosen</text><ellipse cx="1059.7885" cy="627.1577" fill="#FEFECE" filter="url(#fhz81qlxpva75)" rx="78.7885" ry="18.1577" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="100" x="1006.7885" y="631.8907">Upload header</text><ellipse cx="1250.0473" cy="627.1095" fill="#FEFECE" filter="url(#fhz81qlxpva75)" rx="76.0473" ry="17.6095" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="92" x="1201.0473" y="631.8424">Upload footer</text><ellipse cx="1343.1833" cy="355.0367" fill="#FEFECE" filter="url(#fhz81qlxpva75)" rx="125.6833" ry="27.5367" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="214" x="1234.967" y="359.0453">Specify programming language</text><ellipse cx="1342.7742" cy="501.4548" fill="#FEFECE" filter="url(#fhz81qlxpva75)" rx="120.2742" ry="26.4548" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="202" x="1239.4786" y="505.9173">Specify command line options</text><ellipse cx="1685.7897" cy="501.2579" fill="#FEFECE" filter="url(#fhz81qlxpva75)" rx="186.7897" ry="39.7579" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="343" x="1514.2897" y="504.6899">Specify source conversion to an executable options</text><!--MD5=[2b88a22bba4243fce174c11b7e131032]
+link Teacher to Upload problem--><path d="M1177,61.7 C1177,78.87 1177,100.68 1177,117 " fill="none" id="Teacher-to-Upload problem" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="1177,122.3,1181,113.3,1177,117.3,1173,113.3,1177,122.3" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[d688dc70c9663d10727faaf7c0a5daff]
+link Upload problem to Assemble ProblemData--><path d="M1157.67,160.01 C1139.85,176.14 1113.22,200.25 1093.25,218.33 " fill="none" id="Upload problem-to-Assemble ProblemData" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="1089.35,221.86,1098.7031,218.7747,1093.0529,218.5002,1093.3274,212.85,1089.35,221.86" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[80e1585232bc785b973e48995b07d305]
+link Upload problem to Upload statement--><path d="M1196.33,160.01 C1215.2,177.09 1243.95,203.11 1264.21,221.46 " fill="none" id="Upload problem-to-Upload statement" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="1268.14,225.02,1264.1453,216.0176,1264.4306,221.6673,1258.781,221.9526,1268.14,225.02" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[af06432e3739f4e13f4f62caedbe3d16]
+link Assemble ProblemData to Prot--><path d="M1018.41,263.86 C970.01,283.05 895.14,312.72 844.66,332.73 " fill="none" id="Assemble ProblemData-to-Prot" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="839.85,334.64,849.6908,335.0375,844.4973,332.7954,846.7394,327.6018,839.85,334.64" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[50356b7b01949ba62ebdb30e0a14847c]
+link IO to Upload input files--><path d="M227.84,521.8 C198.39,544.39 149.77,581.68 119.39,604.99 " fill="none" id="IO-to-Upload input files" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="115.41,608.04,124.9869,605.7414,119.379,604.999,120.1213,599.3911,115.41,608.04" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[a3a62b9754d536fa4e16c9549e72b6c3]
+link IO to Upload correct output files--><path d="M264.41,522.34 C276.17,542.8 294.61,574.87 307.86,597.92 " fill="none" id="IO-to-Upload correct output files" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="310.44,602.41,309.4269,592.6134,307.9501,598.0741,302.4894,596.5973,310.44,602.41" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[d383c7bd5201f3280502835135f684ca]
+link ICC to Upload input files--><path d="M431.03,522.62 C351.79,546.78 220.35,586.86 146.57,609.36 " fill="none" id="ICC-to-Upload input files" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="141.35,610.95,151.1249,612.1551,146.1332,609.4936,148.7947,604.502,141.35,610.95" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[7d50a769611654ccaa99d11a60ec9360]
+link ICC to Upload custom checker--><path d="M511.62,526.9 C524.28,548.03 542.55,578.51 555.47,600.08 " fill="none" id="ICC-to-Upload custom checker" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="558.14,604.54,556.9395,594.7646,555.5675,600.2525,550.0796,598.8805,558.14,604.54" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[f3e8c8a8539061d87411c85b5038c262]
+link RICC to Upload input generator--><path d="M795.4,532.71 C798.35,552.95 802.2,579.36 805.05,598.91 " fill="none" id="RICC-to-Upload input generator" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="805.83,604.23,808.4788,594.744,805.1029,599.2831,800.5638,595.9073,805.83,604.23" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[8cca3b972c59dbda327e7ab1e050ef54]
+link RICC to Upload custom checker--><path d="M740.8,530.68 C701.72,552.62 648.17,582.68 611.73,603.14 " fill="none" id="RICC-to-Upload custom checker" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="606.93,605.83,616.7365,604.9177,611.2913,603.3848,612.8242,597.9396,606.93,605.83" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[b4847bb8536860c1b2b8568d8aeecff1]
+link LWS to Upload header--><path d="M1074.61,525.73 C1071.35,548.11 1066.45,581.73 1063.24,603.77 " fill="none" id="LWS-to-Upload header" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="1062.5,608.84,1067.7461,600.5046,1063.2151,603.8914,1059.8283,599.3604,1062.5,608.84" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[8c7fe54551e5b793cfa9b616ca3bde2e]
+link LWS to Upload footer--><path d="M1108.75,524.58 C1141.44,548.05 1192.62,584.8 1223.56,607.02 " fill="none" id="LWS-to-Upload footer" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="1227.98,610.19,1223.0237,601.6791,1223.9259,607.2636,1218.3414,608.1658,1227.98,610.19" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[29d54d7975bcb5aeca9acecbd2227076]
+link Prot to IO--><path d="M718.47,371.57 C632.86,390.49 486.52,424.48 363,461.5 C343.48,467.35 322.33,474.62 303.84,481.29 " fill="none" id="Prot-to-IO" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="298.69,483.16,308.5139,483.8603,303.3919,481.4593,305.7928,476.3373,298.69,483.16" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[55cdbeedaf13fc920070d7f54e6bf5db]
+link Prot to ICC--><path d="M749.81,376.24 C696.78,402.31 604.67,447.58 547.48,475.69 " fill="none" id="Prot-to-ICC" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="542.74,478.02,552.5818,477.6483,547.2292,475.8183,549.0591,470.4656,542.74,478.02" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[04e35884c8c485bf2eb45916a4f435d2]
+link Prot to RICC--><path d="M791,378.26 C791,401.42 791,438.01 791,465.13 " fill="none" id="Prot-to-RICC" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="791,470.42,795,461.42,791,465.42,787,461.42,791,470.42" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[5a3ca44b0bff8034c8c5de882b6d2f21]
+link Prot to LWS--><path d="M831.21,376.24 C883.73,402.69 975.51,448.9 1031.13,476.9 " fill="none" id="Prot-to-LWS" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="1035.73,479.22,1029.4885,471.6014,1031.2636,476.9725,1025.8925,478.7476,1035.73,479.22" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[d9ed0794bee5df6cce0fbe594ddf79bf]
+link Assemble ProblemData to Lang--><path d="M1113.93,263.86 C1159.54,281.81 1228.46,308.93 1278.8,328.74 " fill="none" id="Assemble ProblemData-to-Lang" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="1283.61,330.63,1276.7132,323.5991,1278.9608,328.7903,1273.7696,331.0379,1283.61,330.63" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[4321ecf00f0c95c56864412a1aec5236]
+link Lang to Specify command line options--><path d="M1343,382.5 C1343,407.1 1343,443.71 1343,469.62 " fill="none" id="Lang-to-Specify command line options" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="1343,474.65,1347,465.65,1343,469.65,1339,465.65,1343,474.65" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="56" x="1344" y="427.397">«extend»</text><!--MD5=[99416a25497df249ca29c2c384a73aff]
+link Lang to Specify source conversion to an executable options--><path d="M1399.26,379.7 C1453.25,402.45 1535.61,437.14 1598.23,463.52 " fill="none" id="Lang-to-Specify source conversion to an executable options" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="1603.09,465.57,1596.3555,458.3835,1598.484,463.6246,1593.2428,465.7531,1603.09,465.57" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="56" x="1516" y="427.397">«extend»</text><!--MD5=[95857f5bc47c626ca360ff8f2eb1ffe7]
+@startuml
+'https://plantuml.com/use-case-diagram
+
+
+'GENERAL
+skinparam actorstyle hollow
+Teacher - -> (Upload problem)
+
+'PROTOCOLS
+(Choose protocol scheme) as (Prot)
+(Upload problem) ..> (Assemble ProblemData)
+(Upload problem) ..> (Upload statement)
+(Assemble ProblemData) ..> (Prot)
+
+(InputOutput chosen) as (IO)
+    (IO) ..> (Upload input files)
+    (IO) ..> (Upload correct output files)
+
+
+(InputCustomChecker chosen) as (ICC)
+    (ICC) ..> (Upload input files)
+    (ICC) ..>(Upload custom checker)
+
+
+(RandomInputCustomChecker chosen) as (RICC)
+    (RICC) ..> (Upload input generator)
+    (RICC) ..> (Upload custom checker)
+
+
+(LimitedWorkSpace chosen) as (LWS)
+    (LWS) ..> (Upload header)
+    (LWS) ..> (Upload footer)
+
+
+(Prot) ..> (IO)
+(Prot) ..> (ICC)
+(Prot) ..> (RICC)
+(Prot) ..> (LWS)
+
+'LANGUAGE
+(Specify programming language) as (Lang)
+(Assemble ProblemData) ..> (Lang)
+
+(Lang) ..> (Specify command line options) : <<extend>>
+(Lang) ..> (Specify source conversion to an executable options) : <<extend>>
+
+
+@enduml
+
+@startuml
+
+
+skinparam actorstyle hollow
+Teacher - -> (Upload problem)
+
+(Choose protocol scheme) as (Prot)
+(Upload problem) ..> (Assemble ProblemData)
+(Upload problem) ..> (Upload statement)
+(Assemble ProblemData) ..> (Prot)
+
+(InputOutput chosen) as (IO)
+    (IO) ..> (Upload input files)
+    (IO) ..> (Upload correct output files)
+
+
+(InputCustomChecker chosen) as (ICC)
+    (ICC) ..> (Upload input files)
+    (ICC) ..>(Upload custom checker)
+
+
+(RandomInputCustomChecker chosen) as (RICC)
+    (RICC) ..> (Upload input generator)
+    (RICC) ..> (Upload custom checker)
+
+
+(LimitedWorkSpace chosen) as (LWS)
+    (LWS) ..> (Upload header)
+    (LWS) ..> (Upload footer)
+
+
+(Prot) ..> (IO)
+(Prot) ..> (ICC)
+(Prot) ..> (RICC)
+(Prot) ..> (LWS)
+
+(Specify programming language) as (Lang)
+(Assemble ProblemData) ..> (Lang)
+
+(Lang) ..> (Specify command line options) : <<extend>>
+(Lang) ..> (Specify source conversion to an executable options) : <<extend>>
+
+
+@enduml
+
+PlantUML version 1.2021.16(Wed Dec 08 20:25:22 MSK 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

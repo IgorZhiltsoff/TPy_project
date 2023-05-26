@@ -1,0 +1,16 @@
+NAME
+PATH/TO/STATEMENT
+[OPT: EXTENSION]
+<<repeated action>>
+    TEST CNT
+    SCHEME
+    SUPPORTED LANGUAGES CNT
+    <<repeat LANGUAGES SUPPORTED CNT times>>
+        LANGUAGE
+        CONVERSION OPTS
+        CMD LINE OPTS
+        TIME LIMIT
+        MEMORY LIMIT
+    <<specific to SCHEME, e.g. TEST CNT infiles and TEST CNT outfiles>>
+    [Y/n]
+<<repeat if Y>>

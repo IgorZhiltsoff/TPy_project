@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="356px" preserveAspectRatio="none" style="width:513px;height:356px;background:#FFFFFF;" version="1.1" viewBox="0 0 513 356" width="513px" zoomAndPan="magnify"><defs><filter height="300%" id="fcdx4i18ps4e4" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[1cd06f284d494c0ffb4303f02d5f8d3f]
+class DataCustodian--><rect codeLine="3" fill="#FEFECE" filter="url(#fcdx4i18ps4e4)" height="212.8008" id="DataCustodian" style="stroke:#A80036;stroke-width:1.5;" width="285" x="214" y="7"/><ellipse cx="312.25" cy="23" fill="#A9DCDF" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M307.4219,28.75 L310.7656,16.5625 L313.9063,16.5625 L317.2813,28.75 L314.8125,28.75 L314.0781,25.7344 L310.5625,25.7344 L309.8125,28.75 L307.4219,28.75 Z M311.8281,20.7031 L311.0781,23.7031 L313.5938,23.7031 L312.875,20.7031 Q312.7344,20.125 312.6094,19.5781 Q312.4844,19.0156 312.3438,18.4375 Q312.2344,19.0156 312.0938,19.5781 Q311.9531,20.125 311.8281,20.7031 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="80" x="332.75" y="27.656">DataCustodian</text><line style="stroke:#A80036;stroke-width:1.5;" x1="215" x2="498" y1="39" y2="39"/><line style="stroke:#A80036;stroke-width:1.5;" x1="215" x2="498" y1="47" y2="47"/><ellipse cx="225" cy="58" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="259" x="234" y="62.7589">void __init__(self, path_to_dump_dir, entity_name)</text><ellipse cx="225" cy="72.9819" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" font-style="italic" lengthAdjust="spacing" textLength="167" x="234" y="77.7408">nested_get_item(self, key_sequence)</text><ellipse cx="225" cy="87.9638" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" font-style="italic" lengthAdjust="spacing" textLength="195" x="234" y="92.7227">void nested_fill_in(self, key_sequence, val)</text><ellipse cx="225" cy="102.9457" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" font-style="italic" lengthAdjust="spacing" textLength="204" x="234" y="107.7046">void nested_append(self, key_sequence, val)</text><ellipse cx="225" cy="117.9276" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" font-style="italic" lengthAdjust="spacing" textLength="100" x="234" y="122.6865">void dump_data(self)</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="0" x="237" y="137.6684"/><ellipse cx="225" cy="147.8913" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="123" x="234" y="152.6502">void fill_in(self, key, val)</text><ellipse cx="225" cy="162.8732" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="135" x="234" y="167.6321">void append(self, key, val)</text><ellipse cx="225" cy="177.8551" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="140" x="234" y="182.614">void get_item(self, key, val)</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="0" x="237" y="197.5959"/><rect fill="#F24D5C" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="222" y="204.8189"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="163" x="234" y="212.5778">void create_path_to_dump(self)</text><path d="M6,55.5 L6,171.7361 A0,0 0 0 0 6,171.7361 L179,171.7361 A0,0 0 0 0 179,171.7361 L179,117.5 L213.77,113.5 L179,109.5 L179,65.5 L169,55.5 L6,55.5 A0,0 0 0 0 6,55.5 " fill="#FBFB77" filter="url(#fcdx4i18ps4e4)" style="stroke:#A80036;stroke-width:1.0;"/><path d="M169,55.5 L169,65.5 L179,65.5 L169,55.5 " fill="#FBFB77" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="100" x="12" y="74.397">Exists to prevent</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="78" x="12" y="92.103">the necessity</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="81" x="12" y="109.809">to implement</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="96" x="12" y="127.5151">adapters in case</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="152" x="12" y="145.2211">data interchange formats</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="93" x="12" y="162.9271">other than Json</text><!--MD5=[b8af2d9b9b23f38d06fd47d1a5b6d28f]
+class JsonDataCustodian--><rect codeLine="26" fill="#FEFECE" filter="url(#fcdx4i18ps4e4)" height="62.9819" id="JsonDataCustodian" style="stroke:#A80036;stroke-width:1.5;" width="138" x="287.5" y="280"/><ellipse cx="302.5" cy="296" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M301.9688,302.9219 Q300.2188,302.9219 299.0781,302.1875 Q297.9531,301.4375 297.3906,300.0938 Q296.8438,298.7344 296.8438,296.9375 Q296.8438,294.9063 297.5,293.4531 Q298.1563,292 299.4375,291.2188 Q300.7188,290.4375 302.5938,290.4375 Q303.4844,290.4375 304.1563,290.625 Q304.8281,290.7969 305.5156,291.1406 L304.7031,293.1563 Q304.0781,292.8438 303.5313,292.7188 Q303,292.5938 302.5156,292.5938 Q301.3438,292.5938 300.6406,293.125 Q299.9375,293.6563 299.6406,294.6094 Q299.3438,295.5625 299.3438,296.8281 Q299.3438,298.8438 300.0625,299.8125 Q300.7813,300.7656 302.375,300.7656 Q302.9688,300.7656 303.5938,300.6094 Q304.2188,300.4531 305.0469,300.0781 L305.0469,302.2969 Q304.3125,302.6094 303.5156,302.7656 Q302.7344,302.9219 301.9688,302.9219 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="106" x="316.5" y="300.656">JsonDataCustodian</text><line style="stroke:#A80036;stroke-width:1.5;" x1="288.5" x2="424.5" y1="312" y2="312"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="295.5" y="320"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="98" x="307.5" y="327.7589">dict gathered_data</text><line style="stroke:#A80036;stroke-width:1.5;" x1="288.5" x2="424.5" y1="334.9819" y2="334.9819"/><!--MD5=[598c361366c3f67e5e00cd8a197faeb5]
+reverse link DataCustodian to JsonDataCustodian--><path codeLine="30" d="M356.5,240.47 C356.5,254.99 356.5,268.62 356.5,279.93 " fill="none" id="DataCustodian-backto-JsonDataCustodian" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="none" points="349.5,240.24,356.5,220.24,363.5,240.24,349.5,240.24" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[2d8f8052cd3f1fc55377e210210f3aa7]
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class DataCustodian {
+    +void __init__(self, path_to_dump_dir, entity_name)
+    +{abstract} nested_get_item(self, key_sequence)
+    +{abstract} void nested_fill_in(self, key_sequence, val)
+    +{abstract} void nested_append(self, key_sequence, val)
+    +{abstract} void dump_data(self)
+
+    +void fill_in(self, key, val)
+    +void append(self, key, val)
+    +void get_item(self, key, val)
+
+    -void create_path_to_dump(self)
+}
+
+note left of DataCustodian
+Exists to prevent
+the necessity
+to implement
+adapters in case
+data interchange formats
+other than Json
+end note
+
+class JsonDataCustodian {
+    -dict gathered_data
+}
+
+DataCustodian <|- - JsonDataCustodian
+
+@enduml
+
+@startuml
+
+abstract class DataCustodian {
+    +void __init__(self, path_to_dump_dir, entity_name)
+    +{abstract} nested_get_item(self, key_sequence)
+    +{abstract} void nested_fill_in(self, key_sequence, val)
+    +{abstract} void nested_append(self, key_sequence, val)
+    +{abstract} void dump_data(self)
+
+    +void fill_in(self, key, val)
+    +void append(self, key, val)
+    +void get_item(self, key, val)
+
+    -void create_path_to_dump(self)
+}
+
+note left of DataCustodian
+Exists to prevent
+the necessity
+to implement
+adapters in case
+data interchange formats
+other than Json
+end note
+
+class JsonDataCustodian {
+    -dict gathered_data
+}
+
+DataCustodian <|- - JsonDataCustodian
+
+@enduml
+
+PlantUML version 1.2021.16(Wed Dec 08 20:25:22 MSK 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

@@ -1,0 +1,25 @@
+{
+    "uploaded_by_wizard_version": "1.0.0",
+    "name": "sample_randcust_cpp20",
+    "statement file extension": ".txt",
+    "path to statement": "TPy_project/problems_base/708/statement.txt",
+    "protocols": {
+        "0": {
+            "test_count": 5,
+            "scheme": "rand_custom",
+            "execution_and_conversion_data_set": {
+                "0": {
+                    "programming_language_data": "cxx_data.cxx20_data",
+                    "conversion options": [
+                        "-O2"
+                    ],
+                    "command line options": [],
+                    "time limit": 2.0,
+                    "memory limit": 5.0
+                }
+            },
+            "random input generator executable": "TPy_project/problems_base/708/prot0/rand",
+            "custom checker executable": "TPy_project/problems_base/708/prot0/cust"
+        }
+    }
+}

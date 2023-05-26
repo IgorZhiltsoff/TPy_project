@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Problem Upload Wizard Output</title>
+    <!-- Jinja arguments: you_are_running_wizard_version, problem_id, back_link_html_string -->
+</head>
+<body>
+<p>
+    {{you_are_running_wizard_version}}
+</p>
+<p>
+    Problem received id: {{problem_id}}
+</p>
+{{back_link_html_string|safe}}
+</body>
+</html>
